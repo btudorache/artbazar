@@ -10,9 +10,12 @@ const NavigationBar = () => {
       </div>
       <nav className={styles.navLinks}>
         <ul>
-          <NavLink className={styles.navLink} to="/register">Register</NavLink>
-          <NavLink className={styles.navLink} to="/collection">Collection</NavLink>
           <NavLink className={styles.navLink} to="/explore">Explore</NavLink>
+          <NavLink className={styles.navLink} to="/login">Login</NavLink>
+          <NavLink className={styles.navLink} to="/logout">Logout</NavLink>
+          <NavLink className={styles.navLink} to="/collection">Collection</NavLink>
+          <NavLink className={styles.navLink} to="/profile">Profile</NavLink>
+          <NavLink className={styles.navLink} to="/register">Register</NavLink>
         </ul>
       </nav>
     </footer>
