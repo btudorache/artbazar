@@ -13,9 +13,10 @@ import javax.persistence.*;
 @Table(name="users")
 public class User {
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String type, String email) {
         this.username = username;
         this.password = password;
+        this.type = type;
         this.email = email;
     }
 
@@ -29,6 +30,9 @@ public class User {
 
     @Column(name="password")
     private String password;
+
+    @Column(name="type")
+    private String type;
 
     @Column(name="email")
     private String email;
