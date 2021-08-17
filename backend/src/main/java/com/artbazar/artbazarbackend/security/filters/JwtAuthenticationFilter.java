@@ -1,11 +1,12 @@
 package com.artbazar.artbazarbackend.security.filters;
 
+import com.artbazar.artbazarbackend.security.SecurityConfig;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.artbazar.artbazarbackend.security.SecurityConfig.JWT_SECRET_KEY;
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -35,6 +38,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if (!request.getMethod().equals("POST")) {
+            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+        }
+
         try {
             String requestData = request.getReader().lines().collect(Collectors.joining());
 
@@ -52,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("SECRET_KEY".getBytes());
+        Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET_KEY.getBytes());
 
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
@@ -71,10 +78,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.setStatus(SC_FORBIDDEN);
+        response.setContentType(APPLICATION_JSON_VALUE);
+
+        Map<String, String> error = new HashMap<>();
+        error.put("error", failed.getMessage());
+        new ObjectMapper().writeValue(response.getOutputStream(), error);
+
         super.unsuccessfulAuthentication(request, response, failed);
     }
-
-
 }
 
 @Data

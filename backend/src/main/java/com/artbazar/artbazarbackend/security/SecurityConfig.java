@@ -25,6 +25,8 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String JWT_SECRET_KEY = "SECRET_KEY";
+
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 

@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.artbazar.artbazarbackend.security.SecurityConfig.JWT_SECRET_KEY;
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -36,22 +38,22 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
 
-                    Algorithm algorithm = Algorithm.HMAC256("SECRET_KEY".getBytes());
+                    Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET_KEY.getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
 
                     String username = decodedJWT.getSubject();
                     Claim authority = decodedJWT.getClaim("user_type");
                     Collection<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(authority.asString()));
+
                     SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, authorities));
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    response.setHeader("error", e.getMessage());
-                    response.setStatus(403);
+                    response.setStatus(SC_FORBIDDEN);
+                    response.setContentType(APPLICATION_JSON_VALUE);
 
                     Map<String, String> error = new HashMap<>();
                     error.put("error_message", e.getMessage());
-                    response.setContentType(APPLICATION_JSON_VALUE);
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
             } else {
