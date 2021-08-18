@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useHistory } from "react-router";
 
 import styles from "./RegisterPage.module.css";
 import Card from "../components/layout/Card";
@@ -7,25 +8,49 @@ import { useFormInput } from "../hooks/useFormInput";
 import { useFormPassword } from "../hooks/useFormPassword";
 
 const RegisterPage = () => {
+  const history = useHistory()
   const [usernameHasError, validateUsername, usernameRef] = useFormInput(username => username.trim().length !== 0)
   const [emailHasError, validateEmail, emailRef] = useFormInput(email => email.includes("@"))
   const usertypeRef = useRef()
   const [password1Ref, password2Ref, validatePassword, passwordError] = useFormPassword(password => password.trim().length < 4)
 
-  const formSubmitHandler = (event) => {
+  const [backendError, setBackendError] = useState({hasError: false, error: null})
+
+  const formSubmitHandler = async (event) => {
     event.preventDefault()
 
     if (validatePassword() && validateUsername() && validateEmail()) {
-      const newuserData = {
+      const newUserData = {
         username: usernameRef.current.value,
         password: password1Ref.current.value,
         type: usertypeRef.current.value,
         email: emailRef.current.value
       }
-      console.log('Good register!', newuserData)
 
+      try {
+        await submitNewUser(newUserData)
+        setBackendError({hasError: false, error: null})
+        history.push('/')
+      } catch (e) {
+        setBackendError({hasError: true, error: e.message})
+      }
+    }
+  }
+
+  const submitNewUser = async (newUserData) => {
+    const response = await fetch('http://localhost:8080/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUserData)
+    })
+
+    const data = await response.json()
+    if (response.ok) {
+      console.log(data)
     } else {
-      console.log('Bad login', validateUsername(), validateEmail(), validatePassword())
+      throw new Error(data.error)
     }
   }
 
@@ -33,6 +58,7 @@ const RegisterPage = () => {
     <Card>
       <div className={styles.outerForm}>
         <h1>Create a new account</h1>
+        {backendError.hasError && <p className="errorText">{backendError.error}</p>}
         <form className={styles.registerForm} onSubmit={formSubmitHandler}>
           <div className={styles.gridRow}>
             <label htmlFor="username">Username: </label>
