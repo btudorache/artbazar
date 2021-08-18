@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import NavigationBar from './components/layout/navigation/NavigationBar';
 import HomePage from './views/HomePage';
+import RegisterPage from './views/RegisterPage';
 
 
 function App() {
@@ -11,6 +12,9 @@ function App() {
     <Fragment>
       <NavigationBar />
       <Switch>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
         <Route path="/">
           <HomePage />
         </Route>

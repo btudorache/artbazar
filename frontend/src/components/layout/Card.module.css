@@ -3,6 +3,12 @@
   margin: auto;
   border: 1px solid black;
   border-radius: 1rem;
-  width: 80%;
+  max-width: 60rem;
   background: white;
+}
+
+@media (max-width: 60rem) {
+  .card {
+    margin: 1rem;
+  }
 }

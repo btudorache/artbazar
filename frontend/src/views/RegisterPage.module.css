@@ -1,0 +1,63 @@
+.outerForm {
+  width: 50%;
+  margin: auto;
+}
+
+.registerForm {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.8rem 0;
+}
+
+.gridRow {
+  grid-column-start: span 4;
+  align-self: center;
+}
+
+.usertypeInput {
+  width: 5rem;
+}
+
+input {
+  width: 100%;
+  height: 1.4rem;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.formButton {
+  margin-top: 1rem;
+  width: 5rem;
+  padding: 0.4rem 0.4rem;
+  border-radius: 0.4rem;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: white;
+  background: #0A111F;
+  align-self: center;
+  justify-self: start;
+}
+
+.formButton:active,
+.formButton:hover {
+  background: #1b253b;
+}
+
+.loginLink {
+  color: black;
+  margin: 0.4rem;
+  grid-column-start: 2;
+  grid-column-end: 5;
+  align-self: end;
+  justify-self: end;
+}
+
+.loginLink:active,
+.loginLink:hover {
+  color: #1b253b;
+}
