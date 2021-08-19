@@ -19,7 +19,10 @@ const RegisterPage = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault()
 
-    if (validatePassword() && validateUsername() && validateEmail()) {
+    const passwordOk = validatePassword()
+    const usernameOk = validateUsername()
+    const emailOk = validateEmail()
+    if (passwordOk && usernameOk && emailOk) {
       const newUserData = {
         username: usernameRef.current.value,
         password: password1Ref.current.value,
