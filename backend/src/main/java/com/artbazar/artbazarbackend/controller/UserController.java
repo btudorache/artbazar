@@ -1,6 +1,7 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.UserType;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,18 +42,32 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<String> addUser(@RequestBody User newUser) throws JsonProcessingException {
         try {
-            User savedUser = userService.saveUser(newUser);
+            if (newUser.getUsername() == null || newUser.getPassword() == null || newUser.getType() == null || newUser.getEmail() == null) {
+                throw new IllegalArgumentException("Invalid input");
+            }
+            if (!(newUser.getType().equals(UserType.ARTIST.name()) || newUser.getType().equals(UserType.EXPLORER.name()))) {
+                throw new IllegalArgumentException("Invalid user type");
+            }
+
+            userService.saveUser(newUser);
+
             Map<String, String> output = new HashMap<>();
             output.put("message", "User saved successfully");
             String outputBody = new ObjectMapper().writeValueAsString(output);
-            return new ResponseEntity<String>(outputBody, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle most of the exception cases correctly!
+
+            return new ResponseEntity<>(outputBody, HttpStatus.OK);
+        } catch (ConstraintViolationException | DataIntegrityViolationException e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", "Username already used!");
-            log.error(e.getMessage());
             String outputBody = new ObjectMapper().writeValueAsString(error);
-            return new ResponseEntity<String>(outputBody, HttpStatus.FORBIDDEN);
+
+            return new ResponseEntity<>(outputBody, HttpStatus.FORBIDDEN);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Invalid input!");
+            String outputBody = new ObjectMapper().writeValueAsString(error);
+
+            return new ResponseEntity<>(outputBody, HttpStatus.BAD_REQUEST);
         }
     }
 
