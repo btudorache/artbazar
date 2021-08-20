@@ -1,8 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
+  const isLogged = useSelector((state) => state.auth.isLogged);
+
   return (
     <footer className={styles.navBar}>
       <div className={styles.navLogo}>
@@ -12,24 +15,26 @@ const NavigationBar = () => {
       </div>
       <nav className={styles.navLinks}>
         <ul>
-          <NavLink className={styles.navLink} to="/explore">
-            Explore
-          </NavLink>
-          <NavLink className={styles.navLink} to="/login">
+          {isLogged && (
+            <NavLink className={styles.navLink} to="/explore">
+              Explore
+            </NavLink>
+          )}
+          {!isLogged && <NavLink className={styles.navLink} to="/login">
             Login
-          </NavLink>
-          <NavLink className={styles.navLink} to="/logout">
-            Logout
-          </NavLink>
-          <NavLink className={styles.navLink} to="/collection">
+          </NavLink>}
+          {isLogged && <NavLink className={styles.navLink} to="/collection">
             Collection
-          </NavLink>
-          <NavLink className={styles.navLink} to="/profile">
+          </NavLink>}
+          {isLogged && <NavLink className={styles.navLink} to="/profile">
             Profile
-          </NavLink>
-          <NavLink className={styles.navLink} to="/register">
+          </NavLink>}
+          {!isLogged && <NavLink className={styles.navLink} to="/register">
             Register
-          </NavLink>
+          </NavLink>}
+          {isLogged && <NavLink className={styles.navLink} to="/logout">
+            Logout
+          </NavLink>}
         </ul>
       </nav>
     </footer>
