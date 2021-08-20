@@ -1,0 +1,15 @@
+.defaultStyle {
+  width: 5rem;
+  padding: 0.4rem 0.4rem;
+  border-radius: 0.4rem;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: white;
+  background: #0A111F;
+}
+
+.defaultStyle:active,
+.defaultStyle:hover {
+  background: #1b253b;
+}

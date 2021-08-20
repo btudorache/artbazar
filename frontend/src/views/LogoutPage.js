@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import styles from './LogoutPage.module.css'
 
 import Card from '../components/layout/Card'
+import Button from "../components/Button";
 
 import { logoutThunk } from '../store/authSlice'
 
@@ -18,7 +19,7 @@ const LogoutPage = () => {
 
   return <Card>
     <h1>You are sure you want to logout?</h1>
-    <button onClick={handleClick}>Leave</button>
+    <Button clickHandler={handleClick} text="Logout" />
   </Card>
 }
 

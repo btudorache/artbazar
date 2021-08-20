@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 
 import styles from "./RegisterPage.module.css";
 import Card from "../components/layout/Card";
+import Button from "../components/Button";
 import { useFormInput } from "../hooks/useFormInput";
 import { useFormPassword } from "../hooks/useFormPassword";
 
@@ -130,7 +131,7 @@ const RegisterPage = () => {
             />
           </div>
 
-          <button className={styles.formButton}>Register</button>
+          <Button text="Register" additionalStyles={[styles.formButton]} />
           <Link className={styles.loginLink} to="/login">
             Already have an account?
           </Link>

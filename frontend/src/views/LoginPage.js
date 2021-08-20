@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import styles from "./LoginPage.module.css";
 import Card from "../components/layout/Card";
+import Button from "../components/Button";
 import { useFormInput } from "../hooks/useFormInput";
 
 import { authenticate } from "../store/authSlice";
@@ -74,7 +75,7 @@ const LoginPage = () => {
             )}
           </div>
 
-          <button className={styles.formButton}>Login</button>
+          <Button text="Login" additionalStyles={[styles.formButton]} />
           <Link className={styles.registerLink} to="/register">
             Don't have an account?
           </Link>
