@@ -1,14 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import jwtParser from '../utils/jwtUtils'
+
+const localStorage = window.localStorage
 
 const getInitialState = () => {
-  return {
-    isLogged: false,
-    token: null,
-    username: null,
-    usertype: null,
-    status: "idle",
-    error: null,
-  };
+  const jwtToken = localStorage.getItem('token')
+
+  if (jwtToken !== null) {
+    const parsedJwt = jwtParser(jwtToken)
+
+    return {
+      isLogged: true,
+      token: jwtToken,
+      username: parsedJwt.sub,
+      usertype: parsedJwt.user_type,
+      status: "succeeded",
+      error: null
+    }
+  } else {
+    return {
+      isLogged: false,
+      token: null,
+      username: null,
+      usertype: null,
+      status: "idle",
+      error: null,
+    };
+  }
 };
 
 export const authenticate = createAsyncThunk(
@@ -24,7 +42,9 @@ export const authenticate = createAsyncThunk(
 
     const data = await response.json();
     if (response.ok) {
-      return data.access_token;
+      const token = data.access_token
+      localStorage.setItem('token', token)
+      return token;
     } else {
       return thunkAPI.rejectWithValue(data.error);
     }
@@ -34,12 +54,26 @@ export const authenticate = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: getInitialState(),
-  reducers: {},
+  reducers: {
+    logoutUser(state) {
+        state.isLogged = false
+        state.token = null
+        state.username = null
+        state.usertype = null
+        state.status = "idle"
+        state.error = null
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(authenticate.fulfilled, (state, action) => {
+        const jwtToken = action.payload
+        const parsedJwt = jwtParser(jwtToken)
+
         state.isLogged = true;
-        state.token = action.payload;
+        state.token = jwtToken;
+        state.username = parsedJwt.sub
+        state.usertype = parsedJwt.user_type
         state.status = "succeeded";
         state.error = null;
       })
@@ -53,5 +87,14 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const logoutThunk = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token')
+    dispatch(logoutUser())
+  }
+}
+
+export const { logoutUser } = authSlice.actions
 
 export default authSlice.reducer;
