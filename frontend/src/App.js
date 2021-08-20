@@ -1,27 +1,26 @@
-import './App.css';
-import { Fragment } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import "./App.css";
+import { Fragment } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import NavigationBar from './components/layout/navigation/NavigationBar';
-import HomePage from './views/HomePage';
-import RegisterPage from './views/RegisterPage';
-import LoginPage from './views/LoginPage';
-
+import NavigationBar from "./components/layout/navigation/NavigationBar";
+import HomePage from "./views/HomePage";
+import RegisterPage from "./views/RegisterPage";
+import LoginPage from "./views/LoginPage";
 
 function App() {
+  const isLogged = useSelector((state) => state.auth.isLogged);
+
   return (
     <Fragment>
       <NavigationBar />
       <Switch>
-        <Route path="/login" >
-          <LoginPage />
+        <Route exact path="/login">
+          {isLogged ? <Redirect to="/" /> : <LoginPage />}
         </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/" component={HomePage} />
+        <Redirect to="/" />
       </Switch>
     </Fragment>
   );
