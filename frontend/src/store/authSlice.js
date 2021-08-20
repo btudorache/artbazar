@@ -79,7 +79,11 @@ const authSlice = createSlice({
       })
       .addCase(authenticate.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload;
+        if (action.payload === undefined) {
+          state.error = action.error.message
+        } else {
+          state.error = action.payload;
+        }
       })
       .addCase(authenticate.pending, (state) => {
         state.status = "loading";
