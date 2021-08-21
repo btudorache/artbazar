@@ -6,6 +6,58 @@ import styles from "./NavigationBar.module.css";
 const NavigationBar = () => {
   const isLogged = useSelector((state) => state.auth.isLogged);
 
+  const loggedInLinks = (
+    <ul>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/explore"
+      >
+        Explore
+      </NavLink>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/collection"
+      >
+        Collection
+      </NavLink>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/profile"
+      >
+        Profile
+      </NavLink>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/logout"
+      >
+        Logout
+      </NavLink>
+    </ul>
+  );
+
+  const loggedOutLinks = (
+    <ul>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/login"
+      >
+        Login
+      </NavLink>
+      <NavLink
+        activeClassName={styles.activeLink}
+        className={styles.navLink}
+        to="/register"
+      >
+        Register
+      </NavLink>
+    </ul>
+  );
+
   return (
     <footer className={styles.navBar}>
       <div className={styles.navLogo}>
@@ -14,28 +66,8 @@ const NavigationBar = () => {
         </h2>
       </div>
       <nav className={styles.navLinks}>
-        <ul>
-          {isLogged && (
-            <NavLink className={styles.navLink} to="/explore">
-              Explore
-            </NavLink>
-          )}
-          {!isLogged && <NavLink className={styles.navLink} to="/login">
-            Login
-          </NavLink>}
-          {isLogged && <NavLink className={styles.navLink} to="/collection">
-            Collection
-          </NavLink>}
-          {isLogged && <NavLink className={styles.navLink} to="/profile">
-            Profile
-          </NavLink>}
-          {!isLogged && <NavLink className={styles.navLink} to="/register">
-            Register
-          </NavLink>}
-          {isLogged && <NavLink className={styles.navLink} to="/logout">
-            Logout
-          </NavLink>}
-        </ul>
+        {isLogged && loggedInLinks}
+        {!isLogged && loggedOutLinks}
       </nav>
     </footer>
   );

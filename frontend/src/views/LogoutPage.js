@@ -18,8 +18,10 @@ const LogoutPage = () => {
   }
 
   return <Card>
-    <h1>You are sure you want to logout?</h1>
-    <Button clickHandler={handleClick} text="Logout" />
+    <div className={styles.logoutPageDiv}>
+      <h1>You are sure you want to logout?</h1>
+      <Button clickHandler={handleClick} text="Logout" />
+    </div>
   </Card>
 }
 

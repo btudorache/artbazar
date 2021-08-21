@@ -20,6 +20,7 @@
   padding: 0.2rem;
 }
 
+.activeLink,
 .navLink:active,
 .navLink:hover {
   border-bottom: 2px white solid;
