@@ -8,6 +8,8 @@ import HomePage from "./views/HomePage";
 import RegisterPage from "./views/RegisterPage";
 import LoginPage from "./views/LoginPage";
 import LogoutPage from "./views/LogoutPage";
+import UserProfilePage from "./views/UserProfilePage";
+import NewPostPage from "./views/NewPostPage";
 
 function App() {
   const isLogged = useSelector((state) => state.auth.isLogged);
@@ -16,12 +18,14 @@ function App() {
     <Fragment>
       <NavigationBar />
       <Switch>
+        <Route exact path="/newpost" component={NewPostPage} />
+        <Route exact path="/profile" component={UserProfilePage} />
         <Route exact path="/login">
           {isLogged ? <Redirect to="/" /> : <LoginPage />}
         </Route>
         <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/" component={HomePage} />
         <Route exact path="/logout" component={LogoutPage} />
+        <Route exact path="/" component={HomePage} />
         <Redirect to="/" />
       </Switch>
     </Fragment>
