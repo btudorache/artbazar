@@ -16,8 +16,25 @@
 }
 
 .navLink {
+  font-size: 1.1rem;
   margin: 0.4rem;
   padding: 0.2rem;
+}
+
+.addPostLink {
+  font-size: 1.1rem;
+  margin: 0.4rem;
+  padding: 0.2rem;
+  border: 2px white solid;
+  border-radius: 0.5rem;
+}
+
+.activeAddPostLink,
+.addPostLink:active,
+.addPostLink:hover {
+  color: #0A111F;
+  /* border: 2px #0A111F solid; */
+  background: white;
 }
 
 .activeLink,

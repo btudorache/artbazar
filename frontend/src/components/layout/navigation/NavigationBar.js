@@ -4,7 +4,12 @@ import { useSelector } from "react-redux";
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
-  const isLogged = useSelector((state) => state.auth.isLogged);
+  const userInfo = useSelector((state) => {
+    return {
+      isLogged: state.auth.isLogged,
+      usertype: state.auth.usertype,
+    };
+  });
 
   const loggedInLinks = (
     <ul>
@@ -14,13 +19,6 @@ const NavigationBar = () => {
         to="/explore"
       >
         Explore
-      </NavLink>
-      <NavLink
-        activeClassName={styles.activeLink}
-        className={styles.navLink}
-        to="/collection"
-      >
-        Collection
       </NavLink>
       <NavLink
         activeClassName={styles.activeLink}
@@ -36,6 +34,13 @@ const NavigationBar = () => {
       >
         Logout
       </NavLink>
+      {userInfo.usertype === 'ARTIST' && <NavLink
+        activeClassName={styles.activeAddPostLink}
+        className={styles.addPostLink}
+        to="/newpost"
+      >
+        Add Art
+      </NavLink>}
     </ul>
   );
 
@@ -66,8 +71,8 @@ const NavigationBar = () => {
         </h2>
       </div>
       <nav className={styles.navLinks}>
-        {isLogged && loggedInLinks}
-        {!isLogged && loggedOutLinks}
+        {userInfo.isLogged && loggedInLinks}
+        {!userInfo.isLogged && loggedOutLinks}
       </nav>
     </footer>
   );
