@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,15 @@ public class UserController {
             if (!(newUser.getType().equals(UserType.ARTIST.name()) || newUser.getType().equals(UserType.EXPLORER.name()))) {
                 throw new IllegalArgumentException("Invalid user type");
             }
+            User sameNameUser = userService.getUserByName(newUser.getUsername());
+            if (sameNameUser != null) {
+                throw new ConstraintViolationException("Username already used!", new SQLIntegrityConstraintViolationException(), "unique username constraint");
+            }
+
+            User sameEmailUser = userService.getUserByEmail(newUser.getEmail());
+            if (sameEmailUser != null) {
+                throw new ConstraintViolationException("Email already used!", new SQLIntegrityConstraintViolationException(), "unique email constraint");
+            }
 
             userService.saveUser(newUser);
 
@@ -56,15 +66,15 @@ public class UserController {
             String outputBody = new ObjectMapper().writeValueAsString(output);
 
             return new ResponseEntity<>(outputBody, HttpStatus.OK);
-        } catch (ConstraintViolationException | DataIntegrityViolationException e) {
+        } catch (ConstraintViolationException e) {
             Map<String, String> error = new HashMap<>();
-            error.put("error", "Username already used!");
+            error.put("error", e.getMessage());
             String outputBody = new ObjectMapper().writeValueAsString(error);
 
             return new ResponseEntity<>(outputBody, HttpStatus.FORBIDDEN);
         } catch (IllegalArgumentException e) {
             Map<String, String> error = new HashMap<>();
-            error.put("error", "Invalid input!");
+            error.put("error", e.getMessage());
             String outputBody = new ObjectMapper().writeValueAsString(error);
 
             return new ResponseEntity<>(outputBody, HttpStatus.BAD_REQUEST);
