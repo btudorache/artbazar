@@ -1,6 +1,7 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.Post;
+import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<Post> getAllPosts() {
+    public List<PostData> getAllPosts() {
         return postService.getAll();
     };
 

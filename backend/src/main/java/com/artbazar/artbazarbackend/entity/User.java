@@ -41,7 +41,7 @@ public class User {
     @Column(name="type")
     private String type;
 
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
 
     @JsonManagedReference

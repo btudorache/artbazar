@@ -4,12 +4,14 @@ import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.data.PostData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,8 +26,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAll() {
-        return postRepository.findAll(Sort.by("createdAt").descending());
+    public List<PostData> getAll() {
+        List<Post> posts = postRepository.findAll(Sort.by("createdAt").descending());
+        return posts.stream()
+                .map(post -> new PostData(post.getUser().getUsername(), post))
+                .collect(Collectors.toList());
     }
 
     @Override
