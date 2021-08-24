@@ -1,5 +1,6 @@
 #### Backend ignores ####
 
+todos.txt
 backend/HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
