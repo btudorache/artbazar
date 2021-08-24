@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import styles from "./HomePage.module.css";
-import Card from "../components/layout/Card";
 import Button from "../components/Button";
+import Dashboard from "../components/layout/Dashboard";
 
 const HomePage = () => {
   const isLogged = useSelector((state) => state.auth.isLogged);
@@ -48,15 +48,9 @@ const HomePage = () => {
     </div>
   );
 
-  const loggedInPage = (
-    <Card>
-      <h1>You're logged in!</h1>
-    </Card>
-  );
-
   return (
     <Fragment>
-      {isLogged && loggedInPage}
+      {isLogged && <Dashboard />}
       {!isLogged && loggedOutPage}
     </Fragment>
   );

@@ -1,0 +1,33 @@
+.mainLayout {
+  display: flex;
+  justify-content: space-around;
+  /* margin: auto; */
+  margin: 0 1rem;
+}
+
+.actionSide {
+  width: 20rem;
+  height: 40rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.mainSide {
+  width: 50rem;
+  padding: 0 1rem;
+  margin: 0;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.secondarySide {
+  width: 20rem;
+  /* border: 2px solid black; */
+}

@@ -88,7 +88,7 @@ const RegisterPage = () => {
           </div>
 
           <div className={styles.gridRow}>
-            <label htmlFor="Email">Email: </label>
+            <label htmlFor="email">Email: </label>
             <input ref={emailRef} type="email" id="Email" name="Email" />
             {emailHasError && (
               <p className="errorText">Please enter a valid email</p>
