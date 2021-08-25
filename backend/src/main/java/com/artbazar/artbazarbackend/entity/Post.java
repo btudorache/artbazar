@@ -1,9 +1,6 @@
 package com.artbazar.artbazarbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +20,9 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "category")
     private String category;
 
@@ -37,9 +37,10 @@ public class Post {
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    public Post(String category, String description) {
+    public Post(String category, String description, String title) {
         this.category = category;
         this.description = description;
+        this.title = title;
     }
 
     @PrePersist
