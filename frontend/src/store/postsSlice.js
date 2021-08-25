@@ -28,7 +28,7 @@ const postsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addPost(state, action) {
-      state.posts.push(action.payload);
+      state.posts.unshift(action.payload);
     },
     resetPosts(state) {
       state.posts = []
@@ -51,6 +51,25 @@ const postsSlice = createSlice({
       });
   },
 });
+
+export const addPostAsync = (postData) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token
+    const response = await fetch("http://localhost:8080/api/posts", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+
+    if (response.ok) {
+      const body = await response.json()
+      dispatch(addPost(body))
+    }
+  }
+}
 
 export const { addPost, resetPosts } = postsSlice.actions;
 
