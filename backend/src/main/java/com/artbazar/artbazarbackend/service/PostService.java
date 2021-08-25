@@ -8,5 +8,5 @@ import java.util.List;
 public interface PostService {
     List<PostData> getAll();
 
-    Post addPost(String username, Post newPost);
+    PostData addPost(String username, Post newPost);
 }

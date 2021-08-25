@@ -27,7 +27,7 @@ public class PostController {
     };
 
     @PostMapping("/posts")
-    public Post addPost(Authentication authentication, @RequestBody Post newPost) {
+    public PostData addPost(Authentication authentication, @RequestBody Post newPost) {
         String username = authentication.getName();
         return postService.addPost(username, newPost);
     }
