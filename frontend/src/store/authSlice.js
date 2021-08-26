@@ -7,7 +7,7 @@ const localStorage = window.localStorage
 
 const getInitialState = () => {
   const jwtToken = localStorage.getItem('token')
-
+  // TODO: -- add auth state remove functionality if token expired
   if (jwtToken !== null) {
     const parsedJwt = jwtParser(jwtToken)
 

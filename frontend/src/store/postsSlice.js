@@ -19,6 +19,8 @@ export const fetchPosts = createAsyncThunk(
     if (response.ok) {
       const data = await response.json();
       return data;
+    } else {
+      throw new Error("Couldn't fetch posts")
     }
   }
 );
@@ -42,9 +44,9 @@ const postsSlice = createSlice({
         state.posts = action.payload;
         state.status = "succeeded";
       })
-      .addCase(fetchPosts.rejected, (state) => {
+      .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
-        state.error = "Couldn't fetch posts";
+        state.error = action.error.message;
       })
       .addCase(fetchPosts.pending, (state) => {
         state.status = "loading";
