@@ -47,6 +47,12 @@
   border-radius: 1rem;
 }
 
+.postCategory {
+  margin: 0.5rem 0 0 0 ;
+  grid-column-start: span 3;
+}
+
 .postDescription {
+  margin: 0.5rem 0;
   grid-column-start: span 3;
 }
