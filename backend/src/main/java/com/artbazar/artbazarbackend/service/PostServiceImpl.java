@@ -45,13 +45,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
+    public PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
         User user = userRepository.findByUsername(username);
         PostImage newPostImage = new PostImage(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
         Post newPost = new Post(title, category, description);
         newPost.setPostImage(newPostImage);
         newPost.setUser(user);
-        postRepository.save(newPost);
+        Post newAddedPost = postRepository.save(newPost);
+        return mapToPostData(newAddedPost);
     }
 
     private PostData mapToPostData(Post post) {

@@ -13,5 +13,5 @@ public interface PostService {
 
     Optional<Post> findById(Long id);
 
-    void addPost(String username, String title, String category, String description, MultipartFile file) throws IOException;
+    PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException;
 }

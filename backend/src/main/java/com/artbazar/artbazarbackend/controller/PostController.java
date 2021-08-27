@@ -34,17 +34,17 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<String> addPost(Authentication authentication,
+    public ResponseEntity<Object> addPost(Authentication authentication,
                                           @RequestParam("file") MultipartFile file,
                                           @RequestParam("title") String title,
                                           @RequestParam("category") String category,
                                           @RequestParam("description") String description) {
         try {
             String username = authentication.getName();
-            postService.addPost(username, title, category, description, file);
+            PostData addedPost = postService.addPost(username, title, category, description, file);
 
             return ResponseEntity.status(HttpStatus.OK)
-                                 .body(String.format("File uploaded successfully: %s", file.getOriginalFilename()));
+                                 .body(addedPost);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body(String.format("Could not upload the file: %s!", file.getOriginalFilename()));

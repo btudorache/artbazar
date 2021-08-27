@@ -13,6 +13,7 @@ const NewPostPage = () => {
   const [categoryHasError, validateCategory, categoryRef] = useFormInput(notEmptyFieldValidator)
   const [descriptionHasError, validateDescription, descriptionRef] = useFormInput(notEmptyFieldValidator)
   const [titleHasError, validateTitle, titleRef] = useFormInput(notEmptyFieldValidator)
+  const [imageHasError, validateImage, imageRef] = useFormInput(notEmptyFieldValidator)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -22,14 +23,16 @@ const NewPostPage = () => {
     const categoryOk = validateCategory()
     const descriptionOk = validateDescription()
     const titleOk = validateTitle()
+    const imageOk = validateImage()
 
-    if (categoryOk && descriptionOk && titleOk) {
-      const newpost = {
-        title: titleRef.current.value,
-        category: categoryRef.current.value,
-        description: descriptionRef.current.value
-      }
-      dispatch(addPostAsync(newpost))
+    if (categoryOk && descriptionOk && titleOk && imageOk) {
+      const form = new FormData()
+      form.append("file", imageRef.current.files[0])
+      form.append("title", titleRef.current.value)
+      form.append("category", categoryRef.current.value)
+      form.append("description", descriptionRef.current.value)
+
+      dispatch(addPostAsync(form))
       history.push("/profile")
     }
   }
@@ -52,6 +55,11 @@ const NewPostPage = () => {
           <label htmlFor="description">Description</label>
           <input ref={descriptionRef} type="text" id="description" name="description" />
           {descriptionHasError && <p className="errorText">Description is empty!</p>}
+        </div>
+        <div className={styles.gridRow}>
+          <label htmlFor="image">Add a piece of art</label>
+          <input ref={imageRef} type="file" id="image" name="image" />
+          {imageHasError && <p className="errorText">Image is empty!</p>}
         </div>
         <Button text="Add" />
       </form>

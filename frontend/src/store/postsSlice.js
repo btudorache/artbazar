@@ -54,16 +54,15 @@ const postsSlice = createSlice({
   },
 });
 
-export const addPostAsync = (postData) => {
+export const addPostAsync = (formData) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token
     const response = await fetch("http://localhost:8080/api/posts", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(postData),
+      body: formData,
     })
 
     if (response.ok) {
