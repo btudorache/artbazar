@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.*;
 
 
 @Getter
@@ -33,11 +34,15 @@ public class Post {
     private Long createdAt;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    public Post(String category, String description, String title) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="post_image_id")
+    private PostImage postImage;
+
+    public Post(String title, String category, String description) {
         this.category = category;
         this.description = description;
         this.title = title;
