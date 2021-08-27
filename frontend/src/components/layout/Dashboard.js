@@ -23,7 +23,7 @@ const Dashboard = () => {
     <div className={styles.mainSide}>
       {status === "loading" && <p>Loading...</p>}
       {status === 'failed' && <p className="errorText">{error}</p>}
-      {posts.map(postData => <Post key={postData.post.id} postData={postData} />)}
+      {posts.map(postData => <Post key={postData.id} postData={postData} />)}
     </div>
     <div className={styles.secondarySide}>
 
