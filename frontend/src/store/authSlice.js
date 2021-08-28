@@ -7,28 +7,34 @@ const localStorage = window.localStorage
 
 const getInitialState = () => {
   const jwtToken = localStorage.getItem('token')
-  // TODO: -- add auth state remove functionality if token expired
+
   if (jwtToken !== null) {
     const parsedJwt = jwtParser(jwtToken)
+    const hasExpired = Date.now() > parsedJwt.exp * 1000
 
-    return {
-      isLogged: true,
-      token: jwtToken,
-      username: parsedJwt.sub,
-      usertype: parsedJwt.user_type,
-      status: "succeeded",
-      error: null
+    if (!hasExpired) {
+      return {
+        isLogged: true,
+        token: jwtToken,
+        username: parsedJwt.sub,
+        usertype: parsedJwt.user_type,
+        status: "succeeded",
+        error: null
+      }
+    } else {
+      localStorage.removeItem('token')
     }
-  } else {
-    return {
-      isLogged: false,
-      token: null,
-      username: null,
-      usertype: null,
-      status: "idle",
-      error: null,
-    };
+  
   }
+  
+  return {
+    isLogged: false,
+    token: null,
+    username: null,
+    usertype: null,
+    status: "idle",
+    error: null,
+  };
 };
 
 export const authenticate = createAsyncThunk(

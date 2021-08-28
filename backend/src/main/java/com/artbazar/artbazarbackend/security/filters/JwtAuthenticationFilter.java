@@ -30,6 +30,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    // token validity duration in milliseconds
+    private static final long TOKEN_EXPIRATION_DURATION = 60 * 60 * 1000;
+
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -63,7 +66,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) // 30 minutes expiration time
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_DURATION)) // 30 minutes expiration time
                 .withClaim("user_type", user.getAuthorities().stream().findFirst().get().getAuthority())
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
