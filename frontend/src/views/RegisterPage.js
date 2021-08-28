@@ -59,10 +59,8 @@ const RegisterPage = () => {
     });
 
     const data = await response.json();
-    if (response.ok) {
-      console.log(data);
-    } else {
-      throw new Error(data.error);
+    if (!response.ok) {
+      throw new Error(data.message);
     }
   };
 

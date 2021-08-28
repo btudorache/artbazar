@@ -3,6 +3,7 @@ package com.artbazar.artbazarbackend.controller;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.UserType;
 import com.artbazar.artbazarbackend.service.UserService;
+import com.artbazar.artbazarbackend.utils.ApiResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> addUser(@RequestBody User newUser) throws JsonProcessingException {
+    public ResponseEntity<ApiResponse> addUser(@RequestBody User newUser) throws JsonProcessingException {
         try {
             if (newUser.getUsername() == null || newUser.getPassword() == null || newUser.getType() == null || newUser.getEmail() == null) {
                 throw new IllegalArgumentException("Invalid input");
@@ -61,23 +62,9 @@ public class UserController {
 
             userService.saveUser(newUser);
 
-            Map<String, String> output = new HashMap<>();
-            output.put("message", "User saved successfully");
-            String outputBody = new ObjectMapper().writeValueAsString(output);
-
-            return new ResponseEntity<>(outputBody, HttpStatus.OK);
-        } catch (ConstraintViolationException e) {
-            Map<String, String> error = new HashMap<>();
-            error.put("error", e.getMessage());
-            String outputBody = new ObjectMapper().writeValueAsString(error);
-
-            return new ResponseEntity<>(outputBody, HttpStatus.FORBIDDEN);
-        } catch (IllegalArgumentException e) {
-            Map<String, String> error = new HashMap<>();
-            error.put("error", e.getMessage());
-            String outputBody = new ObjectMapper().writeValueAsString(error);
-
-            return new ResponseEntity<>(outputBody, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse("User saved successfully", HttpStatus.OK.value()), HttpStatus.OK);
+        } catch (ConstraintViolationException | IllegalArgumentException e) {
+            return new ResponseEntity<>(new ApiResponse(e.getMessage(), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
         }
     }
 

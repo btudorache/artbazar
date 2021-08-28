@@ -26,7 +26,7 @@ const getInitialState = () => {
     }
   
   }
-  
+
   return {
     isLogged: false,
     token: null,
@@ -54,7 +54,7 @@ export const authenticate = createAsyncThunk(
       localStorage.setItem('token', token)
       return token;
     } else {
-      return thunkAPI.rejectWithValue(data.error);
+      return thunkAPI.rejectWithValue(data.message);
     }
   }
 );

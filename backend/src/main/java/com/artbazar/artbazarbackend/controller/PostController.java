@@ -4,6 +4,7 @@ import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.PostImage;
 import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.service.PostService;
+import com.artbazar.artbazarbackend.utils.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,11 +44,10 @@ public class PostController {
             String username = authentication.getName();
             PostData addedPost = postService.addPost(username, title, category, description, file);
 
-            return ResponseEntity.status(HttpStatus.OK)
-                                 .body(addedPost);
+            return ResponseEntity.status(HttpStatus.OK).body(addedPost);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body(String.format("Could not upload the file: %s!", file.getOriginalFilename()));
+                                 .body(new ApiResponse(String.format("Could not upload the file: %s!", file.getOriginalFilename()), HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
 
