@@ -10,6 +10,7 @@ import LogoutPage from "./views/LogoutPage";
 import UserProfilePage from "./views/UserProfilePage";
 import NewPostPage from "./views/NewPostPage";
 import ProtectedPage from "./components/routing/ProtectedPage";
+import PostDetailPage from "./views/PostDetailPage";
 
 function App() {
   return (
@@ -39,6 +40,11 @@ function App() {
         <Route exact path="/logout">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
             <LogoutPage />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/posts/:postId">
+          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+            <PostDetailPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/">

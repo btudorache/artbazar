@@ -34,11 +34,22 @@
   margin: 0.5rem 0;
 }
 
+.postCategory {
+  margin: 0;
+  grid-column-start: span 3;
+}
+
+.postDescription {
+  margin: 0.5rem 0;
+  grid-column-start: span 3;
+}
+
 .postPhoto {
   height: 25rem;
   grid-column-start: span 3;
   justify-self: center;
   border-radius: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .photo {
@@ -47,12 +58,22 @@
   border-radius: 1rem;
 }
 
-.postCategory {
-  margin: 0.5rem 0 0 0 ;
-  grid-column-start: span 3;
+.likeDiv {
+  grid-column: 1 / 2;
+  justify-self: start;
 }
 
-.postDescription {
-  margin: 0.5rem 0;
-  grid-column-start: span 3;
+.likeButton {
+  margin-left: 0.5rem;
+}
+
+.likesAmount {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.detailButton {
+  grid-column: 3 / 4;
+  justify-self: end;
+  margin-right: 0.5rem;
 }

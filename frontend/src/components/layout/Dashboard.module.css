@@ -1,6 +1,6 @@
 .mainLayout {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   /* margin: auto; */
   margin: 0 1rem;
 }
@@ -25,6 +25,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.postList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .secondarySide {

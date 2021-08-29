@@ -21,9 +21,11 @@ const Dashboard = () => {
       <h2>Action Bar</h2>
     </div>
     <div className={styles.mainSide}>
+      <ul className={styles.postList}>
+        {posts.map(postData => <li key={postData.id}><Post postData={postData} /></li>)}
+      </ul>
       {status === "loading" && <p>Loading...</p>}
       {status === 'failed' && <p className="errorText">{error}</p>}
-      {posts.map(postData => <Post key={postData.id} postData={postData} />)}
     </div>
     <div className={styles.secondarySide}>
 
