@@ -85,7 +85,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType(APPLICATION_JSON_VALUE);
 
         Map<String, String> error = new HashMap<>();
-        error.put("error", failed.getMessage());
+        error.put("message", failed.getMessage());
         new ObjectMapper().writeValue(response.getOutputStream(), error);
 
         super.unsuccessfulAuthentication(request, response, failed);

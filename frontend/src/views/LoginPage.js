@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -8,6 +9,7 @@ import Button from "../components/Button";
 import { useFormInput } from "../hooks/useFormInput";
 
 import { authenticate } from "../store/authSlice";
+import { resetAuthErrorState } from "../store/authSlice";
 
 const LoginPage = () => {
   const backendError = useSelector((state) => {
@@ -40,6 +42,14 @@ const LoginPage = () => {
       dispatch(authenticate(userLoginData));
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (backendError.status === "failed") {
+        dispatch(resetAuthErrorState())
+      }
+    }
+  })
 
   return (
     <Card>

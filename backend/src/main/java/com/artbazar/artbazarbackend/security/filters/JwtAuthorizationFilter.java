@@ -54,7 +54,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     response.setContentType(APPLICATION_JSON_VALUE);
 
                     Map<String, String> error = new HashMap<>();
-                    error.put("error_message", e.getMessage());
+                    error.put("message", e.getMessage());
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
             } else {
