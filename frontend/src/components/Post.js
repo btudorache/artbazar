@@ -4,9 +4,9 @@ import styles from "./Post.module.css";
 
 import Button from "./Button";
 
-const Post = ({postData}) => {
+const Post = ({postData, isDetail}) => {
   const history = useHistory()
-
+  
   return (
     <div className={styles.postGrid}>
       <p className={styles.postUser}>{postData.postOwner}</p>
@@ -24,7 +24,7 @@ const Post = ({postData}) => {
         <Button text="Like" additionalStyles={[styles.likeButton]} />
         <p className={styles.likesAmount}>123 likes</p>
       </div>
-      <Button text="See Post" additionalStyles={[styles.detailButton]} clickHandler={() => history.push(`/posts/${postData.id}`)} />
+      {!isDetail && <Button text="See Post" additionalStyles={[styles.detailButton]} clickHandler={() => history.push(`/posts/${postData.id}`)} />}
     </div>
   );
 };
