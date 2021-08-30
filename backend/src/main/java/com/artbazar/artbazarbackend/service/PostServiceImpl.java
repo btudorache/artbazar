@@ -45,6 +45,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostData getPostDataById(Long id) {
+        Optional<Post> post = findById(id);
+        return post.map(this::mapToPostData).orElse(null);
+    }
+
+    @Override
     public PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
         User user = userRepository.findByUsername(username);
         PostImage newPostImage = new PostImage(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());

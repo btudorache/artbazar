@@ -34,6 +34,19 @@ public class PostController {
         return postService.getAll();
     }
 
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<Object> getPost(@PathVariable Long id) {
+
+        PostData postData = postService.getPostDataById(id);
+
+        if (postData == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body(new ApiResponse("Post not found", HttpStatus.NOT_FOUND.value()));
+        }
+
+        return ResponseEntity.ok(postData);
+    }
+
     @PostMapping("/posts")
     public ResponseEntity<Object> addPost(Authentication authentication,
                                           @RequestParam("file") MultipartFile file,
