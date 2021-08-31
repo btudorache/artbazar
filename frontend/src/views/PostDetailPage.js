@@ -82,7 +82,7 @@ const PostDetailPage = () => {
         </div>
       )}
       <div>
-        {postDetail.comments.map(comment => <p>{comment.text}</p>)}
+        {postDetail.comments.map(comment => <p key={comment.id}>{comment.text}</p>)}
       </div>
     </Fragment>
 

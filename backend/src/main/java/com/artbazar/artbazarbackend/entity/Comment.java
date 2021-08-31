@@ -30,4 +30,12 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
+
+    @Column(name = "created_at")
+    private long createdAt;
+
+    @PrePersist
+    private void addTimestamp() {
+        this.createdAt = System.currentTimeMillis();
+    }
 }
