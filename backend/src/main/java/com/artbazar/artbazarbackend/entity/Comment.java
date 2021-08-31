@@ -14,8 +14,9 @@ import javax.persistence.*;
 @Entity
 public class Comment {
 
-    public Comment(String text) {
+    public Comment(String text, String owner) {
         this.text = text;
+        this.owner = owner;
     }
 
     @Id
@@ -25,6 +26,9 @@ public class Comment {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "owner")
+    private String owner;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

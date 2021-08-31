@@ -1,7 +1,9 @@
 package com.artbazar.artbazarbackend.service;
 
+import com.artbazar.artbazarbackend.dao.CommentRepository;
 import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
+import com.artbazar.artbazarbackend.entity.Comment;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.PostImage;
 import com.artbazar.artbazarbackend.entity.User;
@@ -24,11 +26,13 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public PostServiceImpl(UserRepository userRepository, PostRepository postRepository) {
+    public PostServiceImpl(UserRepository userRepository, PostRepository postRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -76,6 +80,7 @@ public class PostServiceImpl implements PostService {
     }
 
     private PostDetail mapToPostDetail(Post post) {
-        return new PostDetail(mapToPostData(post), post.getComments());
+        List<Comment> comments = commentRepository.findByPost(post, Sort.by("createdAt").descending());
+        return new PostDetail(mapToPostData(post), comments);
     }
 }

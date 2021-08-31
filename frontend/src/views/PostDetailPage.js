@@ -21,13 +21,43 @@ const PostDetailPage = () => {
     (text) => text.trim().length !== 0
   );
 
-  const addPostHandler = (event) => {
+  const addPostFetch = async (commentForm) => {
+    const response = await fetch("http://localhost:8080/api/comments", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+      body: commentForm
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      setPostDetail(prevPostDetail => {
+        return {
+          postData: prevPostDetail.postData,
+          comments: [data].concat(prevPostDetail.comments)
+        }
+      })
+      // setShowCommentBox(false)
+    } else {
+      throw new Error("Couldn't add comment")
+    }
+  }
+
+  const addPostHandler = async (event) => {
     event.preventDefault()
 
     const commentOk = commentValidate()
 
     if (commentOk) {
-      console.log(commentRef.current.value)
+      const commentForm = new FormData()
+      commentForm.append("text", commentRef.current.value)
+      commentForm.append("post_id", +postId)
+      try {
+        await addPostFetch(commentForm)
+      } catch(error) {
+        console.log(error.message)
+      }
     }
   }
 

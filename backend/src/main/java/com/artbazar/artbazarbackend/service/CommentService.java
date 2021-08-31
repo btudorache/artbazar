@@ -8,5 +8,5 @@ public interface CommentService {
 
     List<Comment> getComments();
 
-    Comment addComment(String text, Long postId);
+    Comment addComment(String text, String owner, Long postId);
 }

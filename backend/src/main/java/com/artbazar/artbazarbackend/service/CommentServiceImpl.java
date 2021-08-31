@@ -29,8 +29,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment addComment(String text, Long postId) {
-        Comment comment = new Comment(text);
+    public Comment addComment(String text, String owner, Long postId) {
+        Comment comment = new Comment(text, owner);
         Post post = postRepository.getById(postId);
         comment.setPost(post);
 
