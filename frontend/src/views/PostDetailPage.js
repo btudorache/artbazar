@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import Post from "../components/Post";
 import Button from "../components/Button";
+import Comment from "../components/Comment";
 import { useFormInput } from "../hooks/useFormInput";
 
 import styles from "./PostDetailPage.module.css";
@@ -111,9 +112,9 @@ const PostDetailPage = () => {
           </form>
         </div>
       )}
-      <div>
-        {postDetail.comments.map(comment => <p key={comment.id}>{comment.text}</p>)}
-      </div>
+      <ul className={styles.commentList}>
+        {postDetail.comments.map(comment => <li key={comment.id}><Comment commentData={comment} /></li>)}
+      </ul>
     </Fragment>
 
   return (
