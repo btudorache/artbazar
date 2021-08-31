@@ -42,5 +42,5 @@ public class User {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
 }

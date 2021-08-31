@@ -2,6 +2,7 @@ package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.PostImage;
 import com.artbazar.artbazarbackend.entity.data.PostData;
+import com.artbazar.artbazarbackend.entity.data.PostDetail;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,15 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public ResponseEntity<Object> getPost(@PathVariable Long id) {
-        PostData postData = postService.getById(id);
+    public ResponseEntity<Object> getPostDetail(@PathVariable Long id) {
+        PostDetail postDetail = postService.getPostDetailById(id);
 
-        if (postData == null) {
+        if (postDetail == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .body(new ApiResponse("Post not found", HttpStatus.NOT_FOUND.value()));
         }
 
-        return ResponseEntity.ok(postData);
+        return ResponseEntity.ok(postDetail);
     }
 
     @PostMapping("/posts")

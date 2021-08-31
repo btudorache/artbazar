@@ -61,10 +61,9 @@ const PostDetailPage = () => {
     tryFetch();
   }, [postId, token, setError, setIsLoading]);
 
-  // const postDetail = posts.find((post) => post.id === +postId);
-  const loadedData = (
+  const loadedData = postDetail == null ? null :
     <Fragment>
-      <Post isDetail postData={postDetail} />
+      <Post isDetail postData={postDetail.postData} />
       {!showCommentBox && (
         <div className={styles.showCommentBox}>
           <h4 className={styles.showCommentBoxText} onClick={() => setShowCommentBox(true)}>Want to add a comment?</h4>
@@ -83,10 +82,9 @@ const PostDetailPage = () => {
         </div>
       )}
       <div>
-          <p>Comments</p>
-        </div>
+        {postDetail.comments.map(comment => <p>{comment.text}</p>)}
+      </div>
     </Fragment>
-  );
 
   return (
     <div className={styles.postDetail}>

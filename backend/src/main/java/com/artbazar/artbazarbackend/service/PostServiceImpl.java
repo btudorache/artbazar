@@ -6,6 +6,7 @@ import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.PostImage;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.PostData;
+import com.artbazar.artbazarbackend.entity.data.PostDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostData getById(Long id) {
-        return mapToPostData(postRepository.getById(id));
+    public PostDetail getPostDetailById(Long id) {
+        return mapToPostDetail(postRepository.getById(id));
     }
 
     @Override
@@ -72,5 +73,9 @@ public class PostServiceImpl implements PostService {
                                          post.getDescription(),
                                          post.getCreatedAt(),
                                          downloadURL);
+    }
+
+    private PostDetail mapToPostDetail(Post post) {
+        return new PostDetail(mapToPostData(post), post.getComments());
     }
 }
