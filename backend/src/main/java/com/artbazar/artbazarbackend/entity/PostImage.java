@@ -19,6 +19,7 @@ public class PostImage {
     private Long id;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "image")
     private byte[] image;
 

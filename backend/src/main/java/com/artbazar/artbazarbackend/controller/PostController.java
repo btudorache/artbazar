@@ -1,11 +1,9 @@
 package com.artbazar.artbazarbackend.controller;
 
-import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.PostImage;
 import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -36,8 +33,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public ResponseEntity<Object> getPost(@PathVariable Long id) {
-
-        PostData postData = postService.getPostDataById(id);
+        PostData postData = postService.getById(id);
 
         if (postData == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -66,14 +62,12 @@ public class PostController {
 
     @GetMapping("/posts/images/{id}")
     public ResponseEntity<byte[]> getPostImage(@PathVariable Long id) {
-        Optional<Post> optionalPost = postService.findById(id);
+        PostImage postImage = postService.getPostImage(id);
 
-        if (optionalPost.isEmpty()) {
+        if (postImage == null) {
             return ResponseEntity.notFound().build();
         }
 
-        Post post = optionalPost.get();
-        PostImage postImage = post.getPostImage();
         return ResponseEntity.ok()
                              .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + postImage.getImageName() + "\"")
                              .contentType(MediaType.valueOf(postImage.getContentType()))

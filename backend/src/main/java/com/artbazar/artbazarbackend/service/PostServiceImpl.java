@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,14 +39,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return postRepository.findById(id);
+    public PostData getById(Long id) {
+        return mapToPostData(postRepository.getById(id));
     }
 
     @Override
-    public PostData getPostDataById(Long id) {
-        Optional<Post> post = findById(id);
-        return post.map(this::mapToPostData).orElse(null);
+    public PostImage getPostImage(Long id) {
+        return postRepository.getById(id).getPostImage();
     }
 
     @Override
