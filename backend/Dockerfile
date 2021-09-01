@@ -4,6 +4,14 @@ WORKDIR /app
 
 # Copy maven executable to the image
 COPY mvnw .
+
+# install dos2unix
+RUN apt-get update
+RUN apt-get install dos2unix
+
+# change line endings from windows /r/n to linux /n
+RUN dos2unix mvnw
+
 COPY .mvn .mvn
 
 COPY pom.xml .
