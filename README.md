@@ -1,6 +1,10 @@
 # ArtBazar
 
-Social website dedicated to artists for an easier way to share their work to the world. Built with React and Spring Boot PostgreSQL. The main idea is that there are 2 types of users: **Artists** and **Explorers**. *Artists* will be able to post their art based on categories, and *Explorers* will be able to interact with *Artits*, rate their works and even commision works from them.
+Social website dedicated to artists for an easier way to share their work to the world. Built with React and Spring Boot and PostgreSQL. 
+
+The main idea is that there are 2 types of users: **Artists** and **Explorers**. *Artists* will be able to post their art based on categories, and *Explorers* will be able to interact with *Artists*, rate their works and even commision works from them.
+
+The website is not meant to be deployed or anything like that. It's a bigger project build to exercise modern web development. 
 
 ## Setup
 
@@ -34,5 +38,6 @@ I plan on adding a variety of features. Here is the current state of the app:
 * Show posts on feed based on preferences and follows
 * Functionality for *Explorers* to rate and review *Artists*
 * Add initial database to showcase most of the functionalities working togheter
+* Add responsive design
 
 

@@ -16,7 +16,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 @Slf4j
 public class UserController {
 
@@ -27,17 +27,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public User getUser(@PathVariable Long userId) {
         return userService.getUserById(userId);
     }
 
-    @GetMapping("/users")
+    @GetMapping("")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/users")
+    @PostMapping("")
     public ResponseEntity<ApiResponse> addUser(@RequestBody User newUser) throws JsonProcessingException {
         try {
             if (newUser.getUsername() == null || newUser.getPassword() == null || newUser.getType() == null || newUser.getEmail() == null) {
@@ -64,12 +64,12 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users")
+    @PutMapping("")
     public User updateUser(@RequestBody User updatedUser) {
         return userService.updateUser(updatedUser);
     }
 
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
     }

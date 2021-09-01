@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/comments")
 public class CommentController {
 
     private final CommentService commentService;
@@ -19,12 +19,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/comments")
+    @GetMapping("")
     public List<Comment> getComments() {
         return commentService.getComments();
     }
 
-    @PostMapping("/comments")
+    @PostMapping("")
     public Comment addComment(Authentication authentication,
                               @RequestParam("text") String text,
                               @RequestParam("post_id") Long postId) {

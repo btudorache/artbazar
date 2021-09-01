@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/posts")
 public class PostController {
 
     private final PostService postService;
@@ -27,12 +27,12 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/posts")
+    @GetMapping("")
     public List<PostData> getAllPosts() {
         return postService.getAll();
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getPostDetail(@PathVariable Long id) {
         PostDetail postDetail = postService.getPostDetailById(id);
 
@@ -44,7 +44,7 @@ public class PostController {
         return ResponseEntity.ok(postDetail);
     }
 
-    @PostMapping("/posts")
+    @PostMapping("")
     public ResponseEntity<Object> addPost(Authentication authentication,
                                           @RequestParam("file") MultipartFile file,
                                           @RequestParam("title") String title,
@@ -61,7 +61,7 @@ public class PostController {
         }
     }
 
-    @GetMapping("/posts/images/{id}")
+    @GetMapping("/images/{id}")
     public ResponseEntity<byte[]> getPostImage(@PathVariable Long id) {
         PostImage postImage = postService.getPostImage(id);
 
