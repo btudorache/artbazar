@@ -21,6 +21,7 @@ const Dashboard = () => {
       <h2>Action Bar</h2>
     </div>
     <div className={styles.mainSide}>
+      {posts.length === 0 && <p>No posts currently. Add some art!</p>}
       <ul className={styles.postList}>
         {posts.map(postData => <li key={postData.id}><Post postData={postData} /></li>)}
       </ul>

@@ -112,6 +112,7 @@ const PostDetailPage = () => {
           </form>
         </div>
       )}
+      {postDetail.comments.length === 0 && <p>No comments currently.</p>}
       <ul className={styles.commentList}>
         {postDetail.comments.map(comment => <li key={comment.id}><Comment commentData={comment} /></li>)}
       </ul>
