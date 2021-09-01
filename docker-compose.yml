@@ -1,0 +1,28 @@
+version: '3.8'
+services: 
+  backend:
+    build: ./backend
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - database
+    environment: 
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/artbazar
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+
+  database:
+    image: postgres
+    environment: 
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=artbazar
+  
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports: 
+      - "3000:3000"
+  
