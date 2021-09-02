@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import styles from "./Post.module.css";
@@ -5,11 +6,19 @@ import styles from "./Post.module.css";
 import Button from "./Button";
 
 const Post = ({postData, isDetail}) => {
+  const loggedUsername = useSelector(state => state.auth.username)
   const history = useHistory()
+
+  const navigateToUserProfile = () => {
+    const finalUrl = loggedUsername === postData.postOwner ? "/profile" : `/users/${postData.postOwner}`
+    history.push(finalUrl)
+  }
   
   return (
     <div className={styles.postGrid}>
-      <p className={styles.postUser}>{postData.postOwner}</p>
+      <div className={styles.postUserDiv}>
+        <p onClick={navigateToUserProfile} className={styles.postUser}>{postData.postOwner}</p>
+      </div>
       <p className={styles.postDate}>{new Date(postData.createdAt).toDateString()}</p>
       <div className={styles.underline} />
       <h2 className={styles.postTitle}>{postData.title}</h2>

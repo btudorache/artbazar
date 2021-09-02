@@ -10,10 +10,20 @@
   width: 40rem;
 }
 
-.postUser {
+.postUserDiv {
   grid-column: 1 / 2;
+}
+
+.postUser {
+  display: inline-block;
+  cursor: pointer;
   margin: 0;
 }
+
+.postUser:hover,
+.postUser:active {
+  font-weight: bold;
+} 
 
 .postDate {
   grid-column: 3 / 4;
