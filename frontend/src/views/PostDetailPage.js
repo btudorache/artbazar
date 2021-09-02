@@ -19,7 +19,7 @@ const PostDetailPage = () => {
 
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentHasError, commentValidate, commentRef] = useFormInput(
-    (text) => text.trim().length !== 0
+    (text) => text.trim().length !== 0 && text.length < 255
   );
 
   const addPostFetch = async (commentForm) => {
@@ -106,9 +106,9 @@ const PostDetailPage = () => {
           <form onSubmit={addPostHandler}>
             <textarea className={styles.commentInput} ref={commentRef} type="text" id="text" name="text" />
             {commentHasError && (
-              <p className="errorText">Please valid text</p>
+              <p className="errorText">Please enter valid text (no empty text or more than 255 characters)</p>
             )}
-            <Button text="Comment" />
+            <Button text="Comment" additionalStyles={[styles.commentButton]} />
           </form>
         </div>
       )}
