@@ -13,6 +13,11 @@ import javax.persistence.*;
 @Table(name = "profile")
 public class Profile {
 
+    public Profile(Image profileImage, String imageUrl) {
+        this.profileImage = profileImage;
+        this.imageUrl = imageUrl;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -26,4 +31,11 @@ public class Profile {
 
     @Column(name = "location")
     private String location;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_image_id")
+    private Image profileImage;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }

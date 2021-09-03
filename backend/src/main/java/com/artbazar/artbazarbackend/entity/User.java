@@ -40,7 +40,7 @@ public class User {
     @Column(name="email", unique = true)
     private String email;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="profile_id")
     private Profile profile;
 
