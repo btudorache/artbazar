@@ -56,27 +56,33 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
         User user = userRepository.findByUsername(username);
+
         PostImage newPostImage = new PostImage(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
         Post newPost = new Post(title, category, description);
+
         newPost.setPostImage(newPostImage);
         newPost.setUser(user);
         Post newAddedPost = postRepository.save(newPost);
-        return mapToPostData(newAddedPost);
+
+        String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                                                     .path("/api/posts/images/")
+                                                     .path(newAddedPost.getId().toString())
+                                                     .toUriString();
+        newAddedPost.setImageUrl(imageUrl);
+
+        Post postWithUrl = postRepository.save(newAddedPost);
+
+        return mapToPostData(postWithUrl);
     }
 
     private PostData mapToPostData(Post post) {
-        String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                                        .path("/api/posts/images/")
-                                                        .path(post.getId().toString())
-                                                        .toUriString();
-
         return new PostData(post.getUser().getUsername(),
                                          post.getId(),
                                          post.getTitle(),
                                          post.getCategory(),
                                          post.getDescription(),
                                          post.getCreatedAt(),
-                                         downloadURL);
+                                         post.getImageUrl());
     }
 
     private PostDetail mapToPostDetail(Post post) {

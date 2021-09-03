@@ -43,9 +43,12 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name="post_image_id")
     private PostImage postImage;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Post(String title, String category, String description) {
         this.category = category;
