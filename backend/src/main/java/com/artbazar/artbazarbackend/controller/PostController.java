@@ -1,10 +1,11 @@
 package com.artbazar.artbazarbackend.controller;
 
-import com.artbazar.artbazarbackend.entity.PostImage;
+import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.entity.data.PostDetail;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -63,15 +64,15 @@ public class PostController {
 
     @GetMapping("/images/{id}")
     public ResponseEntity<byte[]> getPostImage(@PathVariable Long id) {
-        PostImage postImage = postService.getPostImage(id);
+        Image image = postService.getPostImage(id);
 
-        if (postImage == null) {
+        if (image == null) {
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok()
-                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + postImage.getImageName() + "\"")
-                             .contentType(MediaType.valueOf(postImage.getContentType()))
-                             .body(postImage.getImage());
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"")
+                             .contentType(MediaType.valueOf(image.getContentType()))
+                             .body(image.getImage());
     }
 }

@@ -1,6 +1,6 @@
 package com.artbazar.artbazarbackend.service;
 
-import com.artbazar.artbazarbackend.entity.PostImage;
+import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.entity.data.PostDetail;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +13,7 @@ public interface PostService {
 
     PostDetail getPostDetailById(Long id);
 
-    PostImage getPostImage(Long id);
+    Image getPostImage(Long id);
 
     PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException;
 }

@@ -45,7 +45,7 @@ public class Post {
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name="post_image_id")
-    private PostImage postImage;
+    private Image image;
 
     @Column(name = "image_url")
     private String imageUrl;

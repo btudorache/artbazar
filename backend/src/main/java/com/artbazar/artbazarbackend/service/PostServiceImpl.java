@@ -5,7 +5,7 @@ import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
 import com.artbazar.artbazarbackend.entity.Comment;
 import com.artbazar.artbazarbackend.entity.Post;
-import com.artbazar.artbazarbackend.entity.PostImage;
+import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.PostData;
 import com.artbazar.artbazarbackend.entity.data.PostDetail;
@@ -49,18 +49,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostImage getPostImage(Long id) {
-        return postRepository.getById(id).getPostImage();
+    public Image getPostImage(Long id) {
+        return postRepository.getById(id).getImage();
     }
 
     @Override
     public PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
         User user = userRepository.findByUsername(username);
 
-        PostImage newPostImage = new PostImage(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
+        Image newImage = new Image(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
         Post newPost = new Post(title, category, description);
 
-        newPost.setPostImage(newPostImage);
+        newPost.setImage(newImage);
         newPost.setUser(user);
         Post newAddedPost = postRepository.save(newPost);
 

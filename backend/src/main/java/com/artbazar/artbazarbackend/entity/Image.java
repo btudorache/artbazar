@@ -7,11 +7,11 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="post_image")
+@Table(name="image")
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostImage {
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class PostImage {
     @Column(name = "content_type")
     private String contentType;
 
-    public PostImage(byte[] image, String imageName, String contentType) {
+    public Image(byte[] image, String imageName, String contentType) {
         this.image = image;
         this.imageName = imageName;
         this.contentType = contentType;
