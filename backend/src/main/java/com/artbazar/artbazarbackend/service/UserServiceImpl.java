@@ -1,6 +1,7 @@
 package com.artbazar.artbazarbackend.service;
 
 import com.artbazar.artbazarbackend.dao.UserRepository;
+import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,6 +64,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUser(User newUser) {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.setProfile(new Profile());
         return userRepository.save(newUser);
     }
 

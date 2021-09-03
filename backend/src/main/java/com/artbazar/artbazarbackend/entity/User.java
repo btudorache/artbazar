@@ -40,6 +40,10 @@ public class User {
     @Column(name="email", unique = true)
     private String email;
 
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_id")
+    private Profile profile;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Post> posts;
