@@ -1,12 +1,17 @@
-.postDetail {
+.postDetailPageDiv {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0 1rem;
+}
+
+.mainDiv {
+  width: 50%;
 }
 
 .showCommentBox {
-  width: 40rem;
+  width: 100%;
 }
 
 .showCommentBoxText {
@@ -16,7 +21,7 @@
 }
 
 .commentBox {
-  width: 40rem;
+  width: 100%;
   padding: 1rem;
   border: 1px solid black;
   border-radius: 1rem;
@@ -37,4 +42,10 @@
 .commentList {
   list-style: none;
   padding: 0;
+}
+
+@media (max-width: 640px) {
+  .mainDiv {
+    width: 100%;
+  }
 }

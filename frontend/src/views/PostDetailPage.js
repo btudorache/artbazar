@@ -93,7 +93,7 @@ const PostDetailPage = () => {
   }, [postId, token, setError, setIsLoading]);
 
   const loadedData = postDetail == null ? null :
-    <Fragment>
+    <div className={styles.mainDiv}>
       <Post isDetail postData={postDetail.postData} />
       {!showCommentBox && (
         <div className={styles.showCommentBox}>
@@ -116,10 +116,10 @@ const PostDetailPage = () => {
       <ul className={styles.commentList}>
         {postDetail.comments.map(comment => <li key={comment.id}><Comment commentData={comment} /></li>)}
       </ul>
-    </Fragment>
+    </div>
 
   return (
-    <div className={styles.postDetail}>
+    <div className={styles.postDetailPageDiv}>
       {isLoading && <p>Loading...</p>}
       {error && <p className="errorText">{error}</p>}
       {!isLoading && !error && loadedData}

@@ -1,7 +1,7 @@
 .commentLayout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 40rem;
+  width: 100%;
   padding: 0.8rem;
   border: 1px solid #949494;
   border-radius: 0.5rem;

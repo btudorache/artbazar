@@ -6,7 +6,7 @@
 }
 
 .actionSide {
-  width: 20rem;
+  width: 20%;
   height: 40rem;
   border: 2px solid black;
   border-radius: 1rem;
@@ -18,7 +18,7 @@
 }
 
 .mainSide {
-  width: 50rem;
+  width: 50%;
   padding: 0 1rem;
   margin: 0;
   /* border: 2px solid black; */
@@ -34,6 +34,29 @@
 }
 
 .secondarySide {
-  width: 15rem;
+  width: 15%;
   /* border: 2px solid black; */
+}
+
+@media (max-width: 640px) {
+  .mainLayout {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .actionSide {
+    width: 100%;
+    height: 8rem;
+    margin-bottom: 1rem;
+  }
+
+  .mainSide {
+    width: 100%;
+    padding: 0;
+  }
+
+  .secondarySide {
+    display: none;
+  }
 }
