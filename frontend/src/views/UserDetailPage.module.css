@@ -1,0 +1,62 @@
+.mainLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+.mainUserDetailsSection {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.userImage {
+  width: 33%;
+  min-width: 15rem;
+  height: 20rem;
+  border: 1px solid black;
+  border-radius: 2rem;
+  background: white;
+  margin-right: 1rem;
+}
+
+.mainUserDetailsInfo {
+  width: 66%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mainUserDetailsInfoList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.profileButton {
+  margin-right: 1rem;
+}
+
+.sectionDelimiter {
+  margin: 1rem 0;
+  width: 100%;
+  border-bottom: 1px solid #949494;
+}
+
+.secondaryUserDetailsSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.userPostsSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

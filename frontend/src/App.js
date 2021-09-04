@@ -24,12 +24,12 @@ function App() {
         </Route>
         <Route exact path="/profile">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
-            <UserDetailPage />
+            <UserDetailPage isLoggedUser={true} />
           </ProtectedPage>
         </Route>
         <Route exact path="/users/:urlUsername">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
-            <UserDetailPage />
+            <UserDetailPage isLoggedUser={false} />
           </ProtectedPage>
         </Route>
         <Route exact path="/login">
