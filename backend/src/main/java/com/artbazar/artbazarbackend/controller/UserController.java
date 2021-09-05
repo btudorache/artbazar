@@ -3,6 +3,7 @@ package com.artbazar.artbazarbackend.controller;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.UserType;
+import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +30,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{userId}")
-    public User getUser(@PathVariable Long userId) {
-        return userService.getUserById(userId);
+    @GetMapping("/{username}")
+    public UserDetail getUserDetail(@PathVariable String username) {
+        return userService.getUserDetailByUsername(username);
     }
 
     @GetMapping("")
