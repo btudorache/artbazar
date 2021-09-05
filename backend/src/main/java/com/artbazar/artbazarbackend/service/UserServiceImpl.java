@@ -4,6 +4,9 @@ import com.artbazar.artbazarbackend.dao.UserRepository;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.data.PostData;
+import com.artbazar.artbazarbackend.entity.data.PostDetail;
+import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -65,8 +69,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDetail getUserDetailByUsername(String username) {
+        return mapUserToUserDetail(userRepository.findByUsername(username));
     }
 
     @Override
@@ -107,5 +111,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User updateUser(User updatedUser) {
         return userRepository.save(updatedUser);
+    }
+
+    public UserDetail mapUserToUserDetail(User user) {
+        Profile userProfile = user.getProfile();
+        List<PostData> posts = user.getPosts().stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+
+        return new UserDetail(
+                user.getUsername(),
+                user.getType(),
+                user.getEmail(),
+                userProfile.getFirstName(),
+                userProfile.getLastName(),
+                userProfile.getLocation(),
+                userProfile.getImageUrl(),
+                posts);
     }
 }

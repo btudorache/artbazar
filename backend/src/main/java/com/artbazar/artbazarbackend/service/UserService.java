@@ -2,6 +2,7 @@ package com.artbazar.artbazarbackend.service;
 
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.data.UserDetail;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User getUserById(Long id);
+    UserDetail getUserDetailByUsername(String username);
 
     Image getUserProfileImage(Long id);
 

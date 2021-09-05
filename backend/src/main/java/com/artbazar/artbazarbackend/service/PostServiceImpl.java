@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
     public List<PostData> getAll() {
         List<Post> posts = postRepository.findAll(Sort.by("createdAt").descending());
         return posts.stream()
-                .map(this::mapToPostData)
+                .map(PostServiceImpl::mapToPostData)
                 .collect(Collectors.toList());
     }
 
@@ -75,7 +75,7 @@ public class PostServiceImpl implements PostService {
         return mapToPostData(postWithUrl);
     }
 
-    private PostData mapToPostData(Post post) {
+    public static PostData mapToPostData(Post post) {
         return new PostData(post.getUser().getUsername(),
                                          post.getId(),
                                          post.getTitle(),
