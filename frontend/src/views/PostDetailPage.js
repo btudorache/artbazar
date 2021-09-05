@@ -13,7 +13,7 @@ const PostDetailPage = () => {
   const token = useSelector((state) => state.auth.token);
   const { postId } = useParams();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [postDetail, setPostDetail] = useState(null);
   const [error, setError] = useState(null);
 
@@ -82,6 +82,7 @@ const PostDetailPage = () => {
     };
 
     const tryFetch = async () => {
+      setIsLoading(true)
       try {
         await fetchPost(+postId);
       } catch (error) {
