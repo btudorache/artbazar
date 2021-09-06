@@ -75,6 +75,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetail getUserDetailByUsername(String username) {
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }
+
         List<Post> posts = postRepository.findByUser(user, Sort.by("createdAt").descending());
         return mapUserToUserDetail(user, posts);
     }

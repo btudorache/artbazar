@@ -31,8 +31,15 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public UserDetail getUserDetail(@PathVariable String username) {
-        return userService.getUserDetailByUsername(username);
+    public ResponseEntity<Object> getUserDetail(@PathVariable String username) {
+        UserDetail userDetail = userService.getUserDetailByUsername(username);
+
+        if (userDetail == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("User not found", HttpStatus.NOT_FOUND.value()));
+        }
+
+        return ResponseEntity.ok(userDetail);
     }
 
     @GetMapping("")
