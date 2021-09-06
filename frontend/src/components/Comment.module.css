@@ -9,11 +9,20 @@
   box-shadow: 3px 3px 2px 1px #888888;
 }
 
-.commentOwner {
+.commentOwnerDiv {
   grid-column: 1 / 2;
-  justify-self: start;
+}
+
+.commentOwner {
+  display: inline-block;
+  cursor: pointer;
   margin: 0;
 }
+
+.commentOwner:hover,
+.commentOwner:active {
+  font-weight: bold;
+} 
 
 .commentDate {
   grid-column: 2 / 3;
