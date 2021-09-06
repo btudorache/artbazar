@@ -1,0 +1,79 @@
+.userDetailLayout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+.mainUserDetailsSection {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.userImageDiv {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  min-width: 15rem;
+  height: 20rem;
+  border: 1px solid black;
+  border-radius: 2rem;
+  padding: 1rem;
+  background: white;
+  margin-right: 1rem;
+}
+
+.userImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.mainUserDetailsInfo {
+  width: 66%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mainUserDetailsInfoList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.profileButton {
+  margin-right: 1rem;
+}
+
+.sectionDelimiter {
+  margin: 1rem 0;
+  width: 100%;
+  border-bottom: 1px solid #949494;
+}
+
+.secondaryUserDetailsSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.userPostsSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.userPostsGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}

@@ -4,8 +4,7 @@ import { useParams } from "react-router";
 
 import styles from "./UserDetailPage.module.css";
 
-import Button from "../components/Button";
-import Post from "../components/Post";
+import UserDetail from "../components/UserDetail";
 
 const UserDetailPage = ({ isLoggedUser }) => {
   const { loggedUsername, token } = useSelector((state) => {
@@ -50,65 +49,15 @@ const UserDetailPage = ({ isLoggedUser }) => {
       }
       setIsLoading(false);
     };
+    
     tryFetch();
   }, [userDetailName, token, setFetchError, setIsLoading]);
-
-  const userDataJSX =
-    userDetail === null ? null : (
-      <Fragment>
-        <div className={styles.mainUserDetailsSection}>
-          <div className={styles.userImageDiv}>
-            <img
-              className={styles.userImage}
-              src={userDetail.profileImageUrl}
-            />
-          </div>
-          <div className={styles.mainUserDetailsInfo}>
-            <div className={styles.mainUserDetailsInfoList}>
-              <h2>Account Information</h2>
-              <p>Username: {userDetail.username}</p>
-              <p>Email: {userDetail.email}</p>
-              <p>User Type: {userDetail.usertype}</p>
-              <p>Join Date: </p>
-              <p>Followers: </p>
-            </div>
-            <div className={styles.mainUserDetailsButtons}>
-              <Button text="Follow" additionalStyles={[styles.profileButton]} />
-              <Button
-                text="Commission"
-                additionalStyles={[styles.profileButton]}
-              />
-              {isLoggedUser && (
-                <Button
-                  text="Edit Profile"
-                  additionalStyles={[styles.profileButton]}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-        <div className={styles.sectionDelimiter} />
-        <div className={styles.secondaryUserDetailsSection}>
-          <h2>Personal Information</h2>
-          <p>First Name: {userDetail.firstname}</p>
-          <p>Last Name: {userDetail.lastname}</p>
-          <p>Location: {userDetail.location}</p>
-        </div>
-        <div className={styles.sectionDelimiter} />
-        <div className={styles.userPostsSection}>
-          <h2>Works</h2>
-          <ul className={styles.userPostsGrid}>
-            {userDetail.posts.map(postData => <li key={postData.id}><Post postData={postData} /></li>)}
-          </ul>
-        </div>
-      </Fragment>
-    );
 
   return (
     <div className={styles.mainLayout}>
       {isLoading && <p>Loading...</p>}
-      {fetchError && <p>{fetchError}</p>}
-      {!isLoading && !fetchError && userDataJSX}
+      {fetchError && <p className="errorText">{fetchError}</p>}
+      {userDetail && <UserDetail isLoggedUser={isLoggedUser} userDetail={userDetail} />}
     </div>
   );
 };
