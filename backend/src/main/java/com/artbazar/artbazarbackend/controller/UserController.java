@@ -2,7 +2,7 @@ package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.entity.UserType;
+import com.artbazar.artbazarbackend.entity.enums.UserType;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;

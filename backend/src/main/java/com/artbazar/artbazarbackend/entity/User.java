@@ -47,4 +47,12 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Post> posts;
+
+    @Column(name="created_at")
+    private Long createdAt;
+
+    @PrePersist
+    public void addTimeStamp() {
+        createdAt = System.currentTimeMillis();
+    }
 }

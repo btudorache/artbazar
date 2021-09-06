@@ -1,13 +1,15 @@
 package com.artbazar.artbazarbackend.service;
 
+import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
 import com.artbazar.artbazarbackend.entity.Image;
+import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.PostData;
-import com.artbazar.artbazarbackend.entity.data.PostDetail;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,11 +31,13 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -70,7 +74,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetail getUserDetailByUsername(String username) {
-        return mapUserToUserDetail(userRepository.findByUsername(username));
+        User user = userRepository.findByUsername(username);
+        List<Post> posts = postRepository.findByUser(user, Sort.by("createdAt").descending());
+        return mapUserToUserDetail(user, posts);
     }
 
     @Override
@@ -113,18 +119,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.save(updatedUser);
     }
 
-    public UserDetail mapUserToUserDetail(User user) {
+    public UserDetail mapUserToUserDetail(User user, List<Post> posts) {
         Profile userProfile = user.getProfile();
-        List<PostData> posts = user.getPosts().stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+        List<PostData> mappedPosts = posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
 
         return new UserDetail(
                 user.getUsername(),
                 user.getType(),
                 user.getEmail(),
-                userProfile.getFirstName(),
-                userProfile.getLastName(),
+                user.getCreatedAt(),
+                userProfile.getName(),
                 userProfile.getLocation(),
+                userProfile.getDescription(),
                 userProfile.getImageUrl(),
-                posts);
+                mappedPosts);
     }
 }

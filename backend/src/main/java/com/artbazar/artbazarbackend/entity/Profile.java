@@ -23,14 +23,14 @@ public class Profile {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "location")
     private String location;
+
+    @Column(name = "description")
+    private String description;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_image_id")

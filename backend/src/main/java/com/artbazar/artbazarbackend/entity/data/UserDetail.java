@@ -9,9 +9,10 @@ public class UserDetail {
     private final String username;
     private final String usertype;
     private final String email;
-    private final String firstname;
-    private final String lastname;
+    private final Long createdAt;
+    private final String name;
     private final String location;
+    private final String description;
     private final String profileImageUrl;
     private final List<PostData> posts;
 }
