@@ -1,63 +1,33 @@
-import { useEffect, useState, Fragment } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import styles from "./UserDetailPage.module.css";
 
+import { fetchProfile } from "../store/profileSlice";
 import UserDetail from "../components/UserDetail";
 
 const UserDetailPage = ({ isLoggedUser }) => {
-  const { loggedUsername, token } = useSelector((state) => {
-    return {
-      loggedUsername: state.auth.username,
-      token: state.auth.token,
-    };
-  });
+  const dispatch = useDispatch()
+
+  const username = useSelector(state => state.auth.username);
+  const { userDetail, status, error} = useSelector(state => state.profile)
   const { urlUsername } = useParams();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [userDetail, setUserDetail] = useState(null);
-  const [fetchError, setFetchError] = useState(null);
-
-  const userDetailName = isLoggedUser ? loggedUsername : urlUsername;
+  const userDetailName = isLoggedUser ? username : urlUsername;
 
   useEffect(() => {
-    const fetchPost = async (username) => {
-      const response = await fetch(
-        `http://localhost:8080/api/users/${username}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const postData = await response.json();
-      if (response.ok) {
-        setUserDetail(postData);
-      } else {
-        throw new Error(postData.message);
-      }
-    };
-
-    const tryFetch = async () => {
-      setIsLoading(true);
-      try {
-        await fetchPost(userDetailName);
-      } catch (error) {
-        setFetchError(error.message);
-      }
-      setIsLoading(false);
-    };
-    
-    tryFetch();
-  }, [userDetailName, token, setFetchError, setIsLoading]);
+    if (status === "idle") {
+      dispatch(fetchProfile(userDetailName))
+    }
+  }, [status, dispatch, userDetailName])
 
   return (
     <div className={styles.mainLayout}>
-      {isLoading && <p>Loading...</p>}
-      {fetchError && <p className="errorText">{fetchError}</p>}
-      {userDetail && <UserDetail isLoggedUser={isLoggedUser} userDetail={userDetail} />}
+      {status === "loading" && <p>Loading...</p>}
+      {status === "failed" && <p className="errorText">{error}</p>}
+      {status === "succeeded" && <UserDetail isLoggedUser={isLoggedUser} userDetail={userDetail} />}
     </div>
   );
 };
