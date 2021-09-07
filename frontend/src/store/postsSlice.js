@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { addNewPost } from "./profileSlice";
+
 const initialState = {
   posts: [],
   status: "idle",
@@ -17,8 +19,8 @@ export const fetchPosts = createAsyncThunk(
     });
 
     if (response.ok) {
-      const data = await response.json();
-      return data;
+      const posts = await response.json();
+      return posts;
     } else {
       throw new Error("Couldn't fetch posts")
     }
@@ -66,8 +68,9 @@ export const addPostAsync = (formData) => {
     })
 
     if (response.ok) {
-      const body = await response.json()
-      dispatch(addPost(body))
+      const postDetail = await response.json()
+      dispatch(addNewPost(postDetail))
+      dispatch(addPost(postDetail))
     }
   }
 }

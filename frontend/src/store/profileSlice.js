@@ -29,7 +29,11 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: initialState,
   reducers: {
-
+    addNewPost(state, action) {
+      if (state.userDetail !== null) {
+        state.userDetail.posts.unshift(action.payload)
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +50,7 @@ const profileSlice = createSlice({
       })
   }
 })
+
+export const { addNewPost } = profileSlice.actions
 
 export default profileSlice.reducer
