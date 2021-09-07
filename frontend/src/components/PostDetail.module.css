@@ -12,6 +12,11 @@
   align-self: flex-start;
 }
 
+.showCommentBoxText:active,
+.showCommentBoxText:hover {
+  text-shadow: 0.2px 0.2px black;
+}
+
 .commentBox {
   width: 100%;
   padding: 1rem;
