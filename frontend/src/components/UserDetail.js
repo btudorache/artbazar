@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useHistory } from "react-router";
 
 import styles from "./UserDetail.module.css";
 
@@ -6,7 +7,13 @@ import Button from "./Button";
 import Post from "./Post";
 
 const UserDetail = ({ isLoggedUser, userDetail }) => {
+  const history = useHistory()
+
   const userIsArtist = userDetail.usertype === "ARTIST";
+
+  const editProfileButtonHandler = () => {
+    history.push("/profile/edit")
+  }
 
   const WorksSection = (
     <Fragment>
@@ -54,6 +61,7 @@ const UserDetail = ({ isLoggedUser, userDetail }) => {
             )}
             {isLoggedUser && (
               <Button
+                clickHandler={editProfileButtonHandler}
                 text="Edit Profile"
                 additionalStyles={[styles.profileButton]}
               />

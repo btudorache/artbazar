@@ -8,6 +8,7 @@ import RegisterPage from "./views/RegisterPage";
 import LoginPage from "./views/LoginPage";
 import LogoutPage from "./views/LogoutPage";
 import UserDetailPage from "./views/UserDetailPage";
+import UserEditPage from "./views/UserEditPage";
 import NewPostPage from "./views/NewPostPage";
 import ProtectedPage from "./components/routing/ProtectedPage";
 import PostDetailPage from "./views/PostDetailPage";
@@ -31,6 +32,11 @@ function App() {
         <Route exact path="/users/:urlUsername">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
             <UserDetailPage isLoggedUser={false} />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/profile/edit">
+          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+            <UserEditPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/login">

@@ -1,0 +1,14 @@
+.userEditPageLayout {
+  width: 50%;
+  margin: auto;
+}
+
+.registerForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gridRow {
+  grid-column-start: span 2;
+  height: 5.2rem;
+}
