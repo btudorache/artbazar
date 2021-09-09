@@ -33,6 +33,11 @@ const profileSlice = createSlice({
       if (state.userDetail !== null) {
         state.userDetail.posts.unshift(action.payload)
       }
+    },
+    resetProfile(state) {
+      state.userDetail = null
+      state.status = "idle"
+      state.error = null
     }
   },
   extraReducers: (builder) => {
@@ -51,6 +56,6 @@ const profileSlice = createSlice({
   }
 })
 
-export const { addNewPost } = profileSlice.actions
+export const { addNewPost, resetProfile } = profileSlice.actions
 
 export default profileSlice.reducer

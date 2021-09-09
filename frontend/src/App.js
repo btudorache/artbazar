@@ -13,6 +13,7 @@ import NewPostPage from "./views/NewPostPage";
 import ProtectedPage from "./components/routing/ProtectedPage";
 import PostDetailPage from "./views/PostDetailPage";
 import ExplorePage from "./views/ExplorePage";
+import UserProfilePage from "./views/UserProfilePage";
 
 function App() {
   return (
@@ -26,12 +27,12 @@ function App() {
         </Route>
         <Route exact path="/profile">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
-            <UserDetailPage isLoggedUser={true} />
+            <UserProfilePage />
           </ProtectedPage>
         </Route>
         <Route exact path="/users/:urlUsername">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
-            <UserDetailPage isLoggedUser={false} />
+            <UserDetailPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/profile/edit">

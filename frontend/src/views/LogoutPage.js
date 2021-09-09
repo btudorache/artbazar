@@ -7,6 +7,7 @@ import Card from '../components/layout/Card'
 import Button from "../components/Button";
 
 import { logoutThunk } from '../store/authSlice'
+import { resetProfile } from "../store/profileSlice";
 
 const LogoutPage = () => {
   const dispatch = useDispatch()
@@ -14,6 +15,7 @@ const LogoutPage = () => {
 
   const handleClick = () => {
     dispatch(logoutThunk())
+    dispatch(resetProfile())
     history.push("/")
   }
 
