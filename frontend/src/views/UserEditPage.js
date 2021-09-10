@@ -1,5 +1,6 @@
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
+import { useRef } from "react";
 
 import styles from "./UserEditPage.module.css";
 
@@ -17,6 +18,7 @@ const UserEditPage = () => {
   const [nameHasError, validateName, nameRef] = useFormInput(stringLowerThan255);
   const [locationHasError, validateLocation, locationRef] = useFormInput(stringLowerThan255)
   const [descriptionHasError, validateDescription, descriptionRef] = useFormInput(stringLowerThan255);
+  const imageRef = useRef()
 
   const StringLowerThan255Error = <p className="errorText">Text must have less than 255 characters!</p>
 
@@ -37,8 +39,15 @@ const UserEditPage = () => {
       profileForm.append("location", locationRef.current.value);
       profileForm.append("description", descriptionRef.current.value);
 
+      if (imageRef.current.files.length === 1) {
+        profileForm.append("image", imageRef.current.files[0])
+      }
+
       dispatch(editProfileThunk(profileForm));
-      history.push("/profile")
+
+      // switch pages after 200ms for the database to have
+      // time to upload the new profile image
+      setTimeout(() => history.push("/profile"), 200)
     }
   };
 
@@ -62,6 +71,10 @@ const UserEditPage = () => {
             <label htmlFor="description">Description</label>
             <input ref={descriptionRef} type="text" id="description" name="description" />
             {descriptionHasError && StringLowerThan255Error}
+          </div>
+          <div className={styles.gridRow}>
+            <label htmlFor="image">Change profile image</label>
+            <input ref={imageRef} type="file" id="image" name="image" />
           </div>
           <Button text="Edit Profile" />
         </form>
