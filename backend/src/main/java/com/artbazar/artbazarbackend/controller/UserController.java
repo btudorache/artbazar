@@ -1,6 +1,7 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.Image;
+import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.enums.UserType;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
@@ -13,7 +14,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -76,9 +79,31 @@ public class UserController {
         }
     }
 
-    @PutMapping("")
-    public User updateUser(@RequestBody User updatedUser) {
-        return userService.updateUser(updatedUser);
+    @PutMapping("/edit")
+    public ResponseEntity<Profile> editProfile(Authentication authentication,
+                                            @RequestParam("name") String name,
+                                            @RequestParam("location") String location,
+                                            @RequestParam("description") String description) {
+
+        String username = authentication.getName();
+
+        User user = userService.getUserByName(username);
+        Profile profile = user.getProfile();
+
+        if (name != null && !name.trim().isEmpty()) {
+            profile.setName(name);
+        }
+        if (location != null && !location.trim().isEmpty()) {
+            profile.setLocation(location);
+        }
+        if (description != null && !description.trim().isEmpty()) {
+            profile.setDescription(description);
+        }
+
+        Profile savedProfile = userService.updateUser(user).getProfile();
+        savedProfile.setProfileImage(null);
+
+        return ResponseEntity.ok(savedProfile);
     }
 
     @DeleteMapping("/{userId}")

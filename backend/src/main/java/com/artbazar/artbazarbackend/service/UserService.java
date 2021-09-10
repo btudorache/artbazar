@@ -1,6 +1,7 @@
 package com.artbazar.artbazarbackend.service;
 
 import com.artbazar.artbazarbackend.entity.Image;
+import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 
