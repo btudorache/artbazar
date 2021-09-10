@@ -40,11 +40,11 @@ const UserDetail = ({ isLoggedUser, userDetail }) => {
         <div className={styles.mainUserDetailsInfo}>
           <div className={styles.mainUserDetailsInfoList}>
             <h2>Account Information</h2>
-            <p>Username: {userDetail.username}</p>
-            <p>Email: {userDetail.email}</p>
-            <p>User Type: {userDetail.usertype}</p>
-            <p>Join Date: {new Date(userDetail.createdAt).toDateString()}</p>
-            <p>Followers: </p>
+            <p><strong>Username:</strong> {userDetail.username}</p>
+            <p><strong>Email:</strong> {userDetail.email}</p>
+            <p><strong>User Type:</strong> {userDetail.usertype}</p>
+            <p><strong>Join Date:</strong> {new Date(userDetail.createdAt).toDateString()}</p>
+            <p><strong>Followers:</strong> </p>
           </div>
           <div className={styles.mainUserDetailsButtons}>
             {!isLoggedUser && (
@@ -73,8 +73,8 @@ const UserDetail = ({ isLoggedUser, userDetail }) => {
       <div className={styles.secondaryUserDetailsSection}>
         <h2>Personal Information</h2>
         {userDetail.description && <p>{userDetail.description}</p>}
-        <p>Name: {userDetail.name}</p>
-        <p>Location: {userDetail.location}</p>
+        <p><strong>Name:</strong> {userDetail.name}</p>
+        <p><strong>Location:</strong> {userDetail.location}</p>
       </div>
       {userIsArtist && WorksSection}
     </div>

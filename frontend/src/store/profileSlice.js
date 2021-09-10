@@ -38,6 +38,13 @@ const profileSlice = createSlice({
       state.userDetail = null
       state.status = "idle"
       state.error = null
+    },
+    editProfile(state, action) {
+      const profileData = action.payload
+      console.log(profileData)
+      state.userDetail.name = profileData.name
+      state.userDetail.location = profileData.location
+      state.userDetail.description = profileData.description
     }
   },
   extraReducers: (builder) => {
@@ -56,6 +63,24 @@ const profileSlice = createSlice({
   }
 })
 
-export const { addNewPost, resetProfile } = profileSlice.actions
+export const editProfileThunk = (formData) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token
+    const response = await fetch("http://localhost:8080/api/users/edit", {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+      body: formData,
+    })
+
+    if (response.ok) {
+      const profileData = await response.json()
+      dispatch(editProfile(profileData))
+    }
+  }
+}
+
+export const { addNewPost, resetProfile, editProfile } = profileSlice.actions
 
 export default profileSlice.reducer
