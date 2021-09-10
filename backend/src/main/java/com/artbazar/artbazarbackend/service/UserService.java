@@ -4,7 +4,9 @@ import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -23,5 +25,7 @@ public interface UserService {
 
     User saveUser(User newUser);
 
-    User updateUser(User updatedUser);
+    Profile editProfileWithoutImage(String username, String name, String location, String description);
+
+    Profile editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException;
 }

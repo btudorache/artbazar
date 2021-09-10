@@ -32,7 +32,7 @@ public class Profile {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
 

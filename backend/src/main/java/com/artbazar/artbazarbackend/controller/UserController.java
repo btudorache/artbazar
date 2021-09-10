@@ -79,31 +79,32 @@ public class UserController {
         }
     }
 
+    @PutMapping("/editimage")
+    public ResponseEntity<Object> editProfileWithImage(Authentication authentication,
+                                                       @RequestParam("name") String name,
+                                                       @RequestParam("location") String location,
+                                                       @RequestParam("description") String description,
+                                                       @RequestParam("image") MultipartFile image) {
+
+        try {
+            String username = authentication.getName();
+            Profile newProfile = userService.editProfileWithImage(username, name, location, description, image);
+            return ResponseEntity.ok(newProfile);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(String.format("Could not upload the file: %s!", image.getOriginalFilename()), HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+    }
+
     @PutMapping("/edit")
-    public ResponseEntity<Profile> editProfile(Authentication authentication,
-                                            @RequestParam("name") String name,
-                                            @RequestParam("location") String location,
-                                            @RequestParam("description") String description) {
+    public ResponseEntity<Profile> editProfileWithoutImage(Authentication authentication,
+                                                          @RequestParam("name") String name,
+                                                          @RequestParam("location") String location,
+                                                          @RequestParam("description") String description) {
 
         String username = authentication.getName();
-
-        User user = userService.getUserByName(username);
-        Profile profile = user.getProfile();
-
-        if (name != null && !name.trim().isEmpty()) {
-            profile.setName(name);
-        }
-        if (location != null && !location.trim().isEmpty()) {
-            profile.setLocation(location);
-        }
-        if (description != null && !description.trim().isEmpty()) {
-            profile.setDescription(description);
-        }
-
-        Profile savedProfile = userService.updateUser(user).getProfile();
-        savedProfile.setProfileImage(null);
-
-        return ResponseEntity.ok(savedProfile);
+        Profile newProfile = userService.editProfileWithoutImage(username, name, location, description);
+        return ResponseEntity.ok(newProfile);
     }
 
     @DeleteMapping("/{userId}")
