@@ -1,4 +1,4 @@
-package com.artbazar.artbazarbackend.entity.data;
+package com.artbazar.artbazarbackend.data;
 
 import lombok.Data;
 

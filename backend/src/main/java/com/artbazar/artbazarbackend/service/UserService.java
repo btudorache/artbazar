@@ -1,10 +1,10 @@
 package com.artbazar.artbazarbackend.service;
 
 import com.artbazar.artbazarbackend.entity.Image;
-import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.entity.data.UserData;
-import com.artbazar.artbazarbackend.entity.data.UserDetail;
+import com.artbazar.artbazarbackend.data.ProfileData;
+import com.artbazar.artbazarbackend.data.UserData;
+import com.artbazar.artbazarbackend.data.UserDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public interface UserService {
 
     User saveUser(User newUser);
 
-    Profile editProfileWithoutImage(String username, String name, String location, String description);
+    ProfileData editProfileWithoutImage(String username, String name, String location, String description);
 
-    Profile editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException;
+    ProfileData editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException;
 }

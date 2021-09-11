@@ -1,11 +1,10 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.Image;
-import com.artbazar.artbazarbackend.entity.data.PostData;
-import com.artbazar.artbazarbackend.entity.data.PostDetail;
+import com.artbazar.artbazarbackend.data.PostData;
+import com.artbazar.artbazarbackend.data.PostDetail;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

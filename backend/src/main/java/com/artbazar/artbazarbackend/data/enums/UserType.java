@@ -1,4 +1,4 @@
-package com.artbazar.artbazarbackend.entity.enums;
+package com.artbazar.artbazarbackend.data.enums;
 
 public enum UserType {
     ARTIST,

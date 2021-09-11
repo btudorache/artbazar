@@ -7,9 +7,10 @@ import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.entity.data.PostData;
-import com.artbazar.artbazarbackend.entity.data.UserData;
-import com.artbazar.artbazarbackend.entity.data.UserDetail;
+import com.artbazar.artbazarbackend.data.PostData;
+import com.artbazar.artbazarbackend.data.ProfileData;
+import com.artbazar.artbazarbackend.data.UserData;
+import com.artbazar.artbazarbackend.data.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -125,7 +126,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Profile editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException {
+    public ProfileData editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException {
         User user = userRepository.findByUsername(username);
         Profile profile = user.getProfile();
         validateStringFields(profile, name, location, description);
@@ -136,16 +137,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             profile.setProfileImage(newImage);
         }
 
-        return userRepository.save(user).getProfile();
+        return mapToProfileData(userRepository.save(user).getProfile());
     }
 
     @Override
-    public Profile editProfileWithoutImage(String username, String name, String location, String description) {
+    public ProfileData editProfileWithoutImage(String username, String name, String location, String description) {
         User user = userRepository.findByUsername(username);
         Profile profile = user.getProfile();
         validateStringFields(profile, name, location, description);
 
-        return userRepository.save(user).getProfile();
+        return mapToProfileData(userRepository.save(user).getProfile());
     }
 
     private void validateStringFields(Profile profile, String name, String location, String description) {
@@ -162,6 +163,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public UserData mapToUserData(User user) {
         return new UserData(user.getUsername(), user.getEmail(), user.getType(), user.getCreatedAt());
+    }
+
+    public ProfileData mapToProfileData(Profile profile) {
+        return new ProfileData(profile.getName(), profile.getLocation(), profile.getDescription());
     }
 
     public UserDetail mapUserToUserDetail(User user, List<Post> posts) {

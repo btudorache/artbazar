@@ -1,11 +1,11 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.entity.Image;
-import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.entity.data.UserData;
-import com.artbazar.artbazarbackend.entity.enums.UserType;
-import com.artbazar.artbazarbackend.entity.data.UserDetail;
+import com.artbazar.artbazarbackend.data.ProfileData;
+import com.artbazar.artbazarbackend.data.UserData;
+import com.artbazar.artbazarbackend.data.enums.UserType;
+import com.artbazar.artbazarbackend.data.UserDetail;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -89,7 +89,7 @@ public class UserController {
 
         try {
             String username = authentication.getName();
-            Profile newProfile = userService.editProfileWithImage(username, name, location, description, image);
+            ProfileData newProfile = userService.editProfileWithImage(username, name, location, description, image);
             return ResponseEntity.ok(newProfile);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -98,13 +98,13 @@ public class UserController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Profile> editProfileWithoutImage(Authentication authentication,
+    public ResponseEntity<ProfileData> editProfileWithoutImage(Authentication authentication,
                                                           @RequestParam("name") String name,
                                                           @RequestParam("location") String location,
                                                           @RequestParam("description") String description) {
 
         String username = authentication.getName();
-        Profile newProfile = userService.editProfileWithoutImage(username, name, location, description);
+        ProfileData newProfile = userService.editProfileWithoutImage(username, name, location, description);
         return ResponseEntity.ok(newProfile);
     }
 
