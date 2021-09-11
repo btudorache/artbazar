@@ -3,6 +3,7 @@ package com.artbazar.artbazarbackend.controller;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.data.UserData;
 import com.artbazar.artbazarbackend.entity.enums.UserType;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import com.artbazar.artbazarbackend.service.UserService;
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<User> getAllUsers() {
+    public List<UserData> getAllUsers() {
         return userService.getAllUsers();
     }
 

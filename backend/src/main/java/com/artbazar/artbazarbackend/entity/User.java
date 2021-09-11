@@ -40,7 +40,7 @@ public class User {
     @Column(name="email", unique = true)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private Profile profile;
 

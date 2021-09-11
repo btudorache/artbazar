@@ -3,6 +3,7 @@ package com.artbazar.artbazarbackend.service;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
+import com.artbazar.artbazarbackend.entity.data.UserData;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<UserData> getAllUsers();
 
     void deleteUser(Long id);
 

@@ -8,6 +8,7 @@ import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.data.PostData;
+import com.artbazar.artbazarbackend.entity.data.UserData;
 import com.artbazar.artbazarbackend.entity.data.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -58,8 +59,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserData> getAllUsers() {
+        return userRepository.findAll().stream().map(this::mapToUserData).collect(Collectors.toList());
     }
 
     @Override
@@ -157,6 +158,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (description != null && !description.trim().isEmpty()) {
             profile.setDescription(description);
         }
+    }
+
+    public UserData mapToUserData(User user) {
+        return new UserData(user.getUsername(), user.getEmail(), user.getType(), user.getCreatedAt());
     }
 
     public UserDetail mapUserToUserDetail(User user, List<Post> posts) {
