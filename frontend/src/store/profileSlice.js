@@ -68,12 +68,7 @@ const profileSlice = createSlice({
 export const editProfileThunk = (formData) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    const url =
-      formData.get("image") === null
-        ? "http://localhost:8080/api/users/edit"
-        : "http://localhost:8080/api/users/editimage";
-
-    const response = await fetch(url, {
+    const response = await fetch("http://localhost:8080/api/users/edit", {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

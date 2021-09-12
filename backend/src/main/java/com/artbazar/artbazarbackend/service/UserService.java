@@ -26,7 +26,5 @@ public interface UserService {
 
     User saveUser(User newUser);
 
-    ProfileData editProfileWithoutImage(String username, String name, String location, String description);
-
-    ProfileData editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException;
+    ProfileData editProfile(String username, String name, String location, String description, MultipartFile image) throws IOException;
 }

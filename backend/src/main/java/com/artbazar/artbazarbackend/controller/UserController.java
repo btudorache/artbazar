@@ -80,32 +80,21 @@ public class UserController {
         }
     }
 
-    @PutMapping("/editimage")
-    public ResponseEntity<Object> editProfileWithImage(Authentication authentication,
+    @PutMapping("/edit")
+    public ResponseEntity<Object> editProfile(Authentication authentication,
                                                        @RequestParam("name") String name,
                                                        @RequestParam("location") String location,
                                                        @RequestParam("description") String description,
-                                                       @RequestParam("image") MultipartFile image) {
+                                                       @RequestParam(name = "image", required = false) MultipartFile image) {
 
         try {
             String username = authentication.getName();
-            ProfileData newProfile = userService.editProfileWithImage(username, name, location, description, image);
+            ProfileData newProfile = userService.editProfile(username, name, location, description, image);
             return ResponseEntity.ok(newProfile);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(String.format("Could not upload the file: %s!", image.getOriginalFilename()), HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
-    }
-
-    @PutMapping("/edit")
-    public ResponseEntity<ProfileData> editProfileWithoutImage(Authentication authentication,
-                                                          @RequestParam("name") String name,
-                                                          @RequestParam("location") String location,
-                                                          @RequestParam("description") String description) {
-
-        String username = authentication.getName();
-        ProfileData newProfile = userService.editProfileWithoutImage(username, name, location, description);
-        return ResponseEntity.ok(newProfile);
     }
 
     @DeleteMapping("/{userId}")

@@ -126,30 +126,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public ProfileData editProfileWithImage(String username, String name, String location, String description, MultipartFile image) throws IOException {
+    public ProfileData editProfile(String username, String name, String location, String description, MultipartFile image) throws IOException {
         User user = userRepository.findByUsername(username);
         Profile profile = user.getProfile();
-        validateStringFields(profile, name, location, description);
-
-        if (image != null && !image.isEmpty()) {
-            imageRepository.delete(profile.getProfileImage());
-            Image newImage = new Image(image.getBytes(), StringUtils.cleanPath(image.getOriginalFilename()), image.getContentType());
-            profile.setProfileImage(newImage);
-        }
-
-        return mapToProfileData(userRepository.save(user).getProfile());
-    }
-
-    @Override
-    public ProfileData editProfileWithoutImage(String username, String name, String location, String description) {
-        User user = userRepository.findByUsername(username);
-        Profile profile = user.getProfile();
-        validateStringFields(profile, name, location, description);
-
-        return mapToProfileData(userRepository.save(user).getProfile());
-    }
-
-    private void validateStringFields(Profile profile, String name, String location, String description) {
         if (name != null && !name.trim().isEmpty()) {
             profile.setName(name);
         }
@@ -159,6 +138,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (description != null && !description.trim().isEmpty()) {
             profile.setDescription(description);
         }
+
+        if (image != null && !image.isEmpty()) {
+            imageRepository.delete(profile.getProfileImage());
+            Image newImage = new Image(image.getBytes(), StringUtils.cleanPath(image.getOriginalFilename()), image.getContentType());
+            profile.setProfileImage(newImage);
+        }
+
+        return mapToProfileData(userRepository.save(user).getProfile());
     }
 
     public UserData mapToUserData(User user) {
