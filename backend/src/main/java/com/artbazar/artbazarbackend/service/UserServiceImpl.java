@@ -40,12 +40,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final ImageRepository imageRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final FollowerService followerService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, ImageRepository imageRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, ImageRepository imageRepository, PasswordEncoder passwordEncoder, FollowerService followerService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.imageRepository = imageRepository;
         this.passwordEncoder = passwordEncoder;
+        this.followerService = followerService;
     }
 
     @Override
@@ -80,14 +83,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetail getUserDetailByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+    public UserDetail getUserDetailByUsername(String requesterUsername, String targetUsername) {
+        User user = userRepository.findByUsername(targetUsername);
         if (user == null) {
             return null;
         }
 
         List<Post> posts = postRepository.findByUser(user, Sort.by("createdAt").descending());
-        return mapUserToUserDetail(user, posts);
+        boolean followExists = followerService.followExists(requesterUsername, targetUsername);
+        return mapUserToUserDetail(user, posts, followExists);
     }
 
     @Override
@@ -156,7 +160,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new ProfileData(profile.getName(), profile.getLocation(), profile.getDescription());
     }
 
-    public UserDetail mapUserToUserDetail(User user, List<Post> posts) {
+    public UserDetail mapUserToUserDetail(User user, List<Post> posts, boolean followExists) {
         Profile userProfile = user.getProfile();
         List<PostData> mappedPosts = posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
 
@@ -169,6 +173,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 userProfile.getLocation(),
                 userProfile.getDescription(),
                 userProfile.getImageUrl(),
-                mappedPosts);
+                mappedPosts,
+                followExists);
     }
 }

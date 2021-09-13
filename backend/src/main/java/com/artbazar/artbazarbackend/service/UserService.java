@@ -20,7 +20,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    UserDetail getUserDetailByUsername(String username);
+    UserDetail getUserDetailByUsername(String requesterUsername, String targetUsername);
 
     Image getUserProfileImage(Long id);
 

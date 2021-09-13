@@ -15,4 +15,5 @@ public class UserDetail {
     private final String description;
     private final String profileImageUrl;
     private final List<PostData> posts;
+    private final boolean followExists;
 }

@@ -34,9 +34,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<Object> getUserDetail(@PathVariable String username) {
-        UserDetail userDetail = userService.getUserDetailByUsername(username);
+    @GetMapping("/{targetUsername}")
+    public ResponseEntity<Object> getUserDetail(Authentication authentication, @PathVariable String targetUsername) {
+        String requesterUsername = authentication.getName();
+        UserDetail userDetail = userService.getUserDetailByUsername(requesterUsername, targetUsername);
 
         if (userDetail == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
