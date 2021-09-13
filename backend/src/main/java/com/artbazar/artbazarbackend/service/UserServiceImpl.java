@@ -91,7 +91,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         List<Post> posts = postRepository.findByUser(user, Sort.by("createdAt").descending());
         boolean followExists = followerService.followExists(requesterUsername, targetUsername);
-        return mapUserToUserDetail(user, posts, followExists);
+        long followers = followerService.countFollowingUser(targetUsername);
+        return mapUserToUserDetail(user, posts, followExists, followers);
     }
 
     @Override
@@ -160,7 +161,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new ProfileData(profile.getName(), profile.getLocation(), profile.getDescription());
     }
 
-    public UserDetail mapUserToUserDetail(User user, List<Post> posts, boolean followExists) {
+    public UserDetail mapUserToUserDetail(User user, List<Post> posts, boolean followExists, long followingUsersCount) {
         Profile userProfile = user.getProfile();
         List<PostData> mappedPosts = posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
 
@@ -174,6 +175,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 userProfile.getDescription(),
                 userProfile.getImageUrl(),
                 mappedPosts,
-                followExists);
+                followExists,
+                followingUsersCount);
     }
 }

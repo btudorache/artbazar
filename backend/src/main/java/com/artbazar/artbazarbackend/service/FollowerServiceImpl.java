@@ -59,4 +59,10 @@ public class FollowerServiceImpl implements FollowerService {
         followerRepository.delete(follower);
         return true;
     }
+
+    @Override
+    public long countFollowingUser(String followedUserUsername) {
+        User followingUser = userRepository.findByUsername(followedUserUsername);
+        return followerRepository.countByFollowedUser(followingUser);
+    }
 }

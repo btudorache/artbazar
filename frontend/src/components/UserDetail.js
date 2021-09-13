@@ -9,7 +9,7 @@ import Post from "./Post";
 
 const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
   const history = useHistory();
-  const token = useSelector(state => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
 
   const userIsArtist = userDetail.usertype === "ARTIST";
 
@@ -42,6 +42,9 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
           return {
             ...prevUserDetail,
             followExists: !prevUserDetail.followExists,
+            followers: prevUserDetail.followExists
+              ? prevUserDetail.followers - 1
+              : prevUserDetail.followers + 1,
           };
         });
       } else {
@@ -52,7 +55,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
     try {
       await fetchProfile();
     } catch (error) {
-      return
+      return;
     }
   };
 
@@ -91,11 +94,10 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
               <strong>User Type:</strong> {userDetail.usertype}
             </p>
             <p>
-              <strong>Join Date:</strong>{" "}
-              {new Date(userDetail.createdAt).toDateString()}
+              <strong>Posts: {userDetail.posts.length}</strong>
             </p>
             <p>
-              <strong>Followers:</strong>{" "}
+              <strong>Followers: {userDetail.followers}</strong>{" "}
             </p>
           </div>
           <div className={styles.mainUserDetailsButtons}>
@@ -103,7 +105,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
               <Fragment>
                 <Button
                   clickHandler={followUserButtonHandler}
-                  text={userDetail.followExists ? "Followed" : "Follow"}
+                  text={userDetail.followExists ? "Unfollow" : "Follow"}
                   additionalStyles={followButonStyles}
                 />
                 <Button

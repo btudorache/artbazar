@@ -6,4 +6,6 @@ public interface FollowerService {
     boolean followUser(String followingUserUsername, String followedUserUsername);
 
     boolean unfollowUser(String followingUserUsername, String followedUserUsername);
+
+    long countFollowingUser(String followedUserUsername);
 }
