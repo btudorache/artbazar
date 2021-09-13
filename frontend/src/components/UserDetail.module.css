@@ -50,6 +50,24 @@ h2 {
   margin-right: 1rem;
 }
 
+.followExistsButton {
+  background: red;
+}
+
+.followExistsButton:hover,
+.followExistsButton:active {
+  background: rgb(185, 0, 0);
+}
+
+.notFollowExistsButton {
+  background: green;
+}
+
+.notFollowExistsButton:hover,
+.notFollowExistsButton:active {
+  background: rgb(0, 109, 0);
+}
+
 .sectionDelimiter {
   margin: 1rem 0;
   width: 100%;

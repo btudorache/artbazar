@@ -1,19 +1,60 @@
 import { Fragment } from "react";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 import styles from "./UserDetail.module.css";
 
 import Button from "./Button";
 import Post from "./Post";
 
-const UserDetail = ({ isLoggedUser, userDetail }) => {
-  const history = useHistory()
+const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
+  const history = useHistory();
+  const token = useSelector(state => state.auth.token)
 
   const userIsArtist = userDetail.usertype === "ARTIST";
 
   const editProfileButtonHandler = () => {
-    history.push("/profile/edit")
+    history.push("/profile/edit");
+  };
+
+  var followButonStyles = [styles.profileButton];
+  if (userDetail.followExists) {
+    followButonStyles.push(styles.followExistsButton);
+  } else {
+    followButonStyles.push(styles.notFollowExistsButton);
   }
+
+  const followUserButtonHandler = async () => {
+    const fetchProfile = async () => {
+      const url = userDetail.followExists
+        ? `http://localhost:8080/api/followers/unfollow/${userDetail.username}`
+        : `http://localhost:8080/api/followers/follow/${userDetail.username}`;
+      const response = await fetch(url, {
+        method: userDetail.followExists ? "DELETE" : "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUserDetail((prevUserDetail) => {
+          return {
+            ...prevUserDetail,
+            followExists: !prevUserDetail.followExists,
+          };
+        });
+      } else {
+        throw new Error(data.message);
+      }
+    };
+
+    try {
+      await fetchProfile();
+    } catch (error) {
+      return
+    }
+  };
 
   const WorksSection = (
     <Fragment>
@@ -40,18 +81,30 @@ const UserDetail = ({ isLoggedUser, userDetail }) => {
         <div className={styles.mainUserDetailsInfo}>
           <div className={styles.mainUserDetailsInfoList}>
             <h2>Account Information</h2>
-            <p><strong>Username:</strong> {userDetail.username}</p>
-            <p><strong>Email:</strong> {userDetail.email}</p>
-            <p><strong>User Type:</strong> {userDetail.usertype}</p>
-            <p><strong>Join Date:</strong> {new Date(userDetail.createdAt).toDateString()}</p>
-            <p><strong>Followers:</strong> </p>
+            <p>
+              <strong>Username:</strong> {userDetail.username}
+            </p>
+            <p>
+              <strong>Email:</strong> {userDetail.email}
+            </p>
+            <p>
+              <strong>User Type:</strong> {userDetail.usertype}
+            </p>
+            <p>
+              <strong>Join Date:</strong>{" "}
+              {new Date(userDetail.createdAt).toDateString()}
+            </p>
+            <p>
+              <strong>Followers:</strong>{" "}
+            </p>
           </div>
           <div className={styles.mainUserDetailsButtons}>
             {!isLoggedUser && (
               <Fragment>
                 <Button
-                  text="Follow"
-                  additionalStyles={[styles.profileButton]}
+                  clickHandler={followUserButtonHandler}
+                  text={userDetail.followExists ? "Followed" : "Follow"}
+                  additionalStyles={followButonStyles}
                 />
                 <Button
                   text="Commission"
@@ -73,8 +126,12 @@ const UserDetail = ({ isLoggedUser, userDetail }) => {
       <div className={styles.secondaryUserDetailsSection}>
         <h2>Personal Information</h2>
         {userDetail.description && <p>{userDetail.description}</p>}
-        <p><strong>Name:</strong> {userDetail.name}</p>
-        <p><strong>Location:</strong> {userDetail.location}</p>
+        <p>
+          <strong>Name:</strong> {userDetail.name}
+        </p>
+        <p>
+          <strong>Location:</strong> {userDetail.location}
+        </p>
       </div>
       {userIsArtist && WorksSection}
     </div>

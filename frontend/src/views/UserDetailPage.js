@@ -8,48 +8,58 @@ import styles from "./UserDetailPage.module.css";
 import UserDetail from "../components/UserDetail";
 
 const UserDetailPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { urlUsername } = useParams();
-  const token = useSelector(state => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
 
-  const [userDetail, setUserDetail] = useState(null)
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [userDetail, setUserDetail] = useState(null);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const response = await fetch(`http://localhost:8080/api/users/${urlUsername}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      
+      const response = await fetch(
+        `http://localhost:8080/api/users/${urlUsername}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       const data = await response.json();
       if (response.ok) {
-        setUserDetail(data)
+        console.log(data);
+        setUserDetail(data);
       } else {
-        throw new Error(data.message)
+        throw new Error(data.message);
       }
-    }
+    };
 
     const tryFetching = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        await fetchProfile()
+        await fetchProfile();
       } catch (error) {
-        setError(error.message)
+        setError(error.message);
       }
-      setIsLoading(false)
-    }
+      setIsLoading(false);
+    };
 
-    tryFetching()
-  }, [dispatch, token, setUserDetail, setIsLoading, setError])
+    tryFetching();
+  }, [dispatch, token, urlUsername, setUserDetail, setIsLoading, setError]);
 
   return (
     <div className={styles.mainLayout}>
       {isLoading && <p>Loading...</p>}
       {error && <p className="errorText">{error}</p>}
-      {userDetail && <UserDetail isLoggedUser={false} userDetail={userDetail} />}
+      {userDetail && (
+        <UserDetail
+          isLoggedUser={false}
+          userDetail={userDetail}
+          setUserDetail={setUserDetail}
+        />
+      )}
     </div>
   );
 };
