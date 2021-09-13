@@ -28,8 +28,9 @@ public class PostController {
     }
 
     @GetMapping("")
-    public List<PostData> getAllPosts() {
-        return postService.getAll();
+    public List<PostData> getAllPosts(Authentication authentication) {
+        String loggedUserUsername = authentication.getName();
+        return postService.getDashboardPosts(loggedUserUsername);
     }
 
     @GetMapping("/{id}")

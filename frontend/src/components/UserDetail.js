@@ -1,13 +1,16 @@
 import { Fragment } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import styles from "./UserDetail.module.css";
 
+import { resetPosts } from "../store/postsSlice";
 import Button from "./Button";
 import Post from "./Post";
 
 const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
+  const dispatch = useDispatch()
   const history = useHistory();
   const token = useSelector((state) => state.auth.token);
 
@@ -47,6 +50,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
               : prevUserDetail.followers + 1,
           };
         });
+        dispatch(resetPosts())
       } else {
         throw new Error(data.message);
       }

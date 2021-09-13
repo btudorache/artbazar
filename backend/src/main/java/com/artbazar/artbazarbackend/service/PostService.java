@@ -11,6 +11,8 @@ import java.util.List;
 public interface PostService {
     List<PostData> getAll();
 
+    List<PostData> getDashboardPosts(String loggedUserUsername);
+
     PostDetail getPostDetailById(Long id);
 
     Image getPostImage(Long id);

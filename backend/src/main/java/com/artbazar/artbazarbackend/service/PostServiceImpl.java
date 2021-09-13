@@ -44,6 +44,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostData> getDashboardPosts(String loggedUserUsername) {
+        User loggedUser = userRepository.findByUsername(loggedUserUsername);
+        List<Post> posts = postRepository.getDashboardPosts(loggedUser);
+        return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+    }
+
+    @Override
     public PostDetail getPostDetailById(Long id) {
         return mapToPostDetail(postRepository.getById(id));
     }
