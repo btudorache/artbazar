@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPosts } from '../../store/postsSlice'
+import { fetchPosts } from '../../store/dashboardSlice'
 
 import styles from './Dashboard.module.css'
 
 import Post from '../Post'
 
 const Dashboard = () => {
-  const {posts, status, error} = useSelector(state => state.posts)
+  const {posts, status, error} = useSelector(state => state.dashboard)
   const dispatch = useDispatch()
 
   useEffect(() => {

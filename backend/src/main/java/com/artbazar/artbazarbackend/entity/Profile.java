@@ -33,7 +33,7 @@ public class Profile {
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_image_id")
+    @JoinColumn(name = "image_id")
     private Image profileImage;
 
     @Column(name = "image_url")

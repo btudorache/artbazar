@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import styles from "./UserDetail.module.css";
 
-import { resetPosts } from "../store/postsSlice";
+import { resetPosts } from "../store/dashboardSlice";
 import Button from "./Button";
 import Post from "./Post";
 

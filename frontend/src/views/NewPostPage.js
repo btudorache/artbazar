@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 
 import styles from "./NewPostPage.module.css";
 import { useFormInput } from "../hooks/useFormInput";
-import { addPostAsync } from "../store/postsSlice";
+import { addPostAsync } from "../store/dashboardSlice";
 import Card from "../components/layout/Card";
 import Button from "../components/Button";
 

@@ -15,7 +15,7 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "post_image_id")
+    @Column(name = "id")
     private Long id;
 
     @Lob

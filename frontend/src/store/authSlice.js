@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import jwtParser from '../utils/jwtUtils'
-import { resetPosts } from "./postsSlice";
+import { resetPosts } from "./dashboardSlice";
 
 const localStorage = window.localStorage
 

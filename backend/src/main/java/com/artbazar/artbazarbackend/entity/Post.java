@@ -19,7 +19,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "post_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "title")
@@ -44,7 +44,7 @@ public class Post {
     private List<Comment> comments;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name="post_image_id")
+    @JoinColumn(name="image_id")
     private Image image;
 
     @Column(name = "image_url")

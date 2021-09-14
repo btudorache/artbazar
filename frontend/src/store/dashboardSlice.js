@@ -27,13 +27,10 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
-const postsSlice = createSlice({
+const dashboardSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
-    addPost(state, action) {
-      state.posts.unshift(action.payload);
-    },
     resetPosts(state) {
       state.posts = []
       state.status = 'idle'
@@ -70,11 +67,10 @@ export const addPostAsync = (formData) => {
     if (response.ok) {
       const postDetail = await response.json()
       dispatch(addNewPost(postDetail))
-      dispatch(addPost(postDetail))
     }
   }
 }
 
-export const { addPost, resetPosts } = postsSlice.actions;
+export const { resetPosts } = dashboardSlice.actions;
 
-export default postsSlice.reducer;
+export default dashboardSlice.reducer;
