@@ -8,7 +8,7 @@ import styles from "./UserDetail.module.css";
 import { resetDashboardPosts } from "../store/dashboardSlice";
 import { resetExplorePosts } from "../store/exploreSlice";
 import Button from "./Button";
-import Post from "./Post";
+import PostList from "./PostList";
 
 const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
   const dispatch = useDispatch()
@@ -70,13 +70,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
       <div className={styles.sectionDelimiter} />
       <div className={styles.userPostsSection}>
         <h2>Works</h2>
-        <ul className={styles.userPostsGrid}>
-          {userDetail.posts.map((postData) => (
-            <li key={postData.id}>
-              <Post postData={postData} />
-            </li>
-          ))}
-        </ul>
+        <PostList posts={userDetail.posts} />
       </div>
     </Fragment>
   );
