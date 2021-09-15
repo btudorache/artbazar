@@ -13,6 +13,8 @@ public interface PostService {
 
     List<PostData> getDashboardPosts(String loggedUserUsername);
 
+    List<PostData> getExplorePosts(String loggedUserUsername);
+
     PostDetail getPostDetailById(Long id);
 
     Image getPostImage(Long id);

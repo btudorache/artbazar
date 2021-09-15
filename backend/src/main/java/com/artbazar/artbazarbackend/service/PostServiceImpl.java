@@ -51,6 +51,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostData> getExplorePosts(String loggedUserUsername) {
+        User loggedUser = userRepository.findByUsername(loggedUserUsername);
+        List<Post> posts = postRepository.getExplorePosts(loggedUser);
+        return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+    }
+
+    @Override
     public PostDetail getPostDetailById(Long id) {
         return mapToPostDetail(postRepository.getById(id));
     }

@@ -16,4 +16,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                                           "WHERE following_user_id = ?1) " +
                    "ORDER BY created_at DESC", nativeQuery = true)
     List<Post> getDashboardPosts(User loggedUser);
+
+    @Query(value = "SELECT * FROM post " +
+                   "WHERE post.user_id NOT IN (SELECT followed_user_id FROM follower " +
+                                              "WHERE following_user_id = ?1) " +
+                   "AND post.user_id != ?1 " +
+                   "ORDER BY created_at DESC", nativeQuery = true)
+    List<Post> getExplorePosts(User loggedUser);
 }

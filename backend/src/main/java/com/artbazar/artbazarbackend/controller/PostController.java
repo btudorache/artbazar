@@ -27,10 +27,16 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("")
-    public List<PostData> getAllPosts(Authentication authentication) {
+    @GetMapping("/dashboard")
+    public List<PostData> getDashboardPosts(Authentication authentication) {
         String loggedUserUsername = authentication.getName();
         return postService.getDashboardPosts(loggedUserUsername);
+    }
+
+    @GetMapping("/explore")
+    public List<PostData> getExplorePosts(Authentication authentication) {
+        String loggedUserUsername = authentication.getName();
+        return postService.getExplorePosts(loggedUserUsername);
     }
 
     @GetMapping("/{id}")
