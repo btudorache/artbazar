@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 
 import styles from "./UserDetail.module.css";
 
-import { resetPosts } from "../store/dashboardSlice";
+import { resetDashboardPosts } from "../store/dashboardSlice";
+import { resetExplorePosts } from "../store/exploreSlice";
 import Button from "./Button";
 import Post from "./Post";
 
@@ -50,7 +51,8 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
               : prevUserDetail.followers + 1,
           };
         });
-        dispatch(resetPosts())
+        dispatch(resetDashboardPosts())
+        dispatch(resetExplorePosts())
       } else {
         throw new Error(data.message);
       }

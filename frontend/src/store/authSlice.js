@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import jwtParser from '../utils/jwtUtils'
-import { resetPosts } from "./dashboardSlice";
+import { resetDashboardPosts } from "./dashboardSlice";
+import { resetExplorePosts } from "./exploreSlice";
+import { resetProfile } from "./profileSlice";
 
 const localStorage = window.localStorage
 
@@ -107,7 +109,9 @@ const authSlice = createSlice({
 export const logoutThunk = () => {
   return (dispatch) => {
     localStorage.removeItem('token')
-    dispatch(resetPosts())
+    dispatch(resetDashboardPosts())
+    dispatch(resetExplorePosts())
+    dispatch(resetProfile())
     dispatch(logoutUser())
   }
 }

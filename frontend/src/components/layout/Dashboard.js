@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPosts } from '../../store/dashboardSlice'
+import { fetchDashboardPosts } from '../../store/dashboardSlice'
 
 import styles from './Dashboard.module.css'
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchPosts())
+      dispatch(fetchDashboardPosts())
     }
   }, [dispatch, status])
 

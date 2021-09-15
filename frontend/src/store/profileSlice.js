@@ -8,8 +8,11 @@ const initialState = {
 
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
-  async (username, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
+  async (args, thunkAPI) => {
+    const auth = thunkAPI.getState().auth;
+    const token = auth.token
+    const username = auth.username
+    
     const response = await fetch(
       `http://localhost:8080/api/users/${username}`,
       {

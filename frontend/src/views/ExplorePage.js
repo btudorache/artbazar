@@ -1,13 +1,33 @@
+import { useState } from "react";
+
 import styles from "./ExplorePage.module.css";
 
+import ExplorePosts from "../components/layout/ExplorePosts";
+
 const ExplorePage = () => {
+  const [showByPosts, setShowByPosts] = useState(true)
+
+  const postsOptionHandler = () => {
+    setShowByPosts(true)
+  }
+
+  const usersOptionHandler = () => {
+    setShowByPosts(false)
+  }
+
+  const postsTextClass = showByPosts ? styles.selectedOptionText : styles.unselectedOptionText
+  const usersTextClass = !showByPosts ? styles.selectedOptionText : styles.unselectedOptionText
+
   return (
     <div className={styles.explorePageLayout}>
-      <p>Find new posts and artists you like!</p>
-      <div>
-        <p>Butoane pentru schimbat tipul de explorare (postari sau useri)</p>
+      <p>Explore and find new art. Search by either posts or users</p>
+      <div className={styles.exploreOptions}>
+        <h1 onClick={postsOptionHandler} className={postsTextClass}>Art</h1>
+        {/* <div className={styles.optionsDelimiter} /> */}
+        <h1 onClick={usersOptionHandler} className={usersTextClass}>Users</h1>
       </div>
-      
+      {showByPosts && <ExplorePosts />}
+      {!showByPosts && <p>Here are users</p>}
     </div>
   );
 };

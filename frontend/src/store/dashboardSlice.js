@@ -8,11 +8,11 @@ const initialState = {
   error: null,
 };
 
-export const fetchPosts = createAsyncThunk(
-  "posts/fetchPosts",
+export const fetchDashboardPosts = createAsyncThunk(
+  "dashboard/fetchDashboardPosts",
   async (arg, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
-    const response = await fetch("http://localhost:8080/api/posts", {
+    const response = await fetch("http://localhost:8080/api/posts/dashboard", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,10 +28,10 @@ export const fetchPosts = createAsyncThunk(
 );
 
 const dashboardSlice = createSlice({
-  name: "posts",
+  name: "dashboard",
   initialState: initialState,
   reducers: {
-    resetPosts(state) {
+    resetDashboardPosts(state) {
       state.posts = []
       state.status = 'idle'
       state.error = null
@@ -39,15 +39,15 @@ const dashboardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.fulfilled, (state, action) => {
+      .addCase(fetchDashboardPosts.fulfilled, (state, action) => {
         state.posts = action.payload;
         state.status = "succeeded";
       })
-      .addCase(fetchPosts.rejected, (state, action) => {
+      .addCase(fetchDashboardPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(fetchPosts.pending, (state) => {
+      .addCase(fetchDashboardPosts.pending, (state) => {
         state.status = "loading";
       });
   },
@@ -71,6 +71,6 @@ export const addPostAsync = (formData) => {
   }
 }
 
-export const { resetPosts } = dashboardSlice.actions;
+export const { resetDashboardPosts: resetDashboardPosts } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

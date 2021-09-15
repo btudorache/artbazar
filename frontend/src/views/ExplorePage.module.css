@@ -3,3 +3,36 @@
   width: 74%;
   margin: auto;
 }
+
+.exploreOptions {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem auto;
+  height: 3rem;
+}
+
+.selectedOptionText {
+  margin: 0;
+  padding: 0.5rem 0;
+  font-weight: bolder;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.unselectedOptionText {
+  margin: 0;
+  padding: 0.5rem 0;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.unselectedOptionText:active,
+.unselectedOptionText:hover {
+  font-weight: bolder;
+  border-bottom: 1px solid black;
+}
+
+.optionsDelimiter {
+  border-left: solid black 3px;
+}

@@ -10,14 +10,13 @@ import UserDetail from "../components/UserDetail";
 const UserProfilePage = () => {
   const dispatch = useDispatch()
 
-  const username = useSelector(state => state.auth.username);
   const { userDetail, status, error} = useSelector(state => state.profile)
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchProfile(username))
+      dispatch(fetchProfile())
     }
-  }, [status, dispatch, username])
+  }, [status, dispatch])
 
   return (
     <div className={styles.mainLayout}>
