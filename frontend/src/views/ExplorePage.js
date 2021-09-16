@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./ExplorePage.module.css";
 
 import ExplorePosts from "../components/layout/ExplorePosts";
+import ExploreUsers from "../components/layout/ExploreUsers";
 
 const ExplorePage = () => {
   const [showByPosts, setShowByPosts] = useState(true)
@@ -20,14 +21,14 @@ const ExplorePage = () => {
 
   return (
     <div className={styles.explorePageLayout}>
-      <p>Explore and find new art. Search by either posts or users</p>
       <div className={styles.exploreOptions}>
         <h1 onClick={postsOptionHandler} className={postsTextClass}>Art</h1>
         {/* <div className={styles.optionsDelimiter} /> */}
         <h1 onClick={usersOptionHandler} className={usersTextClass}>Users</h1>
       </div>
+      <div className={styles.sectionDelimiter} />
       {showByPosts && <ExplorePosts />}
-      {!showByPosts && <p>Here are users</p>}
+      {!showByPosts && <ExploreUsers />}
     </div>
   );
 };

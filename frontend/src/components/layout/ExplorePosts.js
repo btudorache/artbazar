@@ -7,22 +7,23 @@ import PostList from '../PostList'
 import { fetchExplorePosts } from '../../store/exploreSlice'
 
 const ExplorePosts = () => {
-  const {posts, status, error} = useSelector(state => state.explore)
+  const {posts, postsStatus, postsError} = useSelector(state => state.explore)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (status === "idle") {
+    if (postsStatus === "idle") {
       dispatch(fetchExplorePosts())
     }
-  }, [dispatch, status])
+  }, [dispatch, postsStatus])
 
   return <Fragment>
     <div className={styles.filterPosts}>
       <p>Filter posts bar</p>
     </div>
-    {status === "succeeded" && <PostList posts={posts} />}
-    {status === "loading" && <p>Loading...</p>}
-    {status === 'failed' && <p className="errorText">{error}</p>}
+    {postsStatus === "succeeded" && <PostList posts={posts} />}
+    {postsStatus === "succeeded" && posts.length === 0 && <p>No posts found.</p>}
+    {postsStatus === "loading" && <p>Loading...</p>}
+    {postsStatus === 'failed' && <p className="errorText">{postsError}</p>}
   </Fragment>
 }
 

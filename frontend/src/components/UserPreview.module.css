@@ -1,0 +1,18 @@
+.userPreviewLayout {
+  display: flex;
+  align-items: center;
+  margin: 1rem auto;
+  width: 80%;
+}
+
+.userPreviewImage {
+  height: 8rem;
+  width: 8rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+  margin-right: 1rem;
+}
+
+.userPreviewInfo {
+  
+}

@@ -36,3 +36,9 @@
 .optionsDelimiter {
   border-left: solid black 3px;
 }
+
+.sectionDelimiter {
+  margin: 1rem auto;
+  width: 100%;
+  border-bottom: 2px solid #949494;
+}
