@@ -60,8 +60,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserData> getAllUsers() {
+    public List<UserData> getAllUserData() {
         return userRepository.findAll().stream().map(this::mapToUserData).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserPreview> searchUser(String username) {
+        if (username.strip().length() <= 1) {
+            return userRepository.findAll().stream().map(this::mapToUserPreview).collect(Collectors.toList());
+        } else {
+            String queryString = String.format("%%%s%%", username);
+            return userRepository.findByUsernameLike(queryString).stream().map(this::mapToUserPreview).collect(Collectors.toList());
+        }
     }
 
     @Override
@@ -156,6 +166,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public UserData mapToUserData(User user) {
         return new UserData(user.getUsername(), user.getEmail(), user.getType(), user.getCreatedAt());
+    }
+
+    public UserPreview mapToUserPreview(User user) {
+        Profile userProfile = user.getProfile();
+        return new UserPreview(user.getId(), user.getUsername(), user.getType(), userProfile.getImageUrl());
     }
 
     public ProfileData mapToProfileData(Profile profile) {

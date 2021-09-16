@@ -1,11 +1,8 @@
 package com.artbazar.artbazarbackend.service;
 
-import com.artbazar.artbazarbackend.data.ImageData;
+import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.data.ProfileData;
-import com.artbazar.artbazarbackend.data.UserData;
-import com.artbazar.artbazarbackend.data.UserDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,7 +10,9 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserData> getAllUsers();
+    List<UserData> getAllUserData();
+
+    List<UserPreview> searchUser(String username);
 
     void deleteUser(Long id);
 

@@ -1,12 +1,9 @@
 package com.artbazar.artbazarbackend.controller;
 
-import com.artbazar.artbazarbackend.data.ImageData;
+import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.data.ProfileData;
-import com.artbazar.artbazarbackend.data.UserData;
 import com.artbazar.artbazarbackend.data.enums.UserType;
-import com.artbazar.artbazarbackend.data.UserDetail;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +47,13 @@ public class UserController {
 
     @GetMapping("")
     public List<UserData> getAllUsers() {
-        return userService.getAllUsers();
+        return userService.getAllUserData();
+    }
+
+    @GetMapping("/search")
+    public List<UserPreview> searchUsers(@RequestParam("username") String username) {
+        log.info(username);
+        return userService.searchUser(username);
     }
 
     @PostMapping("")
