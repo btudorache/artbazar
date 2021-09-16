@@ -26,7 +26,6 @@ const ExplorePage = () => {
         {/* <div className={styles.optionsDelimiter} /> */}
         <h1 onClick={usersOptionHandler} className={usersTextClass}>Users</h1>
       </div>
-      <div className={styles.sectionDelimiter} />
       {showByPosts && <ExplorePosts />}
       {!showByPosts && <ExploreUsers />}
     </div>

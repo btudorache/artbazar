@@ -15,7 +15,6 @@ const ExploreUsers = () => {
   const searchUserFormHandler = (event) => {
     event.preventDefault()
     
-    // console.log(searchBarRef.current.value)
     dispatch(fetchExploreUsers(searchBarRef.current.value))
   }
 
