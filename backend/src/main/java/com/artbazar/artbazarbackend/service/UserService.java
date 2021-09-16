@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.service;
 
+import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.data.ProfileData;
@@ -22,7 +23,7 @@ public interface UserService {
 
     UserDetail getUserDetailByUsername(String requesterUsername, String targetUsername);
 
-    Image getUserProfileImage(Long id);
+    ImageData getUserProfileImageData(Long id);
 
     User saveUser(User newUser);
 

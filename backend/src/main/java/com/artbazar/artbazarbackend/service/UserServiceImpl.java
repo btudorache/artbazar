@@ -3,14 +3,11 @@ package com.artbazar.artbazarbackend.service;
 import com.artbazar.artbazarbackend.dao.ImageRepository;
 import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
+import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.data.PostData;
-import com.artbazar.artbazarbackend.data.ProfileData;
-import com.artbazar.artbazarbackend.data.UserData;
-import com.artbazar.artbazarbackend.data.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -96,8 +93,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Image getUserProfileImage(Long id) {
-        return userRepository.getById(id).getProfile().getProfileImage();
+    public ImageData getUserProfileImageData(Long id) {
+        Image image = userRepository.getById(id).getProfile().getProfileImage();
+        if (image == null) {
+            return null;
+        }
+        return new ImageData(image.getImage(), image.getImageName(), image.getContentType());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.service;
 
+import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
@@ -17,7 +18,7 @@ public interface PostService {
 
     PostDetail getPostDetailById(Long id);
 
-    Image getPostImage(Long id);
+    ImageData getPostImageData(Long id);
 
     PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException;
 }

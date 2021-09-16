@@ -3,6 +3,7 @@ package com.artbazar.artbazarbackend.service;
 import com.artbazar.artbazarbackend.dao.CommentRepository;
 import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
+import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Comment;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Image;
@@ -63,8 +64,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Image getPostImage(Long id) {
-        return postRepository.getById(id).getImage();
+    public ImageData getPostImageData(Long id) {
+        Image image = postRepository.getById(id).getImage();
+        if (image == null) {
+            return null;
+        }
+        return new ImageData(image.getImage(), image.getImageName(), image.getContentType());
     }
 
     @Override

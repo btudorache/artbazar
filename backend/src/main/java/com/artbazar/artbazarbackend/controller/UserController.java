@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.data.ProfileData;
@@ -105,15 +106,15 @@ public class UserController {
 
     @GetMapping("/images/{id}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable Long id) {
-        Image image = userService.getUserProfileImage(id);
+        ImageData imageData = userService.getUserProfileImageData(id);
 
-        if (image == null) {
+        if (imageData == null) {
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"")
-                .contentType(MediaType.valueOf(image.getContentType()))
-                .body(image.getImage());
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageData.getImageName() + "\"")
+                .contentType(MediaType.valueOf(imageData.getContentType()))
+                .body(imageData.getImage());
     }
 }

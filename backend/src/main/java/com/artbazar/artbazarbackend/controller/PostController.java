@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
@@ -70,15 +71,15 @@ public class PostController {
 
     @GetMapping("/images/{id}")
     public ResponseEntity<byte[]> getPostImage(@PathVariable Long id) {
-        Image image = postService.getPostImage(id);
+        ImageData imageData = postService.getPostImageData(id);
 
-        if (image == null) {
+        if (imageData == null) {
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok()
-                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"")
-                             .contentType(MediaType.valueOf(image.getContentType()))
-                             .body(image.getImage());
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageData.getImageName() + "\"")
+                             .contentType(MediaType.valueOf(imageData.getContentType()))
+                             .body(imageData.getImage());
     }
 }
