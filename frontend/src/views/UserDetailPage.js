@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 
 import styles from "./UserDetailPage.module.css";
 
+import LoadingSpinner from "../components/layout/LoadingSpinner";
 import UserDetail from "../components/UserDetail";
 
 const UserDetailPage = () => {
@@ -51,7 +52,7 @@ const UserDetailPage = () => {
 
   return (
     <div className={styles.mainLayout}>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <LoadingSpinner />}
       {error && <p className="errorText">{error}</p>}
       {userDetail && (
         <UserDetail

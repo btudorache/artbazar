@@ -1,12 +1,18 @@
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 import styles from "./UserPreview.module.css";
 
 const UserPreview = ({ userPreview }) => {
+  const authenticatedUsername = useSelector(state => state.auth.username)
   const history = useHistory()
 
   const userPreviewClickHandler = () => {
-    history.push(`/users/${userPreview.username}`)
+    if (userPreview.username === authenticatedUsername) {
+      history.push('/profile')
+    } else {
+      history.push(`/users/${userPreview.username}`)
+    }
   }
 
   var usertype

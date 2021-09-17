@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import styles from './UserProfilePage.module.css'
 
 import { fetchProfile } from "../store/profileSlice";
+import LoadingSpinner from "../components/layout/LoadingSpinner";
 import UserDetail from "../components/UserDetail";
 
 const UserProfilePage = () => {
@@ -20,7 +21,7 @@ const UserProfilePage = () => {
 
   return (
     <div className={styles.mainLayout}>
-      {status === "loading" && <p>Loading...</p>}
+      {status === "loading" && <LoadingSpinner />}
       {status === "failed" && <p className="errorText">{error}</p>}
       {status === "succeeded" && <UserDetail isLoggedUser={true} userDetail={userDetail} />}
     </div>

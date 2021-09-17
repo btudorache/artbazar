@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 
 import PostDetail from "../components/PostDetail";
+import LoadingSpinner from "../components/layout/LoadingSpinner";
 
 import styles from "./PostDetailPage.module.css";
 
@@ -47,7 +48,7 @@ const PostDetailPage = () => {
 
   return (
     <div className={styles.postDetailPageDiv}>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <LoadingSpinner />}
       {error && <p className="errorText">{error}</p>}
       {postDetail && <PostDetail postDetail={postDetail} setPostDetail={setPostDetail}/>}
     </div>

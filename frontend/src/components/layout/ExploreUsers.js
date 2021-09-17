@@ -1,41 +1,68 @@
-import { Fragment, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./ExploreUsers.module.css";
-import { fetchExploreUsers } from "../../store/exploreSlice";
 import UserPreviewList from "../UserPreviewList";
-import Button from "../Button";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ExploreUsers = () => {
-  const dispatch = useDispatch()
-  const { users, usersStatus, usersError } = useSelector(state => state.explore)
+  const token = useSelector(state => state.auth.token)
+
+  const [users, setUsers] = useState([])
+  const [status, setStatus] = useState("idle")
+  const [error, setError] = useState(null)
 
   const searchBarRef = useRef()
 
-  const searchUserFormHandler = (event) => {
-    event.preventDefault()
-    
-    dispatch(fetchExploreUsers(searchBarRef.current.value))
+  const fetchExploreUsersData = async (queryUsername) => {
+    const response = await fetch(`http://localhost:8080/api/users/search?username=${queryUsername}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const users = await response.json();
+      return users
+    } else {
+      throw new Error("Couldn't fetch users")
+    }
   }
 
-  console.log(users)
+  const fetchData = async (queryUsername) => {
+    try {
+      setStatus("loading")
+      const users = await fetchExploreUsersData(queryUsername)
+      setUsers(users)
+      setStatus("succeeded")
+    } catch (error) {
+      setStatus("failed")
+      setError("Couldn't fetch users")
+    }
+  }
+
+  const searchBarChangeHandler = (event) => {
+    event.preventDefault()
+
+    const queryUsername = searchBarRef.current.value
+    if (queryUsername.trim().length > 0) {
+      fetchData(searchBarRef.current.value)
+    }
+  }
 
   return (
-    <Fragment>
+    <div className={styles.exploreUsersLayout}>
       <div className={styles.filterUsers}>
-        <form onSubmit={searchUserFormHandler} className={styles.userSearchForm}>
+        <form className={styles.userSearchForm}>
           <label className={styles.userSearchText} htmlFor="usernameSearched">Search for users</label>
-          <div className={styles.userSearchBar}>
-            <input ref={searchBarRef} className={styles.userSearchInput} type="text" id="usernameSearched" name="usernameSearched" />
-            <Button text="Search"/>
-          </div>
+          <input onChange={searchBarChangeHandler} ref={searchBarRef} className={styles.userSearchInput} type="text" id="usernameSearched" name="usernameSearched" />
         </form>
       </div>
-      {usersStatus === "succeeded" && <UserPreviewList userPreviewList={users} />}
-      {usersStatus === "succeeded" && users.length === 0 && <p>No users found.</p>}
-      {usersStatus === "loading" && <p>Loading...</p>}
-      {usersStatus === 'failed' && <p className="errorText">{usersError}</p>}
-    </Fragment>
+      {status === "succeeded" && <UserPreviewList userPreviewList={users} />}
+      {status === "succeeded" && users.length === 0 && <p>No users found.</p>}
+      {status === "loading" && <LoadingSpinner />}
+      {status === 'failed' && <p className="errorText">{error}</p>}
+    </div>
   );
 };
 

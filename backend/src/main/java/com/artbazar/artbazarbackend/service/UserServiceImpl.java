@@ -66,12 +66,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<UserPreview> searchUser(String username) {
-        if (username.strip().length() <= 1) {
-            return userRepository.findAll().stream().map(this::mapToUserPreview).collect(Collectors.toList());
-        } else {
-            String queryString = String.format("%%%s%%", username);
-            return userRepository.findByUsernameLike(queryString).stream().map(this::mapToUserPreview).collect(Collectors.toList());
-        }
+        String queryString = String.format("%%%s%%", username);
+        return userRepository.findByUsernameLike(queryString).stream().map(this::mapToUserPreview).collect(Collectors.toList());
     }
 
     @Override

@@ -4,6 +4,7 @@ import { fetchDashboardPosts } from '../../store/dashboardSlice'
 
 import styles from './Dashboard.module.css'
 
+import LoadingSpinner from './LoadingSpinner'
 import Post from '../Post'
 
 const Dashboard = () => {
@@ -25,7 +26,7 @@ const Dashboard = () => {
       <ul className={styles.postList}>
         {posts.map(postData => <li key={postData.id}><Post postData={postData} /></li>)}
       </ul>
-      {status === "loading" && <p>Loading...</p>}
+      {status === "loading" && <LoadingSpinner />}
       {status === 'failed' && <p className="errorText">{error}</p>}
     </div>
     <div className={styles.secondarySide}>

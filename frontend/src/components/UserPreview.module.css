@@ -1,8 +1,8 @@
 .userPreviewLayout {
   display: flex;
   align-items: center;
-  margin: 1rem auto;
-  width: 60%;
+  margin: 1rem 0;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid black;
   background: white;
