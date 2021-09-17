@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import styles from "./LoginPage.module.css";
-import Card from "../components/layout/Card";
-import Button from "../components/Button";
+import Card from "../components/layout/general/Card";
+import Button from "../components/layout/general/Button";
 import { useFormInput } from "../hooks/useFormInput";
 
 import { authenticate } from "../store/authSlice";

@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./PostDetail.module.css";
-import { useFormInput } from "../hooks/useFormInput";
+import { useFormInput } from "../../hooks/useFormInput";
 import Post from "./Post";
 import Comment from "./Comment";
-import Button from "./Button";
+import Button from "../layout/general/Button";
 
 const PostDetail = ({ postDetail, setPostDetail }) => {
   const token = useSelector(state => state.auth.token)

@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, Fragment } from 'react'
 
 import styles from './ExplorePosts.module.css'
-import LoadingSpinner from './LoadingSpinner'
-import PostList from '../PostList'
+import LoadingSpinner from './general/LoadingSpinner'
+import PostList from '../posts/PostList'
 
 import { fetchExplorePosts } from '../../store/exploreSlice'
 

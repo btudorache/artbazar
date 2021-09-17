@@ -4,8 +4,8 @@ import { fetchDashboardPosts } from '../../store/dashboardSlice'
 
 import styles from './Dashboard.module.css'
 
-import LoadingSpinner from './LoadingSpinner'
-import Post from '../Post'
+import LoadingSpinner from './general/LoadingSpinner'
+import Post from '../posts/Post'
 
 const Dashboard = () => {
   const {posts, status, error} = useSelector(state => state.dashboard)

@@ -53,24 +53,6 @@ const dashboardSlice = createSlice({
   },
 });
 
-export const addPostAsync = (formData) => {
-  return async (dispatch, getState) => {
-    const token = getState().auth.token
-    const response = await fetch("http://localhost:8080/api/posts", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-      body: formData,
-    })
-
-    if (response.ok) {
-      const postDetail = await response.json()
-      dispatch(addNewPost(postDetail))
-    }
-  }
-}
-
 export const { resetDashboardPosts: resetDashboardPosts } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

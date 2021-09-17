@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./ExploreUsers.module.css";
-import UserPreviewList from "../UserPreviewList";
-import LoadingSpinner from "./LoadingSpinner";
+import UserPreviewList from "../users/UserPreviewList";
+import LoadingSpinner from "./general/LoadingSpinner";
 
 const ExploreUsers = () => {
   const token = useSelector(state => state.auth.token)

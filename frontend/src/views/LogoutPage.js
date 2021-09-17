@@ -3,8 +3,8 @@ import { useHistory } from "react-router";
 
 import styles from './LogoutPage.module.css'
 
-import Card from '../components/layout/Card'
-import Button from "../components/Button";
+import Card from '../components/layout/general/Card'
+import Button from "../components/layout/general/Button";
 
 import { logoutThunk } from '../store/authSlice'
 import { resetProfile } from "../store/profileSlice";

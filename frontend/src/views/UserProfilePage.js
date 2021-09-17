@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import styles from './UserProfilePage.module.css'
 
 import { fetchProfile } from "../store/profileSlice";
-import LoadingSpinner from "../components/layout/LoadingSpinner";
-import UserDetail from "../components/UserDetail";
+import LoadingSpinner from "../components/layout/general/LoadingSpinner";
+import UserDetail from "../components/users/UserDetail";
 
 const UserProfilePage = () => {
   const dispatch = useDispatch()

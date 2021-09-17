@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 
 import styles from "./UserDetail.module.css";
 
-import { resetDashboardPosts } from "../store/dashboardSlice";
-import { resetExplorePosts } from "../store/exploreSlice";
-import Button from "./Button";
-import PostList from "./PostList";
+import { resetDashboardPosts } from "../../store/dashboardSlice";
+import { resetExplorePosts } from "../../store/exploreSlice";
+import Button from "../layout/general/Button";
+import PostList from "../posts/PostList";
 
 const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
   const dispatch = useDispatch()
@@ -108,10 +108,10 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
                   text={userDetail.followExists ? "Unfollow" : "Follow"}
                   additionalStyles={followButonStyles}
                 />
-                <Button
+                {userIsArtist && <Button
                   text="Commission"
                   additionalStyles={[styles.profileButton]}
-                />
+                />}
               </Fragment>
             )}
             {isLoggedUser && (

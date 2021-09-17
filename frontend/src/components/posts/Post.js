@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 
 import styles from "./Post.module.css";
 
-import Button from "./Button";
+import Button from "../layout/general/Button";
 
 const Post = ({postData, isDetail}) => {
   const loggedUsername = useSelector(state => state.auth.username)

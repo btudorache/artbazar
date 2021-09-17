@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import styles from "./HomePage.module.css";
-import Button from "../components/Button";
+import Button from "../components/layout/general/Button";
 import Dashboard from "../components/layout/Dashboard";
 
 const HomePage = () => {

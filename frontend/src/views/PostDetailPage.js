@@ -2,8 +2,8 @@ import { useState, useEffect, Fragment } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 
-import PostDetail from "../components/PostDetail";
-import LoadingSpinner from "../components/layout/LoadingSpinner";
+import PostDetail from "../components/posts/PostDetail";
+import LoadingSpinner from "../components/layout/general/LoadingSpinner";
 
 import styles from "./PostDetailPage.module.css";
 

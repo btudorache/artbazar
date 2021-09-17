@@ -5,8 +5,8 @@ import { useParams } from "react-router";
 
 import styles from "./UserDetailPage.module.css";
 
-import LoadingSpinner from "../components/layout/LoadingSpinner";
-import UserDetail from "../components/UserDetail";
+import LoadingSpinner from "../components/layout/general/LoadingSpinner";
+import UserDetail from "../components/users/UserDetail";
 
 const UserDetailPage = () => {
   const dispatch = useDispatch();

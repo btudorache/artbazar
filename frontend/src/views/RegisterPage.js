@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { useHistory } from "react-router";
 
 import styles from "./RegisterPage.module.css";
-import Card from "../components/layout/Card";
-import Button from "../components/Button";
+import Card from "../components/layout/general/Card";
+import Button from "../components/layout/general/Button";
 import { useFormInput } from "../hooks/useFormInput";
 import { useFormPassword } from "../hooks/useFormPassword";
 

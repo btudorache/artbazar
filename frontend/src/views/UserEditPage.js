@@ -6,8 +6,8 @@ import styles from "./UserEditPage.module.css";
 
 import { editProfileThunk } from "../store/profileSlice";
 import { useFormInput } from "../hooks/useFormInput";
-import Card from "../components/layout/Card";
-import Button from "../components/Button"
+import Card from "../components/layout/general/Card";
+import Button from "../components/layout/general/Button"
 
 const stringLowerThan255 = (string) => string.length < 255;
 

@@ -3,9 +3,9 @@ import { useHistory } from "react-router";
 
 import styles from "./NewPostPage.module.css";
 import { useFormInput } from "../hooks/useFormInput";
-import { addPostAsync } from "../store/dashboardSlice";
-import Card from "../components/layout/Card";
-import Button from "../components/Button";
+import { addPostAsync } from "../store/profileSlice";
+import Card from "../components/layout/general/Card";
+import Button from "../components/layout/general/Button";
 
 const notEmptyFieldValidator = (string) => string.trim().length !== 0;
 
