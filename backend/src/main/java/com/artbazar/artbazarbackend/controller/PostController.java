@@ -4,6 +4,7 @@ import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
+import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class PostController {
     public List<PostData> getExplorePosts(Authentication authentication) {
         String loggedUserUsername = authentication.getName();
         return postService.getExplorePosts(loggedUserUsername);
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<Object> getRandomExplorePost(Authentication authentication) {
+        try {
+            String loggedUserUsername = authentication.getName();
+            PostDetail postDetail = postService.getRandomExplorePost(loggedUserUsername);
+            return ResponseEntity.ok(postDetail);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Post not found", HttpStatus.NOT_FOUND.value()));
+        }
     }
 
     @GetMapping("/{id}")

@@ -16,6 +16,8 @@ public interface PostService {
 
     List<PostData> getExplorePosts(String loggedUserUsername);
 
+    PostDetail getRandomExplorePost(String loggedUserUsername);
+
     PostDetail getPostDetailById(Long id);
 
     ImageData getPostImageData(Long id);

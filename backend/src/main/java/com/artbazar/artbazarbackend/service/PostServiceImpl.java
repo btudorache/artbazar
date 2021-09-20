@@ -18,8 +18,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.management.relation.RelationNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +58,13 @@ public class PostServiceImpl implements PostService {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
         List<Post> posts = postRepository.getExplorePosts(loggedUser);
         return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+    }
+
+    @Override
+    public PostDetail getRandomExplorePost(String loggedUserUsername) {
+        User loggedUser = userRepository.findByUsername(loggedUserUsername);
+        List<Post> posts = postRepository.getExplorePosts(loggedUser);
+        return mapToPostDetail(posts.get(new Random().nextInt(posts.size())));
     }
 
     @Override

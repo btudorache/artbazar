@@ -14,6 +14,7 @@ import NewPostPage from "./views/NewPostPage";
 import ProtectedPage from "./components/routing/ProtectedPage";
 import PostDetailPage from "./views/PostDetailPage";
 import ExplorePage from "./views/ExplorePage";
+import RandomPostPage from './views/RandomPostPage'
 import UserProfilePage from "./views/UserProfilePage";
 
 function App() {
@@ -65,6 +66,11 @@ function App() {
         <Route exact path="/explore">
           <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
             <ExplorePage />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/random">
+          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+            <RandomPostPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/">

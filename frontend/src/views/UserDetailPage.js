@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -9,7 +8,6 @@ import LoadingSpinner from "../components/layout/general/LoadingSpinner";
 import UserDetail from "../components/users/UserDetail";
 
 const UserDetailPage = () => {
-  const dispatch = useDispatch();
   const { urlUsername } = useParams();
   const token = useSelector((state) => state.auth.token);
 
@@ -48,7 +46,7 @@ const UserDetailPage = () => {
     };
 
     tryFetching();
-  }, [dispatch, token, urlUsername, setUserDetail, setIsLoading, setError]);
+  }, [token, urlUsername, setUserDetail, setIsLoading, setError]);
 
   return (
     <div className={styles.mainLayout}>
