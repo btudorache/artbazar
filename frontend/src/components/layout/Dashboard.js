@@ -5,7 +5,8 @@ import { fetchDashboardPosts } from '../../store/dashboardSlice'
 import styles from './Dashboard.module.css'
 
 import LoadingSpinner from './general/LoadingSpinner'
-import Post from '../posts/Post'
+import ActionBar from './ActionBar'
+import PostList from '../posts/PostList'
 
 const Dashboard = () => {
   const {posts, status, error} = useSelector(state => state.dashboard)
@@ -18,14 +19,10 @@ const Dashboard = () => {
   }, [dispatch, status])
 
   return <div className={styles.mainLayout}>
-    <div className={styles.actionSide}>
-      <h2>Action Bar</h2>
-    </div>
+    <ActionBar />
     <div className={styles.mainSide}>
       {status === "succeeded" && posts.length === 0 && <p>No posts currently. Go to Explore and find some artists you like!</p>}
-      <ul className={styles.postList}>
-        {posts.map(postData => <li key={postData.id}><Post postData={postData} /></li>)}
-      </ul>
+      {status === "succeeded" && <PostList posts={posts} listType="SINGLE" />}
       {status === "loading" && <LoadingSpinner />}
       {status === 'failed' && <p className="errorText">{error}</p>}
     </div>

@@ -1,7 +1,6 @@
 .postGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* grid-template-rows: repeat(4, 1fr); */
   border: 2px solid black;
   border-radius: 1rem;
   background: white;
@@ -56,17 +55,20 @@
 }
 
 .postPhoto {
-  min-height: 15rem;
-  max-height: 25rem;
-  max-width: 40rem;
+  height: 25rem;
+  width: 100%;
   grid-column-start: span 3;
-  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .photo {
-  width: 100%;
+  min-width: 5em;
+  width: 35rem;
+  max-width: 40rem;
   height: 100%;
   border-radius: 1rem;
 }

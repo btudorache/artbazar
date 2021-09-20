@@ -70,7 +70,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
       <div className={styles.sectionDelimiter} />
       <div className={styles.userPostsSection}>
         <h2>Works</h2>
-        <PostList posts={userDetail.posts} />
+        <PostList posts={userDetail.posts} listType="DOUBLE"/>
       </div>
     </Fragment>
   );

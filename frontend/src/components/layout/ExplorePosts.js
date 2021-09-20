@@ -21,7 +21,7 @@ const ExplorePosts = () => {
     <div className={styles.filterPosts}>
       <p>Filter posts bar</p>
     </div>
-    {status === "succeeded" && <PostList posts={posts} />}
+    {status === "succeeded" && <PostList posts={posts} listType="DOUBLE" />}
     {status === "succeeded" && posts.length === 0 && <p>No posts found.</p>}
     {status === "loading" && <LoadingSpinner />}
     {status === 'failed' && <p className="errorText">{error}</p>}
