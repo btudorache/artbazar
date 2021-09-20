@@ -26,9 +26,6 @@ const Dashboard = () => {
       {status === "loading" && <LoadingSpinner />}
       {status === 'failed' && <p className="errorText">{error}</p>}
     </div>
-    <div className={styles.secondarySide}>
-
-    </div>
   </div>
 }
 

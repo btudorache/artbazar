@@ -1,5 +1,7 @@
 .actionBarLayout {
-  width: 20%;
+  position: fixed;
+  left: 1rem;
+  width: 22%;
   height: 40rem;
   border: 2px solid black;
   border-radius: 1rem;
@@ -10,11 +12,63 @@
   padding: 1rem 0.5rem;
 }
 
+.actionBarHeader {
+  margin: 0;
+}
+
+.sectionDelimiter {
+  margin: 0.5rem 0;
+  width: 85%;
+  padding: 0;
+  border-bottom: solid black 2px;
+}
+
+.actionList {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.actionList li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.actionList li p {
+  margin: 0;
+  padding-bottom: 0.2rem;
+  margin-right: 0.5rem;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.actionList li img {
+  display: inline;
+}
+
+.actionList li p:active,
+.actionList li p:hover {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
 @media (max-width: 640px) {
   .actionBarLayout {
     width: 100%;
-    height: 8rem;
+    height: 12rem;
     margin-bottom: 1rem;
-    flex-direction: row;
+    position: static;
+  }
+
+  .sectionDelimiter {
+    width: 95%;
+  }
+
+  .actionList {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
   }
 }

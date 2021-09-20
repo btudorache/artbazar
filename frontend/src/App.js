@@ -1,6 +1,7 @@
-import "./App.css";
 import { Fragment } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+
+import styles from './App.module.css'
 
 import NavigationBar from "./components/layout/navigation/NavigationBar";
 import HomePage from "./views/HomePage";
@@ -19,6 +20,7 @@ function App() {
   return (
     <Fragment>
       <NavigationBar />
+      <div className={styles.navPlaceholder} />
       <Switch>
         <Route exact path="/newpost">
           <ProtectedPage authPath permissionLevels={["ARTIST"]}>

@@ -1,6 +1,6 @@
 .mainLayout {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   /* margin: auto; */
   margin: 0 1rem;
 }
@@ -15,11 +15,6 @@
   align-items: center;
 }
 
-.secondarySide {
-  width: 15%;
-  /* border: 2px solid black; */
-}
-
 @media (max-width: 640px) {
   .mainLayout {
     flex-direction: column;
@@ -30,9 +25,5 @@
   .mainSide {
     width: 100%;
     padding: 0;
-  }
-
-  .secondarySide {
-    display: none;
   }
 }
