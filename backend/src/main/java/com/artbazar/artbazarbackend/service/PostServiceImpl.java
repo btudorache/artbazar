@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.management.relation.RelationNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -49,21 +48,21 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostData> getDashboardPosts(String loggedUserUsername) {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
-        List<Post> posts = postRepository.getDashboardPosts(loggedUser);
+        List<Post> posts = postRepository.getFollowedPosts(loggedUser);
         return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
     }
 
     @Override
     public List<PostData> getExplorePosts(String loggedUserUsername) {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
-        List<Post> posts = postRepository.getExplorePosts(loggedUser);
+        List<Post> posts = postRepository.getUnfollowedPosts(loggedUser);
         return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
     }
 
     @Override
     public PostDetail getRandomExplorePost(String loggedUserUsername) {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
-        List<Post> posts = postRepository.getExplorePosts(loggedUser);
+        List<Post> posts = postRepository.getUnfollowedPosts(loggedUser);
         return mapToPostDetail(posts.get(new Random().nextInt(posts.size())));
     }
 

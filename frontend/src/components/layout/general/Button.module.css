@@ -8,6 +8,7 @@
   font: inherit;
   color: white;
   background: #0A111F;
+  cursor: pointer;
 }
 
 .defaultStyle:active,

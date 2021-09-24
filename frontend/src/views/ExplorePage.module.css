@@ -1,5 +1,7 @@
 .explorePageLayout {
-  display: grid;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 74%;
   margin: auto;
 }
@@ -35,4 +37,10 @@
 
 .optionsDelimiter {
   border-left: solid black 3px;
+}
+
+@media (max-width: 640px) {
+  .explorePageLayout {
+    width: 95%;
+  }
 }

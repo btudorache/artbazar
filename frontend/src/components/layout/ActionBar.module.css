@@ -1,6 +1,6 @@
 .actionBarLayout {
   position: fixed;
-  left: 1rem;
+  left: 3%;
   width: 22%;
   height: 40rem;
   border: 2px solid black;
@@ -70,5 +70,13 @@
     width: 100%;
     justify-content: space-around;
     align-items: center;
+  }
+
+  .actionList li {
+    margin: 0 0.4rem;
+  }
+
+  .actionList li p {
+    margin: 0;
   }
 }

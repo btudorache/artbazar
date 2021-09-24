@@ -5,3 +5,9 @@
   width: 74%;
   margin: auto;
 }
+
+@media (max-width: 640px) {
+  .mainLayout {
+    width: 95%;
+  }
+}
