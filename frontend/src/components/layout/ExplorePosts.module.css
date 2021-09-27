@@ -6,3 +6,34 @@
   margin: 1rem 0;
   width: 100%;
 }
+
+.categoryFilterForm {
+  display: flex;
+  align-items: center;
+}
+
+.categoryFilterText {
+  font-size: medium;
+  margin-right: 1rem;
+}
+
+.disabledOption {
+  display: none;
+}
+
+.categoryFilterSelect {
+  border-radius: 0.3rem;
+  width: 70%;
+  cursor: pointer;
+}
+
+.removeFilterText {
+  cursor: pointer;
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+.removeFilterText:active,
+.removeFilterText:hover {
+  font-weight: bold;
+}

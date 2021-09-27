@@ -24,22 +24,22 @@ function App() {
       <div className={styles.navPlaceholder} />
       <Switch>
         <Route exact path="/newpost">
-          <ProtectedPage authPath permissionLevels={["ARTIST"]}>
+          <ProtectedPage authPath permissionLevels={["Artist"]}>
             <NewPostPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/profile">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <UserProfilePage />
           </ProtectedPage>
         </Route>
         <Route exact path="/users/:urlUsername">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <UserDetailPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/profile/edit">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <UserEditPage />
           </ProtectedPage>
         </Route>
@@ -54,22 +54,22 @@ function App() {
           </ProtectedPage>
         </Route>
         <Route exact path="/logout">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <LogoutPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/posts/:postId">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <PostDetailPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/explore">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <ExplorePage />
           </ProtectedPage>
         </Route>
         <Route exact path="/random">
-          <ProtectedPage authPath permissionLevels={["ARTIST", "EXPLORER"]}>
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <RandomPostPage />
           </ProtectedPage>
         </Route>

@@ -4,13 +4,17 @@ const initialState = {
   posts: [],
   status: "idle",
   error: null,
-}
+};
 
 export const fetchExplorePosts = createAsyncThunk(
   "explore/fetchExplorePosts",
-  async (arg, thunkAPI) => {
+  async (category, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
-    const response = await fetch("http://localhost:8080/api/posts/explore", {
+    const url =
+      category === "UNSELECTED"
+        ? "http://localhost:8080/api/posts/explore"
+        : `http://localhost:8080/api/posts/explore?category=${category}`;
+    const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -20,7 +24,7 @@ export const fetchExplorePosts = createAsyncThunk(
       const posts = await response.json();
       return posts;
     } else {
-      throw new Error("Couldn't fetch posts")
+      throw new Error("Couldn't fetch posts");
     }
   }
 );
@@ -30,10 +34,10 @@ const exploreSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetExplorePosts(state) {
-      state.posts = []
-      state.status = 'idle'
-      state.error = null
-    }
+      state.posts = [];
+      state.status = "idle";
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -48,9 +52,9 @@ const exploreSlice = createSlice({
       .addCase(fetchExplorePosts.pending, (state) => {
         state.status = "loading";
       });
-  }
-})
+  },
+});
 
-export const { resetExplorePosts } = exploreSlice.actions
+export const { resetExplorePosts } = exploreSlice.actions;
 
-export default exploreSlice.reducer
+export default exploreSlice.reducer;

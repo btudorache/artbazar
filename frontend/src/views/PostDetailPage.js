@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 
@@ -47,7 +47,7 @@ const PostDetailPage = () => {
   }, [postId, token, setError, setIsLoading]);
 
   return (
-    <div className={styles.postDetailPageDiv}>
+    <div className={styles.postDetailPageLayout}>
       {isLoading && <LoadingSpinner />}
       {error && <p className="errorText">{error}</p>}
       {postDetail && <PostDetail postDetail={postDetail} setPostDetail={setPostDetail}/>}

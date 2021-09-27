@@ -34,7 +34,7 @@ const NavigationBar = () => {
       >
         Logout
       </NavLink>
-      {userInfo.usertype === 'ARTIST' && <NavLink
+      {userInfo.usertype === 'Artist' && <NavLink
         activeClassName={styles.activeAddPostLink}
         className={styles.addPostLink}
         to="/newpost"

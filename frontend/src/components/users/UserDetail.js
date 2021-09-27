@@ -15,7 +15,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
   const history = useHistory();
   const token = useSelector((state) => state.auth.token);
 
-  const userIsArtist = userDetail.usertype === "ARTIST";
+  const userIsArtist = userDetail.usertype === "Artist";
 
   const editProfileButtonHandler = () => {
     history.push("/profile/edit");

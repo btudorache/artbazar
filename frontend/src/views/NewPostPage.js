@@ -56,12 +56,18 @@ const NewPostPage = () => {
           </div>
           <div className={styles.gridRow}>
             <label htmlFor="category">Category</label>
-            <input
+            <select
+              className={styles.categoryInput}
               ref={categoryRef}
-              type="text"
-              id="category"
               name="category"
-            />
+              id="category"
+            >
+              <option value="PAINTING">Painting</option>
+              <option value="CRAFTS">Crafts</option>
+              <option value="DIGITAL">Digital</option>
+              <option value="DRAWING">Drawing</option>
+              <option value="PHOTOGRAPHY">Photography</option>
+            </select>
             {categoryHasError && (
               <p className="errorText">Category is empty!</p>
             )}
