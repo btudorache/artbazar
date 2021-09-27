@@ -1,9 +1,8 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.data.*;
-import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.data.enums.UserType;
+import com.artbazar.artbazarbackend.entity.enums.UserType;
 import com.artbazar.artbazarbackend.service.UserService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +62,7 @@ public class UserController {
                 throw new IllegalArgumentException("Invalid input");
             }
 
-            if (!(newUser.getType().equals(UserType.ARTIST.name()) || newUser.getType().equals(UserType.EXPLORER.name()))) {
+            if (!(newUser.getType().equals(UserType.ARTIST) || newUser.getType().equals(UserType.EXPLORER))) {
                 throw new IllegalArgumentException("Invalid user type");
             }
 

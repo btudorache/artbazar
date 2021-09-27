@@ -8,6 +8,7 @@ import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
 
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getType()));
+        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getType().name()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
@@ -109,6 +111,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User saveUser(User newUser) {
+        log.info(newUser.toString());
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         User savedUser = userRepository.save(newUser);
 
@@ -161,12 +164,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public UserData mapToUserData(User user) {
-        return new UserData(user.getUsername(), user.getEmail(), user.getType(), user.getCreatedAt());
+        return new UserData(user.getUsername(), user.getEmail(), user.getType().name(), user.getCreatedAt());
     }
 
     public UserPreview mapToUserPreview(User user) {
         Profile userProfile = user.getProfile();
-        return new UserPreview(user.getId(), user.getUsername(), user.getType(), userProfile.getImageUrl());
+        return new UserPreview(user.getId(), user.getUsername(), user.getType().name(), userProfile.getImageUrl());
     }
 
     public ProfileData mapToProfileData(Profile profile) {
@@ -179,7 +182,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return new UserDetail(
                 user.getUsername(),
-                user.getType(),
+                user.getType().name(),
                 user.getEmail(),
                 user.getCreatedAt(),
                 userProfile.getName(),

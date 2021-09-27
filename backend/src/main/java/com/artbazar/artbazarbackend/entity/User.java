@@ -1,22 +1,25 @@
 package com.artbazar.artbazarbackend.entity;
 
+import com.artbazar.artbazarbackend.entity.enums.UserType;
+import com.artbazar.artbazarbackend.entity.enums.UserTypeConverter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name="users")
 public class User {
 
-    public User(String username, String password, String type, String email) {
+    public User(String username, String password, UserType type, String email) {
         this.username = username;
         this.password = password;
         this.type = type;
@@ -35,7 +38,8 @@ public class User {
     private String password;
 
     @Column(name="type")
-    private String type;
+    @Convert(converter = UserTypeConverter.class)
+    private UserType type;
 
     @Column(name="email", unique = true)
     private String email;
@@ -55,4 +59,6 @@ public class User {
     public void addTimeStamp() {
         createdAt = System.currentTimeMillis();
     }
+
+
 }
