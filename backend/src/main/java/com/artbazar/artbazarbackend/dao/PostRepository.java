@@ -20,6 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT * FROM post " +
                    "WHERE post.user_id NOT IN (SELECT followed_user_id FROM follower " +
                                               "WHERE following_user_id = ?1) " +
+                   "AND post.user_id != ?1 " +
                    "AND post.category = ?2 " +
                    "ORDER BY created_at DESC", nativeQuery = true)
     List<Post> getUnfollowedPostsFiltered(User loggedUser, String category);
