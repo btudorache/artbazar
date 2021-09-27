@@ -10,6 +10,7 @@ import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
+import com.artbazar.artbazarbackend.entity.enums.PostCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostData> getExplorePostsFiltered(String loggedUserUsername, String category) {
+        User loggedUser = userRepository.findByUsername(loggedUserUsername);
+        List<Post> posts = postRepository.getUnfollowedPostsFiltered(loggedUser, category);
+        return posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+    }
+
+    @Override
     public PostDetail getRandomExplorePost(String loggedUserUsername) {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
         List<Post> posts = postRepository.getUnfollowedPosts(loggedUser);
@@ -81,7 +89,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostData addPost(String username, String title, String category, String description, MultipartFile file) throws IOException {
+    public PostData addPost(String username, String title, PostCategory category, String description, MultipartFile file) throws IOException {
+
         User user = userRepository.findByUsername(username);
 
         Image newImage = new Image(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
@@ -106,7 +115,7 @@ public class PostServiceImpl implements PostService {
         return new PostData(post.getUser().getUsername(),
                                          post.getId(),
                                          post.getTitle(),
-                                         post.getCategory(),
+                                         post.getCategory().getCategory(),
                                          post.getDescription(),
                                          post.getCreatedAt(),
                                          post.getImageUrl());

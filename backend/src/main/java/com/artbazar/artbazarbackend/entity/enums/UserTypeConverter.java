@@ -10,7 +10,7 @@ public class UserTypeConverter implements AttributeConverter<UserType, String> {
         if (userType == null) {
             return  null;
         }
-        return userType.name();
+        return userType.getUserType();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class UserTypeConverter implements AttributeConverter<UserType, String> {
         }
 
         return Stream.of(UserType.values())
-                .filter(type -> type.name().equals(userTypeString))
+                .filter(type -> type.getUserType().equals(userTypeString))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }

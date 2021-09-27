@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
@@ -57,13 +56,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
 
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getType().name()));
+        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getType().getUserType()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override
-    public List<UserData> getAllUserData() {
-        return userRepository.findAll().stream().map(this::mapToUserData).collect(Collectors.toList());
+    public List<UserPreview> getAllUserData() {
+        return userRepository.findAll().stream().map(this::mapToUserPreview).collect(Collectors.toList());
     }
 
     @Override
@@ -111,7 +110,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User saveUser(User newUser) {
-        log.info(newUser.toString());
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         User savedUser = userRepository.save(newUser);
 
@@ -163,10 +161,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return mapToProfileData(userRepository.save(user).getProfile());
     }
 
-    public UserData mapToUserData(User user) {
-        return new UserData(user.getUsername(), user.getEmail(), user.getType().name(), user.getCreatedAt());
-    }
-
     public UserPreview mapToUserPreview(User user) {
         Profile userProfile = user.getProfile();
         return new UserPreview(user.getId(), user.getUsername(), user.getType().name(), userProfile.getImageUrl());
@@ -182,7 +176,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return new UserDetail(
                 user.getUsername(),
-                user.getType().name(),
+                user.getType().getUserType(),
                 user.getEmail(),
                 user.getCreatedAt(),
                 userProfile.getName(),

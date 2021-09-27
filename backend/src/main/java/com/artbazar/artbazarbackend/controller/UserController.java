@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<UserData> getAllUsers() {
+    public List<UserPreview> getAllUsers() {
         return userService.getAllUserData();
     }
 

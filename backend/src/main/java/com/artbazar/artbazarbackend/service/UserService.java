@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserData> getAllUserData();
+    List<UserPreview> getAllUserData();
 
     List<UserPreview> searchUser(String username);
 

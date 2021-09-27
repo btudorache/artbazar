@@ -1,5 +1,7 @@
 package com.artbazar.artbazarbackend.entity;
 
+import com.artbazar.artbazarbackend.entity.enums.PostCategory;
+import com.artbazar.artbazarbackend.entity.enums.PostCategoryConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -17,6 +19,12 @@ import java.util.List;
 @Table(name="post")
 public class Post {
 
+    public Post(String title, PostCategory category, String description) {
+        this.category = category;
+        this.description = description;
+        this.title = title;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -26,7 +34,8 @@ public class Post {
     private String title;
 
     @Column(name = "category")
-    private String category;
+    @Convert(converter = PostCategoryConverter.class)
+    private PostCategory category;
 
     @Column(name = "description")
     private String description;
@@ -49,12 +58,6 @@ public class Post {
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    public Post(String title, String category, String description) {
-        this.category = category;
-        this.description = description;
-        this.title = title;
-    }
 
     @PrePersist
     public void addTimeStamp() {

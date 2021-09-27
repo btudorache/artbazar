@@ -5,6 +5,7 @@ import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
 import com.artbazar.artbazarbackend.entity.Post;
+import com.artbazar.artbazarbackend.entity.enums.PostCategory;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,13 @@ public class PostController {
     }
 
     @GetMapping("/explore")
-    public List<PostData> getExplorePosts(Authentication authentication) {
+    public List<PostData> getExplorePosts(Authentication authentication, @RequestParam(name = "category", required = false) PostCategory category) {
         String loggedUserUsername = authentication.getName();
-        return postService.getExplorePosts(loggedUserUsername);
+        if (category == null) {
+            return postService.getExplorePosts(loggedUserUsername);
+        } else {
+            return postService.getExplorePostsFiltered(loggedUserUsername, category.getCategory());
+        }
     }
 
     @GetMapping("/random")
@@ -68,7 +73,7 @@ public class PostController {
     public ResponseEntity<Object> addPost(Authentication authentication,
                                           @RequestParam("file") MultipartFile file,
                                           @RequestParam("title") String title,
-                                          @RequestParam("category") String category,
+                                          @RequestParam("category") PostCategory category,
                                           @RequestParam("description") String description) {
         try {
             String username = authentication.getName();
