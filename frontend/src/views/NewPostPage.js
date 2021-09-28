@@ -10,9 +10,7 @@ import Button from "../components/layout/general/Button";
 const notEmptyFieldValidator = (string) => string.trim().length !== 0;
 
 const NewPostPage = () => {
-  const [categoryHasError, validateCategory, categoryRef] = useFormInput(
-    notEmptyFieldValidator
-  );
+  const [categoryHasError, validateCategory, categoryRef] = useFormInput((category) => category.trim() !== "UNSELECTED");
   const [descriptionHasError, validateDescription, descriptionRef] =
     useFormInput((text) => text.trim().length !== 0 && text.length < 255);
   const [titleHasError, validateTitle, titleRef] = useFormInput(
@@ -27,6 +25,7 @@ const NewPostPage = () => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
+    console.log(categoryRef.current.value)
     const categoryOk = validateCategory();
     const descriptionOk = validateDescription();
     const titleOk = validateTitle();
@@ -57,11 +56,19 @@ const NewPostPage = () => {
           <div className={styles.gridRow}>
             <label htmlFor="category">Category</label>
             <select
+              defaultValue="UNSELECTED"
               className={styles.categoryInput}
               ref={categoryRef}
               name="category"
               id="category"
             >
+              <option
+                value="UNSELECTED"
+                className={styles.disabledOption}
+                disabled
+              >
+                -- select an option --
+              </option>
               <option value="PAINTING">Painting</option>
               <option value="CRAFTS">Crafts</option>
               <option value="DIGITAL">Digital</option>
@@ -69,7 +76,7 @@ const NewPostPage = () => {
               <option value="PHOTOGRAPHY">Photography</option>
             </select>
             {categoryHasError && (
-              <p className="errorText">Category is empty!</p>
+              <p className="errorText">Choose a category</p>
             )}
           </div>
           <div className={styles.gridRow}>
@@ -81,7 +88,9 @@ const NewPostPage = () => {
               name="description"
             />
             {descriptionHasError && (
-              <p className="errorText">Invalid description! (no empty text or more than 255 characters)</p>
+              <p className="errorText">
+                Invalid description! (no empty text or more than 255 characters)
+              </p>
             )}
           </div>
           <div className={styles.gridRow}>

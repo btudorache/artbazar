@@ -14,7 +14,11 @@
 }
 
 .categoryInput {
-  width: 6rem;
+  width: 10rem;
+}
+
+.disabledOption {
+  display: none;
 }
 
 input, select {
