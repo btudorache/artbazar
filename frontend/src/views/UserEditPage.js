@@ -1,10 +1,10 @@
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useEffect } from "react";
 
 import styles from "./UserEditPage.module.css";
 
-import { editProfileThunk } from "../store/profileSlice";
+import { editProfileThunk, fetchProfile } from "../store/profileSlice";
 import { useFormInput } from "../hooks/useFormInput";
 import Card from "../components/layout/general/Card";
 import Button from "../components/layout/general/Button"
@@ -21,6 +21,14 @@ const UserEditPage = () => {
   const imageRef = useRef()
 
   const StringLowerThan255Error = <p className="errorText">Text must have less than 255 characters!</p>
+
+  const profileStatus = useSelector(state => state.profile.status)
+
+  useEffect(() => {
+    if (profileStatus === "idle") {
+      dispatch(fetchProfile())
+    }
+  }, [profileStatus, dispatch])
 
   const backTextHandler = () => {
     history.goBack()
