@@ -1,32 +1,44 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchDashboardPosts } from '../../store/dashboardSlice'
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDashboardPosts } from "../../store/dashboardSlice";
 
-import styles from './Dashboard.module.css'
+import styles from "./Dashboard.module.css";
 
-import LoadingSpinner from './general/LoadingSpinner'
-import ActionBar from './ActionBar'
-import PostList from '../posts/PostList'
+import LoadingSpinner from "./general/LoadingSpinner";
+import ActionBar from "./ActionBar";
+import PostList from "../posts/PostList";
 
 const Dashboard = () => {
-  const {posts, status, error} = useSelector(state => state.dashboard)
-  const dispatch = useDispatch()
+  const { posts, status, error } = useSelector((state) => state.dashboard);
+  const { showNewPostSection } = useSelector((state) => state.dashboard);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchDashboardPosts())
+      dispatch(fetchDashboardPosts());
     }
-  }, [dispatch, status])
+  }, [dispatch, status]);
 
-  return <div className={styles.mainLayout}>
-    <ActionBar />
-    <div className={styles.mainSide}>
-      {status === "succeeded" && posts.length === 0 && <p>No posts currently. Go to Explore and find some artists you like!</p>}
-      {status === "succeeded" && <PostList posts={posts} listType="SINGLE" />}
-      {status === "loading" && <LoadingSpinner />}
-      {status === 'failed' && <p className="errorText">{error}</p>}
+  return (
+    <div className={styles.mainLayout}>
+      <ActionBar />
+      <div className={styles.mainSide}>
+        {showNewPostSection && (
+          <div className={styles.addPostSection}>
+            <p>Add a new post</p>
+          </div>
+        )}
+        {status === "succeeded" && posts.length === 0 && (
+          <p>
+            No posts currently. Go to Explore and find some artists you like!
+          </p>
+        )}
+        {status === "succeeded" && <PostList posts={posts} listType="SINGLE" />}
+        {status === "loading" && <LoadingSpinner />}
+        {status === "failed" && <p className="errorText">{error}</p>}
+      </div>
     </div>
-  </div>
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

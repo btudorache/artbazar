@@ -53,6 +53,11 @@
   border-bottom: 1px solid black;
 }
 
+.selectedOption {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
 @media (max-width: 640px) {
   .actionBarLayout {
     width: 100%;

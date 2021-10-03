@@ -1,13 +1,23 @@
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import styles from "./ActionBar.module.css";
+import { toggleNewPostSection } from "../../store/dashboardSlice";
 
 const ActionBar = () => {
   const history = useHistory();
+  const dispatch = useDispatch()
+
+  const {showNewPostSection} = useSelector(state => state.dashboard)
 
   const surpriseMeButtonHandler = () => {
     history.push("/random");
   };
+
+  const addPostButtonHandler = () => {
+    dispatch(toggleNewPostSection())
+  }
 
   return (
     <div className={styles.actionBarLayout}>
@@ -15,7 +25,7 @@ const ActionBar = () => {
       <div className={styles.sectionDelimiter} />
       <ul className={styles.actionList}>
         <li>
-          <p>Add Post</p>
+          <p className={showNewPostSection ? styles.selectedOption : ''} onClick={addPostButtonHandler}>Add Post</p>
           <img src="https://img.icons8.com/material-outlined/30/000000/add.png" />
         </li>
         <li>

@@ -15,6 +15,17 @@
   align-items: center;
 }
 
+.addPostSection {
+  width: 100%;
+  min-width: 20rem;
+  max-width: 38rem;
+  border: 1px solid black;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: white;
+}
+
 @media (max-width: 640px) {
   .mainLayout {
     flex-direction: column;

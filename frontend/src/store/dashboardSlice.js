@@ -6,6 +6,7 @@ const initialState = {
   posts: [],
   status: "idle",
   error: null,
+  showNewPostSection: false
 };
 
 export const fetchDashboardPosts = createAsyncThunk(
@@ -35,6 +36,10 @@ const dashboardSlice = createSlice({
       state.posts = []
       state.status = 'idle'
       state.error = null
+      state.showNewPostSection = false
+    },
+    toggleNewPostSection(state) {
+      state.showNewPostSection = !state.showNewPostSection
     }
   },
   extraReducers: (builder) => {
@@ -53,6 +58,6 @@ const dashboardSlice = createSlice({
   },
 });
 
-export const { resetDashboardPosts: resetDashboardPosts } = dashboardSlice.actions;
+export const { resetDashboardPosts, toggleNewPostSection } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
