@@ -18,8 +18,8 @@
 .addPostSection {
   width: 100%;
   min-width: 20rem;
-  max-width: 38rem;
-  border: 1px solid black;
+  max-width: 37.5rem;
+  border: 2px solid black;
   border-radius: 0.8rem;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;

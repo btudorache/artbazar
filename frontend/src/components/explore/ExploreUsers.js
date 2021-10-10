@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import styles from "./ExploreUsers.module.css";
 import UserPreviewList from "../users/UserPreviewList";
-import LoadingSpinner from "./general/LoadingSpinner";
+import LoadingSpinner from "../layout/general/LoadingSpinner";
 
 const ExploreUsers = () => {
   const token = useSelector(state => state.auth.token)

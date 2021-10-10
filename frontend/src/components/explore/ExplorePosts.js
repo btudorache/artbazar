@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef, useState, Fragment } from "react";
 
 import styles from "./ExplorePosts.module.css";
-import LoadingSpinner from "./general/LoadingSpinner";
+import LoadingSpinner from "../layout/general/LoadingSpinner";
 import PostList from "../posts/PostList";
 
 import { resetExplorePosts } from "../../store/exploreSlice";

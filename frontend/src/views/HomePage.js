@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 
 import styles from "./HomePage.module.css";
 import Button from "../components/layout/general/Button";
-import Dashboard from "../components/layout/Dashboard";
+import Dashboard from "../components/dashboard/Dashboard";
 
 const HomePage = () => {
   const isLogged = useSelector((state) => state.auth.isLogged);

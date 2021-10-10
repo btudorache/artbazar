@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import styles from "./ExplorePage.module.css";
 
-import ExplorePosts from "../components/layout/ExplorePosts";
-import ExploreUsers from "../components/layout/ExploreUsers";
+import ExplorePosts from "../components/explore/ExplorePosts";
+import ExploreUsers from "../components/explore/ExploreUsers";
 
 const ExplorePage = () => {
   const [showByPosts, setShowByPosts] = useState(true)
