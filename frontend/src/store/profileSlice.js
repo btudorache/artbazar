@@ -71,7 +71,7 @@ const profileSlice = createSlice({
 export const addPostAsync = (formData) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token
-    const response = await fetch("http://localhost:8080/api/posts", {
+    const response = await fetch("http://localhost:8080/api/posts/artpost", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,

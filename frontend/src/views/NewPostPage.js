@@ -10,7 +10,12 @@ import Button from "../components/layout/general/Button";
 const notEmptyFieldValidator = (string) => string.trim().length !== 0;
 
 const NewPostPage = () => {
-  const [categoryHasError, validateCategory, categoryRef] = useFormInput((category) => category.trim() !== "UNSELECTED");
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [categoryHasError, validateCategory, categoryRef] = useFormInput(
+    (category) => category.trim() !== "UNSELECTED"
+  );
   const [descriptionHasError, validateDescription, descriptionRef] =
     useFormInput((text) => text.trim().length !== 0 && text.length < 255);
   const [titleHasError, validateTitle, titleRef] = useFormInput(
@@ -19,13 +24,10 @@ const NewPostPage = () => {
   const [imageHasError, validateImage, imageRef] = useFormInput(
     notEmptyFieldValidator
   );
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log(categoryRef.current.value)
     const categoryOk = validateCategory();
     const descriptionOk = validateDescription();
     const titleOk = validateTitle();
@@ -33,6 +35,8 @@ const NewPostPage = () => {
 
     if (categoryOk && descriptionOk && titleOk && imageOk) {
       const form = new FormData();
+
+      form.append("type", "ART_POST")
       form.append("file", imageRef.current.files[0]);
       form.append("title", titleRef.current.value);
       form.append("category", categoryRef.current.value);
@@ -75,9 +79,7 @@ const NewPostPage = () => {
               <option value="DRAWING">Drawing</option>
               <option value="PHOTOGRAPHY">Photography</option>
             </select>
-            {categoryHasError && (
-              <p className="errorText">Choose a category</p>
-            )}
+            {categoryHasError && <p className="errorText">Choose a category</p>}
           </div>
           <div className={styles.gridRow}>
             <label htmlFor="description">Description</label>
