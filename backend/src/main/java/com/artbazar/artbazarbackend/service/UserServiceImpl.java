@@ -5,10 +5,9 @@ import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.dao.UserRepository;
 import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.Image;
-import com.artbazar.artbazarbackend.entity.Post;
+import com.artbazar.artbazarbackend.entity.post.Post;
 import com.artbazar.artbazarbackend.entity.Profile;
 import com.artbazar.artbazarbackend.entity.User;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,14 +38,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     private final FollowerService followerService;
+    private final PostService postService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, ImageRepository imageRepository, PasswordEncoder passwordEncoder, FollowerService followerService) {
+    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, ImageRepository imageRepository, PasswordEncoder passwordEncoder, FollowerService followerService, PostService postService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.imageRepository = imageRepository;
         this.passwordEncoder = passwordEncoder;
         this.followerService = followerService;
+        this.postService = postService;
     }
 
     @Override
@@ -172,7 +173,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public UserDetail mapUserToUserDetail(User user, List<Post> posts, boolean followExists, long followingUsersCount) {
         Profile userProfile = user.getProfile();
-        List<PostData> mappedPosts = posts.stream().map(PostServiceImpl::mapToPostData).collect(Collectors.toList());
+        List<PostData> mappedPosts = posts.stream().map(postService::mapToPostData).collect(Collectors.toList());
 
         return new UserDetail(
                 user.getUsername(),

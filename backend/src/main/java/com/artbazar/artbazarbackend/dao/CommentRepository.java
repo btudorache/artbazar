@@ -1,7 +1,7 @@
 package com.artbazar.artbazarbackend.dao;
 
 import com.artbazar.artbazarbackend.entity.Comment;
-import com.artbazar.artbazarbackend.entity.Post;
+import com.artbazar.artbazarbackend.entity.post.Post;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

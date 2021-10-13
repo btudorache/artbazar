@@ -2,6 +2,7 @@ package com.artbazar.artbazarbackend.entity;
 
 import com.artbazar.artbazarbackend.entity.enums.UserType;
 import com.artbazar.artbazarbackend.entity.enums.UserTypeConverter;
+import com.artbazar.artbazarbackend.entity.post.Post;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.entity;
 
+import com.artbazar.artbazarbackend.entity.post.Post;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

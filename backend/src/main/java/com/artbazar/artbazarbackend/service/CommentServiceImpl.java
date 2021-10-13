@@ -3,7 +3,7 @@ package com.artbazar.artbazarbackend.service;
 import com.artbazar.artbazarbackend.dao.CommentRepository;
 import com.artbazar.artbazarbackend.dao.PostRepository;
 import com.artbazar.artbazarbackend.entity.Comment;
-import com.artbazar.artbazarbackend.entity.Post;
+import com.artbazar.artbazarbackend.entity.post.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

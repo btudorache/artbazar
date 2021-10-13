@@ -1,25 +1,22 @@
-package com.artbazar.artbazarbackend.entity;
+package com.artbazar.artbazarbackend.entity.post;
 
+import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.enums.PostCategory;
 import com.artbazar.artbazarbackend.entity.enums.PostCategoryConverter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
-
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="post")
-public class Post {
+@Table(name="art_post")
+public class ArtPost {
 
-    public Post(String title, PostCategory category, String description) {
+    public ArtPost(String title, PostCategory category, String description) {
         this.category = category;
         this.description = description;
         this.title = title;
@@ -40,27 +37,10 @@ public class Post {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_at")
-    private Long createdAt;
-
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", nullable = false)
-    private User user;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Comment> comments;
-
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="image_id", nullable = false)
     private Image image;
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    @PrePersist
-    public void addTimeStamp() {
-        createdAt = System.currentTimeMillis();
-    }
 }

@@ -1,11 +1,10 @@
 package com.artbazar.artbazarbackend.controller;
 
 import com.artbazar.artbazarbackend.data.ImageData;
-import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
-import com.artbazar.artbazarbackend.entity.Post;
 import com.artbazar.artbazarbackend.entity.enums.PostCategory;
+import com.artbazar.artbazarbackend.entity.enums.PostType;
 import com.artbazar.artbazarbackend.service.PostService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,11 @@ public class PostController {
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+
+    @GetMapping("/")
+    public List<PostData> getAll() {
+        return postService.getAll();
     }
 
     @GetMapping("/dashboard")
@@ -69,15 +73,16 @@ public class PostController {
         return ResponseEntity.ok(postDetail);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Object> addPost(Authentication authentication,
-                                          @RequestParam("file") MultipartFile file,
-                                          @RequestParam("title") String title,
-                                          @RequestParam("category") PostCategory category,
-                                          @RequestParam("description") String description) {
+    @PostMapping("/artpost")
+    public ResponseEntity<Object> addArtPost(Authentication authentication,
+                                             @RequestParam("type") PostType postType,
+                                             @RequestParam("file") MultipartFile file,
+                                             @RequestParam("title") String title,
+                                             @RequestParam("category") PostCategory category,
+                                             @RequestParam("description") String description) {
         try {
             String username = authentication.getName();
-            PostData addedPost = postService.addPost(username, title, category, description, file);
+            PostData addedPost = postService.addArtPost(username, postType, title, category, description, file);
 
             return ResponseEntity.status(HttpStatus.OK).body(addedPost);
         } catch (Exception e) {

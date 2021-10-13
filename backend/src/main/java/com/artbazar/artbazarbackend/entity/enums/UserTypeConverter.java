@@ -8,7 +8,7 @@ public class UserTypeConverter implements AttributeConverter<UserType, String> {
     @Override
     public String convertToDatabaseColumn(UserType userType) {
         if (userType == null) {
-            return  null;
+            return null;
         }
         return userType.getUserType();
     }
