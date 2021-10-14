@@ -8,5 +8,6 @@ public class PostData {
     private final Long id;
     private final String postType;
     private final ArtPostData artPostData;
+    private final GeneralPostData generalPostData;
     private final Long createdAt;
 }

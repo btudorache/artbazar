@@ -25,9 +25,13 @@ public interface PostService {
 
     PostDetail getPostDetailById(Long id);
 
-    ImageData getPostImageData(Long id);
+    ImageData getArtPostImageData(Long id);
+
+    ImageData getGeneralPostImageData(Long id);
 
     PostData addArtPost(String username, PostType postType, String title, PostCategory category, String description, MultipartFile file) throws IOException;
+
+    PostData addGeneralPost(String username, PostType postType, String content, MultipartFile file) throws IOException;
 
     PostData mapToPostData(Post post);
 }

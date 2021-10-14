@@ -91,9 +91,24 @@ public class PostController {
         }
     }
 
-    @GetMapping("/images/{id}")
-    public ResponseEntity<byte[]> getPostImage(@PathVariable Long id) {
-        ImageData imageData = postService.getPostImageData(id);
+    @PostMapping("/generalpost")
+    public ResponseEntity<Object> addGeneralPost(Authentication authentication,
+                                                 @RequestParam("type") PostType postType,
+                                                 @RequestParam(name = "file", required = false) MultipartFile file,
+                                                 @RequestParam("content") String content) {
+        try {
+            String username = authentication.getName();
+            PostData addedPost = postService.addGeneralPost(username, postType, content, file);
+
+            return ResponseEntity.status(HttpStatus.OK).body(addedPost);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(String.format("Could not upload the file: %s!", file.getOriginalFilename()), HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+    }
+
+    @GetMapping("/images/artpost/{id}")
+    public ResponseEntity<byte[]> getArtPostImage(@PathVariable Long id) {
+        ImageData imageData = postService.getArtPostImageData(id);
 
         if (imageData == null) {
             return ResponseEntity.notFound().build();
@@ -103,5 +118,19 @@ public class PostController {
                              .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageData.getImageName() + "\"")
                              .contentType(MediaType.valueOf(imageData.getContentType()))
                              .body(imageData.getImage());
+    }
+
+    @GetMapping("/images/generalpost/{id}")
+    public ResponseEntity<byte[]> getGeneralPostImage(@PathVariable Long id) {
+        ImageData imageData = postService.getGeneralPostImageData(id);
+
+        if (imageData == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageData.getImageName() + "\"")
+                .contentType(MediaType.valueOf(imageData.getContentType()))
+                .body(imageData.getImage());
     }
 }

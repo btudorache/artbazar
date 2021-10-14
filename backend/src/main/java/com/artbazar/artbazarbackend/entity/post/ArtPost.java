@@ -16,10 +16,11 @@ import javax.persistence.*;
 @Table(name="art_post")
 public class ArtPost {
 
-    public ArtPost(String title, PostCategory category, String description) {
+    public ArtPost(String title, PostCategory category, String description, Image image) {
         this.category = category;
         this.description = description;
         this.title = title;
+        this.image = image;
     }
 
     @Id

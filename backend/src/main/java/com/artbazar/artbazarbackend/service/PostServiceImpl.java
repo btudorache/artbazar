@@ -1,20 +1,16 @@
 package com.artbazar.artbazarbackend.service;
 
-import com.artbazar.artbazarbackend.dao.ArtPostRepository;
-import com.artbazar.artbazarbackend.dao.CommentRepository;
-import com.artbazar.artbazarbackend.dao.PostRepository;
-import com.artbazar.artbazarbackend.dao.UserRepository;
-import com.artbazar.artbazarbackend.data.ArtPostData;
-import com.artbazar.artbazarbackend.data.ImageData;
+import com.artbazar.artbazarbackend.dao.*;
+import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.Comment;
 import com.artbazar.artbazarbackend.entity.enums.PostType;
 import com.artbazar.artbazarbackend.entity.post.ArtPost;
+import com.artbazar.artbazarbackend.entity.post.GeneralPost;
 import com.artbazar.artbazarbackend.entity.post.Post;
 import com.artbazar.artbazarbackend.entity.Image;
 import com.artbazar.artbazarbackend.entity.User;
-import com.artbazar.artbazarbackend.data.PostData;
-import com.artbazar.artbazarbackend.data.PostDetail;
 import com.artbazar.artbazarbackend.entity.enums.PostCategory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,17 +26,20 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final ArtPostRepository artPostRepository;
+    private final GeneralPostRepository generalPostRepository;
     private final CommentRepository commentRepository;
 
     @Autowired
-    public PostServiceImpl(UserRepository userRepository, PostRepository postRepository, ArtPostRepository artPostRepository, CommentRepository commentRepository) {
+    public PostServiceImpl(UserRepository userRepository, PostRepository postRepository, ArtPostRepository artPostRepository, GeneralPostRepository generalPostRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.artPostRepository = artPostRepository;
+        this.generalPostRepository = generalPostRepository;
         this.commentRepository = commentRepository;
     }
 
@@ -86,8 +85,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ImageData getPostImageData(Long id) {
+    public ImageData getArtPostImageData(Long id) {
         Image image = artPostRepository.getById(id).getImage();
+        if (image == null) {
+            return null;
+        }
+
+        return new ImageData(image.getImage(), image.getImageName(), image.getContentType());
+    }
+
+    @Override
+    public ImageData getGeneralPostImageData(Long id) {
+        Image image = generalPostRepository.getById(id).getImage();
         if (image == null) {
             return null;
         }
@@ -102,23 +111,56 @@ public class PostServiceImpl implements PostService {
         }
 
         User user = userRepository.findByUsername(username);
-        Image newImage = new Image(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
-
         Post newPost = new Post(postType);
         newPost.setUser(user);
 
-        ArtPost newArtPost = new ArtPost(title, category, description);
-        newArtPost.setImage(newImage);
+        Image newImage = new Image(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
+
+        ArtPost newArtPost = new ArtPost(title, category, description, newImage);
         newPost.setArtPost(newArtPost);
 
         Post newAddedPost = postRepository.save(newPost);
         ArtPost newAddedArtPost = newAddedPost.getArtPost();
 
         String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                                     .path("/api/posts/images/")
+                                                     .path("/api/posts/images/artpost/")
                                                      .path(newAddedArtPost.getId().toString())
                                                      .toUriString();
         newAddedArtPost.setImageUrl(imageUrl);
+
+        Post postWithUrl = postRepository.save(newAddedPost);
+
+        return mapToPostData(postWithUrl);
+    }
+
+    @Override
+    public PostData addGeneralPost(String username, PostType postType, String content, MultipartFile file) throws IOException {
+        if (!postType.equals(PostType.GENERAL_POST)) {
+            throw new IllegalArgumentException();
+        }
+        User user = userRepository.findByUsername(username);
+        Post newPost = new Post(postType);
+        newPost.setUser(user);
+
+        GeneralPost newGeneralPost;
+        if (file != null && !file.isEmpty()) {
+            Image newImage = new Image(file.getBytes(), StringUtils.cleanPath(file.getOriginalFilename()), file.getContentType());
+            newGeneralPost = new GeneralPost(content, newImage);
+        } else {
+            newGeneralPost = new GeneralPost(content);
+        }
+        newPost.setGeneralPost(newGeneralPost);
+
+        Post newAddedPost = postRepository.save(newPost);
+
+        if (file != null && !file.isEmpty()) {
+            String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/posts/images/generalpost/")
+                    .path(newGeneralPost.getId().toString())
+                    .toUriString();
+
+            newGeneralPost.setImageUrl(imageUrl);
+        }
 
         Post postWithUrl = postRepository.save(newAddedPost);
 
@@ -137,6 +179,19 @@ public class PostServiceImpl implements PostService {
                                     artPost.getCategory().getCategory(),
                                     artPost.getDescription(),
                                     artPost.getImageUrl()),
+                    null,
+                    post.getCreatedAt());
+        } else if (post.getPostType().equals(PostType.GENERAL_POST)) {
+            GeneralPost generalPost = post.getGeneralPost();
+
+            return new PostData(post.getUser().getUsername(),
+                    post.getId(),
+                    post.getPostType().getPostType(),
+                    null,
+                    new GeneralPostData(generalPost.getId(),
+                                        generalPost.getContent(),
+                                        generalPost.getHasImage(),
+                                        generalPost.getImageUrl()),
                     post.getCreatedAt());
         } else {
             throw new IllegalArgumentException();

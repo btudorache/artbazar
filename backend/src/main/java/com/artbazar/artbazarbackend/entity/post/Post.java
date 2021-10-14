@@ -43,6 +43,10 @@ public class Post {
     @JoinColumn(name = "art_post_id")
     private ArtPost artPost;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "general_post_id")
+    private GeneralPost generalPost;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Comment> comments;
