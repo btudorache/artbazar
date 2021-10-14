@@ -18,7 +18,7 @@ const Post = ({ postData, isDetail }) => {
     history.push(finalUrl);
   };
 
-  var postTypeInformation;
+  var postTypeInformation = null;
 
   if (postData.postType === "Art") {
     postTypeInformation = (

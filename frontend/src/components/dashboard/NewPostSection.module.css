@@ -1,0 +1,29 @@
+.addPostSection {
+  width: 100%;
+  min-width: 20rem;
+  max-width: 37.5rem;
+  border: 2px solid black;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: white;
+}
+
+.addPostParagraph {
+  margin: 0.5rem 0;
+}
+
+.contentInput {
+  height: 7rem;
+  width: 100%;
+  resize: none;
+  margin-bottom: 0.4rem;
+}
+
+.imageLabel {
+  font-size: large;
+}
+
+.addPostButton {
+  margin-top: 0.5rem;
+}

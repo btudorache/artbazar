@@ -40,6 +40,9 @@ const dashboardSlice = createSlice({
     },
     toggleNewPostSection(state) {
       state.showNewPostSection = !state.showNewPostSection
+    },
+    addPost(state, action) {
+      state.posts.unshift(action.payload)
     }
   },
   extraReducers: (builder) => {
@@ -58,6 +61,24 @@ const dashboardSlice = createSlice({
   },
 });
 
-export const { resetDashboardPosts, toggleNewPostSection } = dashboardSlice.actions;
+export const addGeneralPostThunk = (formData) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token
+    const response = await fetch("http://localhost:8080/api/posts/generalpost", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData 
+    })
+
+    if (response.ok) {
+      const postData = await response.json()
+      dispatch(addPost(postData))
+    }
+  }
+}
+
+export const { resetDashboardPosts, toggleNewPostSection, addPost } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

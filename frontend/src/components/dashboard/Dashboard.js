@@ -5,6 +5,7 @@ import { fetchDashboardPosts } from "../../store/dashboardSlice";
 import styles from "./Dashboard.module.css";
 
 import LoadingSpinner from "../layout/general/LoadingSpinner";
+import NewPostSection from "./NewPostSection";
 import ActionBar from "./ActionBar";
 import PostList from "../posts/PostList";
 
@@ -23,11 +24,8 @@ const Dashboard = () => {
     <div className={styles.mainLayout}>
       <ActionBar />
       <div className={styles.mainSide}>
-        {/* Add new component */}
         {showNewPostSection && (
-          <div className={styles.addPostSection}>
-            <p>Add a new post</p>
-          </div>
+          <NewPostSection />
         )}
         {status === "succeeded" && posts.length === 0 && (
           <p>
