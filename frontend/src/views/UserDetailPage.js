@@ -12,8 +12,8 @@ const UserDetailPage = () => {
   const token = useSelector((state) => state.auth.token);
 
   const [userDetail, setUserDetail] = useState(null);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState("idle");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -35,23 +35,24 @@ const UserDetailPage = () => {
     };
 
     const tryFetching = async () => {
-      setIsLoading(true);
+      setStatus("loading");
       try {
         await fetchProfile();
+        setStatus("succeeded");
       } catch (error) {
         setError(error.message);
+        setStatus("failed");
       }
-      setIsLoading(false);
     };
 
     tryFetching();
-  }, [token, urlUsername, setUserDetail, setIsLoading, setError]);
+  }, [token, urlUsername, setUserDetail, setStatus, setError]);
 
   return (
     <div className={styles.mainLayout}>
-      {isLoading && <LoadingSpinner />}
-      {error && <p className="errorText">{error}</p>}
-      {userDetail && (
+      {status === "loading" && <LoadingSpinner />}
+      {status === "failed" && <p className="errorText">{error}</p>}
+      {status === "succeeded" && (
         <UserDetail
           isLoggedUser={false}
           userDetail={userDetail}
