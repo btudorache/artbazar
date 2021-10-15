@@ -73,6 +73,17 @@ public class PostController {
         return ResponseEntity.ok(postDetail);
     }
 
+    @GetMapping("/artpost")
+    public ResponseEntity<Object> getUserArtPosts(Authentication authentication) {
+        try {
+            String username = authentication.getName();
+            List<PostData> postDataList = postService.getArtPosts(username);
+            return ResponseEntity.ok(postDataList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Posts not found", HttpStatus.NOT_FOUND.value()));
+        }
+    }
+
     @PostMapping("/artpost")
     public ResponseEntity<Object> addArtPost(Authentication authentication,
                                              @RequestParam("type") PostType postType,
@@ -128,7 +139,8 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok()
+        return ResponseEntity
+                .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageData.getImageName() + "\"")
                 .contentType(MediaType.valueOf(imageData.getContentType()))
                 .body(imageData.getImage());

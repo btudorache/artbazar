@@ -19,6 +19,8 @@ public interface PostService {
 
     List<PostData> getExplorePosts(String loggedUserUsername);
 
+    List<PostData> getArtPosts(String loggedUserUsername);
+
     List<PostData> getExplorePostsFiltered(String loggedUserUsername, String category);
 
     PostDetail getRandomExplorePost(String loggedUserUsername);

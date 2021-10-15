@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return null;
         }
 
-        List<Post> posts = postRepository.findByUser(user, Sort.by("createdAt").descending());
+        List<Post> posts = postRepository.getUserArtPosts(user);
         boolean followExists = followerService.followExists(requesterUsername, targetUsername);
         long followers = followerService.countFollowingUser(targetUsername);
         return mapUserToUserDetail(user, posts, followExists, followers);

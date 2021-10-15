@@ -35,4 +35,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                    "AND post.type = 'Art' " +
                    "ORDER BY created_at DESC", nativeQuery = true)
     List<Post> getUnfollowedArtPosts(User loggedUser);
+
+    @Query(value = "SELECT * FROM post " +
+                   "WHERE post.user_id = ?1 " +
+                   "AND post.type = 'Art' " +
+                   "ORDER BY created_at DESC", nativeQuery = true)
+    List<Post> getUserArtPosts(User loggedUser);
 }

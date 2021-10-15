@@ -86,10 +86,10 @@ public class UserController {
 
     @PutMapping("/edit")
     public ResponseEntity<Object> editProfile(Authentication authentication,
-                                                       @RequestParam("name") String name,
-                                                       @RequestParam("location") String location,
-                                                       @RequestParam("description") String description,
-                                                       @RequestParam(name = "image", required = false) MultipartFile image) {
+                                             @RequestParam("name") String name,
+                                             @RequestParam("location") String location,
+                                             @RequestParam("description") String description,
+                                             @RequestParam(name = "image", required = false) MultipartFile image) {
 
         try {
             String username = authentication.getName();

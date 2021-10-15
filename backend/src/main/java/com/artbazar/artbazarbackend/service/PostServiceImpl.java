@@ -66,6 +66,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostData> getArtPosts(String loggedUserUsername) {
+        User loggedUser = userRepository.findByUsername(loggedUserUsername);
+        List<Post> posts = postRepository.getUserArtPosts(loggedUser);
+        return posts.stream().map(this::mapToPostData).collect(Collectors.toList());
+    }
+
+    @Override
     public List<PostData> getExplorePostsFiltered(String loggedUserUsername, String category) {
         User loggedUser = userRepository.findByUsername(loggedUserUsername);
         List<Post> posts = postRepository.getUnfollowedArtPostsFiltered(loggedUser, category);
