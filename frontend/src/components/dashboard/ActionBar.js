@@ -10,10 +10,15 @@ const ActionBar = () => {
   const dispatch = useDispatch();
 
   const { showNewPostSection } = useSelector((state) => state.dashboard);
+  const usertype = useSelector(state => state.auth.usertype)
 
   const surpriseMeButtonHandler = () => {
     history.push("/random");
   };
+
+  const allCommissionsButtonHandler = () => {
+    history.push("/commissions")
+  }
 
   const addPostButtonHandler = () => {
     dispatch(toggleNewPostSection());
@@ -37,10 +42,10 @@ const ActionBar = () => {
           </p>
           <img src="https://img.icons8.com/material-outlined/30/000000/add.png" />
         </li>
-        <li>
-          <p>See commisions</p>
+        {usertype === "Artist" && <li>
+          <p onClick={allCommissionsButtonHandler}>See commisions</p>
           <img src="https://img.icons8.com/material-outlined/30/000000/scroll.png" />
-        </li>
+        </li>}
         <li className={styles.actionListElement}>
           <p onClick={surpriseMeButtonHandler}>Surprise me</p>
           <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/40/000000/external-magic-wand-photography-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" />

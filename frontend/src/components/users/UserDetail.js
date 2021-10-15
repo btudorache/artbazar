@@ -25,6 +25,10 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
     history.push(`/users/allposts/${userDetail.username}`)
   }
 
+  const addCommissionButtonHandler = () => {
+    history.push('/commissions/add')
+  }
+
   var followButonStyles = [styles.profileButton];
   if (userDetail.followExists) {
     followButonStyles.push(styles.followExistsButton);
@@ -113,6 +117,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
                   additionalStyles={followButonStyles}
                 />
                 {userIsArtist && <Button
+                  clickHandler={addCommissionButtonHandler}
                   text="Commission"
                   additionalStyles={[styles.profileButton]}
                 />}

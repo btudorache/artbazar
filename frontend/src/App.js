@@ -17,6 +17,8 @@ import ExplorePage from "./views/ExplorePage";
 import RandomPostPage from './views/RandomPostPage'
 import UserProfilePage from "./views/UserProfilePage";
 import UserAllPostsPage from "./views/UserAllPostsPage";
+import CommissionsPage from "./views/CommissionsPage";
+import AddCommissionPage from "./views/AddCommissionPage";
 
 function App() {
   return (
@@ -77,6 +79,16 @@ function App() {
         <Route exact path="/random">
           <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <RandomPostPage />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/commissions">
+          <ProtectedPage authPath permissionLevels={["Artist"]}>
+            <CommissionsPage />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/commissions/add">
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
+            <AddCommissionPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/">
