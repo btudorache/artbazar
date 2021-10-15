@@ -31,7 +31,7 @@ const Post = ({ postData, isDetail, isOnDashboard}) => {
           {postData.artPostData.description}
         </p>
         <div className={styles.postPhoto}>
-          <img className={styles.photo} src={postData.artPostData.imageUrl} />
+          <img className={styles.photo} src={postData.artPostData.imageUrl} alt="art piece"/>
         </div>
       </Fragment>
     );
@@ -46,6 +46,7 @@ const Post = ({ postData, isDetail, isOnDashboard}) => {
             <img
               className={styles.photo}
               src={postData.generalPostData.imageUrl}
+              alt="general post"
             />
           </div>
         )}

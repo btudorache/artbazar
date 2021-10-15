@@ -67,7 +67,7 @@ const ExplorePosts = () => {
               >
                 Remove Filter
               </p>
-              <img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png" />
+              <img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png" alt="" />
             </Fragment>
           )}
         </form>

@@ -15,7 +15,7 @@ const UserAllPostsPage = () => {
   const [status, setStatus] = useState("idle")
   const [error, setError] = useState()
 
-  useEffect(async () => {
+  useEffect(() => {
     const fetchAllPosts = async () => {
       const response = await fetch(`http://localhost:8080/api/posts/allposts/${urlUsername}`, {
         headers: {
@@ -43,9 +43,9 @@ const UserAllPostsPage = () => {
     }
 
     if (status === "idle") {
-      await tryFetching()
+      tryFetching()
     }
-  }, [status, urlUsername, setStatus, setError, setPosts])
+  }, [token, status, urlUsername, setStatus, setError, setPosts])
 
   return (
     <div className={styles.allPostPageLayout}>

@@ -87,7 +87,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
     <div className={styles.userDetailLayout}>
       <div className={styles.mainUserDetailsSection}>
         <div className={styles.userImageDiv}>
-          <img className={styles.userImage} src={userDetail.profileImageUrl} />
+          <img className={styles.userImage} src={userDetail.profileImageUrl} alt="user profile"/>
         </div>
         <div className={styles.mainUserDetailsInfo}>
           <div className={styles.mainUserDetailsInfoList}>

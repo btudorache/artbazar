@@ -17,7 +17,7 @@ const UserPreview = ({ userPreview }) => {
 
   return (
     <div onClick={userPreviewClickHandler} className={styles.userPreviewLayout}>
-      <img className={styles.userPreviewImage} src={userPreview.imageUrl}></img>
+      <img className={styles.userPreviewImage} src={userPreview.imageUrl} alt="user profile"></img>
       <div className={styles.userPreviewInfo}>
         <p>{userPreview.username}</p>
         <p>{userPreview.usertype}</p>

@@ -40,15 +40,15 @@ const ActionBar = () => {
           >
             Add Post
           </p>
-          <img src="https://img.icons8.com/material-outlined/30/000000/add.png" />
+          <img src="https://img.icons8.com/material-outlined/30/000000/add.png" alt="" />
         </li>
         {usertype === "Artist" && <li>
           <p onClick={allCommissionsButtonHandler}>See commisions</p>
-          <img src="https://img.icons8.com/material-outlined/30/000000/scroll.png" />
+          <img src="https://img.icons8.com/material-outlined/30/000000/scroll.png" alt=""  />
         </li>}
         <li className={styles.actionListElement}>
           <p onClick={surpriseMeButtonHandler}>Surprise me</p>
-          <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/40/000000/external-magic-wand-photography-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" />
+          <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/40/000000/external-magic-wand-photography-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" alt=""  />
         </li>
       </ul>
     </div>
