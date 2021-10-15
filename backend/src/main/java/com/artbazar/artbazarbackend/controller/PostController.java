@@ -29,9 +29,10 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/")
-    public List<PostData> getAll() {
-        return postService.getAll();
+    @GetMapping("/allposts/{targetUsername}")
+    public ResponseEntity<List<PostData>> getAllByUser(@PathVariable String targetUsername) {
+        List<PostData> postDataList = postService.getUserPosts(targetUsername);
+        return ResponseEntity.ok(postDataList);
     }
 
     @GetMapping("/dashboard")
