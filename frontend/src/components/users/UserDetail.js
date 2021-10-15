@@ -21,6 +21,10 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
     history.push("/profile/edit");
   };
 
+  const allPostsButtonHandler = () => {
+    history.push(`/users/allposts/${userDetail.username}`)
+  }
+
   var followButonStyles = [styles.profileButton];
   if (userDetail.followExists) {
     followButonStyles.push(styles.followExistsButton);
@@ -121,6 +125,7 @@ const UserDetail = ({ isLoggedUser, userDetail, setUserDetail }) => {
                 additionalStyles={[styles.profileButton]}
               />
             )}
+            <Button text="All Posts" clickHandler={allPostsButtonHandler} />
           </div>
         </div>
       </div>

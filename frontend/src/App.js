@@ -16,6 +16,7 @@ import PostDetailPage from "./views/PostDetailPage";
 import ExplorePage from "./views/ExplorePage";
 import RandomPostPage from './views/RandomPostPage'
 import UserProfilePage from "./views/UserProfilePage";
+import UserAllPostsPage from "./views/UserAllPostsPage";
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
         <Route exact path="/users/:urlUsername">
           <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
             <UserDetailPage />
+          </ProtectedPage>
+        </Route>
+        <Route exact path="/users/allposts/:urlUsername">
+          <ProtectedPage authPath permissionLevels={["Artist", "Explorer"]}>
+            <UserAllPostsPage />
           </ProtectedPage>
         </Route>
         <Route exact path="/profile/edit">

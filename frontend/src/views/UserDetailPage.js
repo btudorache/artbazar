@@ -28,7 +28,6 @@ const UserDetailPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
         setUserDetail(data);
       } else {
         throw new Error(data.message);
