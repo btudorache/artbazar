@@ -1,12 +1,12 @@
 .addPostSection {
   width: 100%;
   min-width: 20rem;
-  max-width: 37.5rem;
   border: 2px solid black;
   border-radius: 0.8rem;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;
   background: white;
+  align-self: flex-start;
 }
 
 .addPostParagraph {
@@ -14,7 +14,7 @@
 }
 
 .contentInput {
-  height: 7rem;
+  height: 10rem;
   width: 100%;
   resize: none;
   margin-bottom: 0.4rem;

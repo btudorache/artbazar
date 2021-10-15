@@ -8,28 +8,30 @@ import { addGeneralPostThunk } from "../../store/dashboardSlice";
 import Button from "../layout/general/Button";
 
 const NewPostSection = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [contentHasError, contentValidate, contentRef] = useFormInput(
     (text) => text.trim().length !== 0 && text.length < 255
   );
-  const imageRef = useRef()
+  const imageRef = useRef();
 
   const addContentHandler = (event) => {
     event.preventDefault();
 
-    const contentOk = contentValidate()
+    const contentOk = contentValidate();
 
     if (contentOk) {
-      const formData = new FormData()
-      formData.append("type", "GENERAL_POST")
-      formData.append("content", contentRef.current.value)
+      const formData = new FormData();
+      formData.append("type", "GENERAL_POST");
+      formData.append("content", contentRef.current.value);
 
       if (imageRef.current.files.length === 1) {
-        formData.append("file", imageRef.current.files[0])
+        formData.append("file", imageRef.current.files[0]);
       }
 
-      dispatch(addGeneralPostThunk(formData))
+      dispatch(addGeneralPostThunk(formData));
+      contentRef.current.value = "";
+      imageRef.current.value = "";
     }
   };
 
@@ -49,9 +51,11 @@ const NewPostSection = () => {
             Please enter valid text (no empty text or more than 255 characters)
           </p>
         )}
-        <label className={styles.imageLabel} htmlFor="image">Add an image to your post</label>
+        <label className={styles.imageLabel} htmlFor="image">
+          Add an image to your post
+        </label>
         <input ref={imageRef} type="file" id="image" name="image" />
-        <Button text="Add Post" additionalStyles={[styles.addPostButton]}/>
+        <Button text="Add Post" additionalStyles={[styles.addPostButton]} />
       </form>
     </div>
   );

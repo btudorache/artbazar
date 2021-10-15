@@ -6,7 +6,7 @@ import styles from "./Post.module.css";
 
 import Button from "../layout/general/Button";
 
-const Post = ({ postData, isDetail }) => {
+const Post = ({ postData, isDetail, isOnDashboard}) => {
   const loggedUsername = useSelector((state) => state.auth.username);
   const history = useHistory();
 
@@ -24,11 +24,31 @@ const Post = ({ postData, isDetail }) => {
     postTypeInformation = (
       <Fragment>
         <h2 className={styles.postTitle}>{postData.artPostData.title}</h2>
-        <h4 className={styles.postCategory}>Category: {postData.artPostData.category}</h4>
-        <p className={styles.postDescription}>{postData.artPostData.description}</p>
+        <h4 className={styles.postCategory}>
+          Category: {postData.artPostData.category}
+        </h4>
+        <p className={styles.postDescription}>
+          {postData.artPostData.description}
+        </p>
         <div className={styles.postPhoto}>
           <img className={styles.photo} src={postData.artPostData.imageUrl} />
         </div>
+      </Fragment>
+    );
+  } else if (postData.postType === "General") {
+    postTypeInformation = (
+      <Fragment>
+        <p className={styles.postDescription}>
+          {postData.generalPostData.content}
+        </p>
+        {postData.generalPostData.hasImage && (
+          <div className={styles.postPhoto}>
+            <img
+              className={styles.photo}
+              src={postData.generalPostData.imageUrl}
+            />
+          </div>
+        )}
       </Fragment>
     );
   }
@@ -44,6 +64,7 @@ const Post = ({ postData, isDetail }) => {
         {new Date(postData.createdAt).toDateString()}
       </p>
       <div className={styles.underline} />
+      {isOnDashboard && <p className={styles.postTypeText}>{postData.postType}</p>}
       {postTypeInformation}
       <div className={styles.likeDiv}>
         <Button text="Like" additionalStyles={[styles.likeButton]} />

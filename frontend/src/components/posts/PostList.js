@@ -3,18 +3,19 @@ import styles from "./PostList.module.css";
 import Post from "./Post";
 
 const PostList = ({ posts, listType }) => {
-  var listTypeStyle
-  if (listType === "SINGLE") {
-    listTypeStyle = styles.postListSingle
-  } else if (listType === "DOUBLE") {
-    listTypeStyle = styles.postListDouble
-  }
-
   return (
-    <ul className={listTypeStyle}>
+    <ul
+      className={
+        listType === "SINGLE" ? styles.postListSingle : styles.postListDouble
+      }
+    >
       {posts.map((postData) => (
-        <li key={postData.id}>
-          <Post postData={postData} />
+        <li className={styles.listElem} key={postData.id}>
+          {listType === "SINGLE" ? (
+            <Post postData={postData} isOnDashboard />
+          ) : (
+            <Post postData={postData} />
+          )}
         </li>
       ))}
     </ul>

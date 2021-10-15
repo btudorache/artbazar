@@ -37,6 +37,12 @@
   border-bottom: 1px solid rgb(66, 66, 66, 0.5);
 }
 
+.postTypeText {
+  margin: 0;
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+}
+
 .postTitle {
   grid-row: 1 2;
   grid-column-start: span 3;
@@ -66,8 +72,7 @@
 }
 
 .photo {
-  min-width: 5em;
-  width: 35rem;
+  min-width: 5rem;
   max-width: 40rem;
   height: 100%;
   border-radius: 1rem;

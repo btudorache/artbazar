@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { addNewPost } from "./profileSlice";
-
 const initialState = {
   posts: [],
   status: "idle",
   error: null,
-  showNewPostSection: false
+  showNewPostSection: false,
 };
 
 export const fetchDashboardPosts = createAsyncThunk(
@@ -23,7 +21,7 @@ export const fetchDashboardPosts = createAsyncThunk(
       const posts = await response.json();
       return posts;
     } else {
-      throw new Error("Couldn't fetch posts")
+      throw new Error("Couldn't fetch posts");
     }
   }
 );
@@ -33,17 +31,17 @@ const dashboardSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetDashboardPosts(state) {
-      state.posts = []
-      state.status = 'idle'
-      state.error = null
-      state.showNewPostSection = false
+      state.posts = [];
+      state.status = "idle";
+      state.error = null;
+      state.showNewPostSection = false;
     },
     toggleNewPostSection(state) {
-      state.showNewPostSection = !state.showNewPostSection
+      state.showNewPostSection = !state.showNewPostSection;
     },
     addPost(state, action) {
-      state.posts.unshift(action.payload)
-    }
+      state.posts.unshift(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,22 +61,26 @@ const dashboardSlice = createSlice({
 
 export const addGeneralPostThunk = (formData) => {
   return async (dispatch, getState) => {
-    const token = getState().auth.token
-    const response = await fetch("http://localhost:8080/api/posts/generalpost", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData 
-    })
+    const token = getState().auth.token;
+    const response = await fetch(
+      "http://localhost:8080/api/posts/generalpost",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
 
     if (response.ok) {
-      const postData = await response.json()
-      dispatch(addPost(postData))
+      const postData = await response.json();
+      dispatch(addPost(postData));
     }
-  }
-}
+  };
+};
 
-export const { resetDashboardPosts, toggleNewPostSection, addPost } = dashboardSlice.actions;
+export const { resetDashboardPosts, toggleNewPostSection, addPost } =
+  dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
