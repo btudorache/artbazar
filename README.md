@@ -46,3 +46,5 @@ The project is supposed to have a big variety of features. Here is the current s
 * Fix some bad styling issues
 * Explore Spring Boot ecosystem for more features (such as multithreading, etc...)
 * Add some media to the repo
+* Add "Like post" functionality
+* Add Ecommerce microservice and connect the microservices using a messaging queue
