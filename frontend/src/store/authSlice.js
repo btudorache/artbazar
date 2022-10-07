@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import jwtParser from '../utils/jwtUtils'
+import { parseJwt } from '../utils/jwtUtils'
 import { resetDashboardPosts } from "./dashboardSlice";
 import { resetExplorePosts } from "./exploreSlice";
 import { resetProfile } from "./profileSlice";
@@ -11,7 +11,7 @@ const getInitialState = () => {
   const jwtToken = localStorage.getItem('token')
 
   if (jwtToken !== null) {
-    const parsedJwt = jwtParser(jwtToken)
+    const parsedJwt = parseJwt(jwtToken)
     const hasExpired = Date.now() > parsedJwt.exp * 1000
 
     if (!hasExpired) {
@@ -82,7 +82,7 @@ const authSlice = createSlice({
     builder
       .addCase(authenticate.fulfilled, (state, action) => {
         const jwtToken = action.payload
-        const parsedJwt = jwtParser(jwtToken)
+        const parsedJwt = parseJwt(jwtToken)
 
         state.isLogged = true;
         state.token = jwtToken;

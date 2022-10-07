@@ -20,7 +20,7 @@ import UserAllPostsPage from "./views/UserAllPostsPage";
 import CommissionsPage from "./views/CommissionsPage";
 import AddCommissionPage from "./views/AddCommissionPage";
 
-function App() {
+const App = () => {
   return (
     <Fragment>
       <NavigationBar />
