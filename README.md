@@ -49,3 +49,4 @@ The project is supposed to have a big variety of features. Here is the current s
 * Add "Like post" functionality
 * Add Ecommerce microservice and connect the microservices using a messaging queue
 * Come up with a logo using figma or other design tools
+* Generate users and content using generative machine learning tools
