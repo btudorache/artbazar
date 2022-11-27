@@ -35,6 +35,7 @@ The project is supposed to have a big variety of features. Here is the current s
 ### To be added
 
 * Make *Explorers* be able to commission works from *Artists*
+* Make *Explorers* be able to create fanclubs (whatever that may mean) for an artist or more artists
 * Add "looking for commissioner" post for *Explorers* 
 * Show posts on feed based on preferences and follows
 * Functionality for *Explorers* to rate and review *Artists*
@@ -50,3 +51,5 @@ The project is supposed to have a big variety of features. Here is the current s
 * Add Ecommerce microservice and connect the microservices using a messaging queue
 * Come up with a logo using figma or other design tools
 * Generate users and content using generative machine learning tools
+* !! Add a "AI Art" or "Generate AI Art" section using some form of ML
+* Maybe add support for audio files (for musicians)
