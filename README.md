@@ -44,12 +44,44 @@ The project is supposed to have a big variety of features. Here is the current s
 * Add backend tests
 * Add responsive design
 * Migrate frontend to Typescript
-* Fix some bad styling issues
-* Explore Spring Boot ecosystem for more features (such as multithreading, etc...)
+* Explore Spring Boot ecosystem for more features (such as multithreading, RxJava, microservices etc...)
 * Add some media to the repo
 * Add "Like post" functionality
 * Add Ecommerce microservice and connect the microservices using a messaging queue
 * Come up with a logo using figma or other design tools
 * Generate users and content using generative machine learning tools
 * !! Add a "AI Art" or "Generate AI Art" section using some form of ML
+* !! Integrate "Art assistant" functionality using LLM or other ML tools
 * Maybe add support for audio files (for musicians)
+
+## Media
+
+Media presenting the main app views/screens:
+
+Front Page
+
+![front_page](./media/front_page.PNG)
+
+Register Page
+
+![register](./media/register_page.PNG)
+
+Customized Dashboard
+
+![dashboard](./media/dashboard.PNG)
+
+Explore Art Section
+
+![explore_art](./media/explore_art.PNG)
+
+Profile Page
+
+![profile_page](./media/profile_page.PNG)
+
+Book Detail
+
+![book_detail](https://github.com/btudorache/myshelf/blob/master/readme_media/book_detail.PNG)
+
+User Profile
+
+![profile](https://github.com/btudorache/myshelf/blob/master/readme_media/profile.PNG)
