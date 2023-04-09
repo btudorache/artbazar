@@ -50,6 +50,7 @@ const UserAllPostsPage = () => {
   return (
     <div className={styles.allPostPageLayout}>
       <div className={styles.mainSide}>
+        {status !== "loading" && posts.length === 0 && <p>No posts found</p>}
         {status === "loading" && <LoadingSpinner />}
         {status === "failed" && <p className="errorText">{error}</p>}
         {status === "succeeded" && <PostList posts={posts} listType="SINGLE" />}

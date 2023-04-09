@@ -96,8 +96,9 @@ const NewPostPage = () => {
             )}
           </div>
           <div className={styles.gridRow}>
-            <label htmlFor="image">Add a piece of art</label>
-            <input ref={imageRef} type="file" id="image" name="image" />
+            <label>Add a piece of art</label>
+            <label className={styles.defaultButtonStyle} htmlFor="image-input">Add image</label>
+            <input ref={imageRef} type="file" id="image-input" name="image" />
             {imageHasError && <p className="errorText">Image is empty!</p>}
           </div>
           <Button text="Add" />

@@ -26,7 +26,32 @@ input, select {
   height: 1.6rem;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 label {
   display: block;
   font-size: 0.9rem;
+}
+
+.defaultButtonStyle {
+  display: block;
+  width: fit-content;
+  min-width: 5rem;
+  padding: 0.4rem 0.4rem;
+  margin-top: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: white;
+  background: #0A111F;
+  cursor: pointer;
+}
+
+.defaultButtonStyle:active,
+.defaultButtonStyle:hover {
+  background: #2a3c61;
 }
