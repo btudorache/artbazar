@@ -77,11 +77,3 @@ Explore Art Section
 Profile Page
 
 ![profile_page](./media/profile_page.PNG)
-
-Book Detail
-
-![book_detail](https://github.com/btudorache/myshelf/blob/master/readme_media/book_detail.PNG)
-
-User Profile
-
-![profile](https://github.com/btudorache/myshelf/blob/master/readme_media/profile.PNG)
