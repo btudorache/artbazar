@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.aspect.annotation.LogExecutionTime;
 import com.artbazar.artbazarbackend.data.ImageData;
 import com.artbazar.artbazarbackend.data.PostData;
 import com.artbazar.artbazarbackend.data.PostDetail;
@@ -30,18 +31,21 @@ public class PostController {
     }
 
     @GetMapping("/allposts/{targetUsername}")
+    @LogExecutionTime
     public ResponseEntity<List<PostData>> getAllByUser(@PathVariable String targetUsername) {
         List<PostData> postDataList = postService.getUserPosts(targetUsername);
         return ResponseEntity.ok(postDataList);
     }
 
     @GetMapping("/dashboard")
+    @LogExecutionTime
     public List<PostData> getDashboardPosts(Authentication authentication) {
         String loggedUserUsername = authentication.getName();
         return postService.getDashboardPosts(loggedUserUsername);
     }
 
     @GetMapping("/explore")
+    @LogExecutionTime
     public List<PostData> getExplorePosts(Authentication authentication, @RequestParam(name = "category", required = false) PostCategory category) {
         String loggedUserUsername = authentication.getName();
         if (category == null) {
@@ -52,6 +56,7 @@ public class PostController {
     }
 
     @GetMapping("/random")
+    @LogExecutionTime
     public ResponseEntity<Object> getRandomExplorePost(Authentication authentication) {
         try {
             String loggedUserUsername = authentication.getName();
@@ -63,6 +68,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
+    @LogExecutionTime
     public ResponseEntity<Object> getPostDetail(@PathVariable Long id) {
         PostDetail postDetail = postService.getPostDetailById(id);
 
@@ -75,6 +81,7 @@ public class PostController {
     }
 
     @GetMapping("/artpost")
+    @LogExecutionTime
     public ResponseEntity<Object> getUserArtPosts(Authentication authentication) {
         try {
             String username = authentication.getName();
@@ -86,6 +93,7 @@ public class PostController {
     }
 
     @PostMapping("/artpost")
+    @LogExecutionTime
     public ResponseEntity<Object> addArtPost(Authentication authentication,
                                              @RequestParam("type") PostType postType,
                                              @RequestParam("file") MultipartFile file,
@@ -104,6 +112,7 @@ public class PostController {
     }
 
     @PostMapping("/generalpost")
+    @LogExecutionTime
     public ResponseEntity<Object> addGeneralPost(Authentication authentication,
                                                  @RequestParam("type") PostType postType,
                                                  @RequestParam(name = "file", required = false) MultipartFile file,
@@ -119,6 +128,7 @@ public class PostController {
     }
 
     @GetMapping("/images/artpost/{id}")
+    @LogExecutionTime
     public ResponseEntity<byte[]> getArtPostImage(@PathVariable Long id) {
         ImageData imageData = postService.getArtPostImageData(id);
 
@@ -133,6 +143,7 @@ public class PostController {
     }
 
     @GetMapping("/images/generalpost/{id}")
+    @LogExecutionTime
     public ResponseEntity<byte[]> getGeneralPostImage(@PathVariable Long id) {
         ImageData imageData = postService.getGeneralPostImageData(id);
 

@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.aspect.annotation.LogExecutionTime;
 import com.artbazar.artbazarbackend.entity.Comment;
 import com.artbazar.artbazarbackend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    @LogExecutionTime
     @GetMapping("")
     public List<Comment> getComments() {
         return commentService.getComments();
     }
 
+    @LogExecutionTime
     @PostMapping("")
     public Comment addComment(Authentication authentication,
                               @RequestParam("text") String text,

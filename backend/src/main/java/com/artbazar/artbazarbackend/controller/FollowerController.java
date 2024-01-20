@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.aspect.annotation.LogExecutionTime;
 import com.artbazar.artbazarbackend.service.FollowerService;
 import com.artbazar.artbazarbackend.utils.ApiResponse;
 import org.hibernate.exception.ConstraintViolationException;
@@ -21,6 +22,7 @@ public class FollowerController {
         this.followerService = followerService;
     }
 
+    @LogExecutionTime
     @PostMapping("/follow/{followedUsername}")
     public ResponseEntity<ApiResponse> followUser(Authentication authentication, @PathVariable String followedUsername) {
         try{
@@ -37,6 +39,7 @@ public class FollowerController {
         }
     }
 
+    @LogExecutionTime
     @DeleteMapping("/unfollow/{followedUsername}")
     public ResponseEntity<ApiResponse> unfollowUser(Authentication authentication, @PathVariable String followedUsername) {
         String followingUsername = authentication.getName();

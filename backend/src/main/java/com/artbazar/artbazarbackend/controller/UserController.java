@@ -1,5 +1,6 @@
 package com.artbazar.artbazarbackend.controller;
 
+import com.artbazar.artbazarbackend.aspect.annotation.LogExecutionTime;
 import com.artbazar.artbazarbackend.data.*;
 import com.artbazar.artbazarbackend.entity.User;
 import com.artbazar.artbazarbackend.entity.enums.UserType;
@@ -31,6 +32,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @LogExecutionTime
     @GetMapping("/{targetUsername}")
     public ResponseEntity<Object> getUserDetail(Authentication authentication, @PathVariable String targetUsername) {
         String requesterUsername = authentication.getName();
@@ -44,17 +46,20 @@ public class UserController {
         return ResponseEntity.ok(userDetail);
     }
 
+    @LogExecutionTime
     @GetMapping("")
     public List<UserPreview> getAllUsers() {
         return userService.getAllUserData();
     }
 
+    @LogExecutionTime
     @GetMapping("/search")
     public List<UserPreview> searchUsers(@RequestParam("username") String username) {
         log.info(username);
         return userService.searchUser(username);
     }
 
+    @LogExecutionTime
     @PostMapping("")
     public ResponseEntity<ApiResponse> addUser(@RequestBody User newUser) {
         try {
@@ -84,6 +89,7 @@ public class UserController {
         }
     }
 
+    @LogExecutionTime
     @PutMapping("/edit")
     public ResponseEntity<Object> editProfile(Authentication authentication,
                                              @RequestParam("name") String name,
@@ -101,11 +107,13 @@ public class UserController {
         }
     }
 
+    @LogExecutionTime
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
     }
 
+    @LogExecutionTime
     @GetMapping("/images/{id}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable Long id) {
         ImageData imageData = userService.getUserProfileImageData(id);
